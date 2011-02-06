@@ -1,0 +1,10 @@
+h1= title
+#articles
+  - each article in articles
+    .articles
+      .title 
+        a(href=article.link, id: id) #{article.title}
+      .picture
+        a(href=article.link)
+          img(src=article.pic)  
+      .body #{article.content}

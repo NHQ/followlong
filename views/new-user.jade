@@ -1,0 +1,14 @@
+p Welcome to #{title}
+h2 #{body}
+br
+br
+form(method: 'post', action: '/new-user')
+  div
+    div
+      span email :
+      input(type: 'text', name: 'email', id: 'email')
+    div
+      span password :
+        input(type: 'text', name: 'password', id: 'password')
+    div#editArticleSubmit
+      input(type: 'submit', value: 'Send')

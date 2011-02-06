@@ -1,0 +1,83 @@
+2/4/2010
+
+so gonna go with auto zunionstore of necessary items. routes will just load whichever one they need. 
+What does this do to sockets and auto updates?
+
+
+new feed
+d = fs.readFileSync('./schema.json', 'utf8');
+datum = JSON.stringify(d);
+data = JSON.parse(d);
+var request = local.request('POST', '/feed/Angeline', {
+	'host': '127.0.0.1',
+	'Application-type': 'application/json'
+});
+request.end(d, encoding='utf8');
+var peep = client.ZREVRANGEBYSCORE("A wonderful feed", 1241616887, 1271851241, "WITHSCORES", function(err, data){
+	if (err){console.log(err)};
+res.render('index', {
+    locals: {
+      title: 'user signup',
+      body: data
+	}
+  })
+});
+
+
+update feedUrl ordered set with item title and score = epoch
+
+
+
+create set for each item with content title and content
+
+2/1/2010
+
+Remember you need to house a local permalink.
+These are the items you want out of each feed.item[s]
+
+permalinkUrl
+postedTime
+content
+title
+standardLinks.picture
+
+obj = {Content: content, permalink: permalinkUrl, pic: standardLinks.picture.href, picTitle: standardLinks.picture.title}
+
+store title and posted time in variables, used as index value
+create an object and put the rest in it.
+
+Might have to hand craft the json so as to put it in the db, otherwise stringify it
+
+
+
+
+
+Abstract a permalink
+
+http://mostmodernist.com/videos/?item-title[0]
+
+So for each item, we get the items title and check to see if an index exists for it. 
+
+What kind of index does a permalink get? This depends on where we can access the feed content for that item, unless we only want to use a link to it, hacker news style.
+
+Possible solution:
+
+Each feed url index (ordered set) consists of the feed name, score and a list of item titles.
+Item titles then serve as the index for the item's RSS data.
+The category has a list of all the feed names, looks them up, retrieves the titles for a range of scores, looks up the titles and gets the data.
+A permalink also contains the title, so we can look up the data that way.
+YOU DID IT!
+
+Could probably get rid of the feedURL index altogether for one website, and just put everything in it's category. 
+This would not be wise for a feed reader app tho. Plus, it might be nice to "view other items from this source".
+HHmmm.
+
+
+feedTitle::score::feedItemTitles (sorted set)
+    feedTitle[score:0] = feedURL
+
+FeedItemTitle::FeedItemContent (set)
+
+Category::FeedTitles (list)
+
+
