@@ -47,12 +47,12 @@
   if (window.location.pathname === '/newFeed/')
     alert(window.location.search.slice(6));
     var newFeedChannels = [];
-    $('#console').append('<h2>'+decodeURIComponent(window.location.search.furl.slice(5))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="this channel" onclick="window.location.href=./index"></form><ul id="newFeedChannels">Added Channels</ul>');
-    $('ul#channels').bind('click', function(event){
+    $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(5))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="this channel" onclick="window.location.href=./index"></form><ul id="newFeedChannels">Added Channels</ul>');
+    $('ul#channels li.channel').bind('click', function(event){
       event.preventDefault();
       $('#console ul#newFeedChannels').append($(this).html());
       newFeedChannels.push($(this).html())
-    })
+    });
     
     /*{
       $.post('../followFeed?feed='+window.location.search.furl.slice(5), function(answer){
