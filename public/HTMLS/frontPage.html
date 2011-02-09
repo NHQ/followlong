@@ -51,7 +51,7 @@
       event.preventDefault();
       var checker = _.detect(newFeedChannels, function (i){if (i === $(this).html()){return "detected"}});
       console.log(checker);
-      if (checker != "detected")
+      if (checker != undefined)
         {
           $('#console ul#newFeedChannels').append($(this).html());
           newFeedChannels.push($(this).html())
