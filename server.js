@@ -647,7 +647,6 @@ app.post('/follow/', getSesh, function(req, res){
 	//queriesPls = querystring.parse(path, sep='&', eq='=');
 	unfurl = decodeURIComponent(req.query.furl);
 	console.log(unfurl);  
-	channelName = req.body.channel;
 	client.exists(unfurl, function(err,answer){
 		if (err){sys.puts(err)}
 		if (answer === 0)
@@ -785,7 +784,7 @@ app.get('/auth', function (req, res) {
 							//getLoco(resulting.id, access_token)
 							user_location = resulting.locale;
 							if (resulting.location){user_location = resulting.user_location}
-							client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
+							client.hmset(resulting.id, 'fname', resulting.first_name, 'lname', resulting.last_name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
 								res.writeHead('200');
 								res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 								res.end();
