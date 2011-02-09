@@ -504,41 +504,6 @@ app.post('/new-user', function(req, res){
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('hello');
 });
-*/
-app.get('/login', function(req, res){
-	res.render('new-user', {
-		locals: {title: "login", action: "/login"}
-	});
-	res.end()
-})
-
-app.post('/login', function(req, res){
-	password = req.body.password;
-	client.hgetall(req.body.email, function(err, user){
-		if (user = ""){res.redirect('/');res.end();}
-		if (user && function(password){
-			return crypto.createHmac('sha1', user.salt).update(password).digest('hex') === user.password
-		})
-		{res.writeHead('200');
-		req.session.user_id = user.email;
-		res.redirect('/');res.end()}
-		client.quit()	
-	});
-});
-
-app.get('/logout', function(req, res){
-	if(req.session)
-	{
-		req.session.destroy(function() {});
-		res.redirect('/');
-		res.end()
-	}
-	else
-	{
-		res.redirect('/');
-		res.end()
-	}
-})
 /*
 app.get('/test', function(req, res){
 	d = fs.readFileSync('./more.json', 'utf8');
@@ -648,7 +613,7 @@ app.post('/follow/', getSesh, function(req, res){
 	unfurl = decodeURIComponent(req.query.furl);
 	console.log(unfurl);  
 	client.exists(unfurl, function(err,answer){
-		if (err){sys.puts(err)}
+		if (err){console.log(err)}
 		if (answer === 0)
 			{
 				client.zadd(unfurl, -1, unfurl);
@@ -661,14 +626,15 @@ app.post('/follow/', getSesh, function(req, res){
 			
 	});	
 	client.sadd(req.facts+':'+channelName, unfurl, function(err, elks){
-			if (err){sys.puts(err)}
+			if (err){console.log(err)}
 	});
 	client.sismember('allfeeds1123848451', unfurl, function(err, answer){
-		if (err){sys.puts(err)}
+		if (err){console.log(err)}
 		if (answer === 0)
 		client.sadd('allfeeds1123848451', unfurl);
 	});
 	subscribe(unfurl);
+	res.writeHead('200');
 	res.redirect('/index');
 	res.end();	
 	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
