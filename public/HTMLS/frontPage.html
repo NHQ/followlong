@@ -50,18 +50,14 @@
     $('#remote ul#channels li.channel h1').live('click', function(event){
       event.preventDefault();
       function(){
-        _.detect(newFeedChannels, function (i){
-          if (i == $(this).html())
+        var checker = _.detect(newFeedChannels, function (i){return i == $(this).html()});
+          if (checker === undefined)
           {
-            return null
-          }
-          else 
-          {
-             $('#console ul#newFeedChannels').append($(this).html());
+            $('#console ul#newFeedChannels').append($(this).html());
             newFeedChannels.push($(this).html())
           }
-        })
-    }});
+        }
+    });
     
     /*{
       $.post('../followFeed?feed='+window.location.search.furl.slice(5), function(answer){
