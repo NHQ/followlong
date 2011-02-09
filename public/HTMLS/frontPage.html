@@ -33,7 +33,7 @@
     <h1 id="title"></h1>
     <ul id="container"></ul>
     <a href="javascript:window.navigator.registerContentHandler('application/vnd.mozilla.maybe.feed',
-                                      'http://mostmodernist.no.de/newFeed/#%s',
+                                      'http://mostmodernist.no.de/newFeed/?furl=%s',
                                       'Mmmm');">click</a>
   </div>
   
@@ -44,15 +44,16 @@
    <script type='text/javascript'>  
   
   if (window.location.pathname === '/newFeed/')
-    {
-      $.post('../followFeed?feed='+window.location.hash.slice(1), function(answer){
+    alert(window.location.search.slice(5))
+    /*{
+      $.post('../followFeed?feed='+window.location.search.furl.slice(5), function(answer){
         if (answer === "1")
         {
           followFeed(window.location.hash.slice(1))
         }
       })
     }
-    
+    */
     function followfeed(feed){
        $('#container').empty();
         $('#container').load('/HTMLS/form.html');
