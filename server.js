@@ -220,7 +220,7 @@ app.post('/new/channel', getSesh, function (req, res){
 	});
 });
 */
-app.post('/new/channel/', getSesh, function (req, res){
+app.post('/new/channel', getSesh, function (req, res){
 	furl = '';
 	if (req.query.furl)
 	{
@@ -674,13 +674,14 @@ app.post('/follow/', getSesh, function(req, res){
 });
 
 app.get('/feed', function(req, res){
-	path = url.parse(req.url).query;
-	queriness = querystring.parse(path, sep='&', eq='=');
-	challenge = queriness.hub.challenge;
 	res.writeHead('200');
+	//path = url.parse(req.url).query;
+	//queriness = querystring.parse(path, sep='&', eq='=');
+	challenge = req.query.hub.challenge;
 	res.write(challenge);
 	res.end();
 	console.log(req.headers);
+	console.log(challenge);
 });
 
 app.post('/feed', function(req, res){
