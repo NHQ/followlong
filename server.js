@@ -31,7 +31,7 @@ var app = module.exports = express.createServer(),
 function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
 client.on("error", function (err) {
-    sys.puts("Error " + err);
+    console.log("Error " + err);
 });
 
 // Configuration
@@ -660,12 +660,14 @@ app.post('/follow/', getSesh, function(req, res){
 		}
 			
 	});	
-	client.sadd(req.facts+':'+channelName, unfurl);
+	client.sadd(req.facts+':'+channelName, unfurl, function(err, elks){
+			if (err){sys.puts(err)}
+	});
 	client.sismember('allfeeds1123848451', unfurl, function(err, answer){
 		if (err){sys.puts(err)}
 		if (answer === 0)
 		client.sadd('allfeeds1123848451', unfurl);
-	})
+	});
 	subscribe(unfurl);
 	res.redirect('/index');
 	res.end();	
