@@ -28,7 +28,7 @@
   
   <script type='text/javascript', src='/javascripts/jquery-1.5.1.min.js'></script>
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
-  <script type='text/javascript', src='/javascripts/path.min.js'></script>
+  <script type='text/javascript', src='/javascripts/underscore.min.js'></script>
   <script type='text/javascript'>  
    if( typeof( window.innerWidth ) == 'number' ) {
       //Non-IE
@@ -47,11 +47,21 @@
   if (window.location.pathname === '/newFeed/')
     alert(window.location.search.slice(6));
     var newFeedChannels = [];
-    $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><ul id="newFeedChannels">Added Channels</ul>');
+    $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><ul id="newFeedChannels">Channels (Click to remove):</ul>');
     $('#remote ul#channels li.channel h1').live('click', function(event){
       event.preventDefault();
-      $('#console ul#newFeedChannels').append($(this).html());
-      newFeedChannels.push($(this).html())
+      function(){
+        _.detect(newFeedChannels, function (i){
+          if (i == $(this).html())
+          {
+            return null
+          }
+          else 
+          {
+             $('#console ul#newFeedChannels').append($(this).html());
+            newFeedChannels.push($(this).html())
+          }
+        })
     });
     
     /*{
