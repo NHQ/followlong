@@ -50,7 +50,8 @@
     $('#remote ul#channels li.channel h1').live('click', function(event){
       event.preventDefault();
       var checker = _.detect(newFeedChannels, function (i){if (i === $(this).html()){return "detected"}});
-      if (checker != "detected" )
+      console.log(checker);
+      if (checker != "detected")
         {
           $('#console ul#newFeedChannels').append($(this).html());
           newFeedChannels.push($(this).html())
@@ -71,7 +72,7 @@
         $('#container').load('/HTMLS/form.html');
     }
     
-   var $container = $('ul#container');
+  /* var $container = $('ul#container');
    $container.isotope({
        itemSelector : 'li.articles',
    	  getSortData : {
@@ -92,7 +93,7 @@
      sortBy : 'score',
      sortAscending : false
    });
-   
+   */
    var channy = $.getJSON('/userChannels', function(channels){
      console.log(channels);
        for (c in channels)
