@@ -110,28 +110,24 @@ function userInterface (id){
 	};
 
 function frontis(){
-	/*var t = setTimeout(function(){frontis()}, 60000);
+	var t = setTimeout(function(){frontis()}, 60000);
 	var repo = new Array();
 	var allem = new Array();
 	multi = client.multi();
-	client.smembers('channels', function (err, repo){
+	client.smembers(req.facts+':channels', function (err, repo){
 		repo = repo;
 		for (r in repo)
 		{
 			multi.smembers(repo[r], function (err, reply){})		
 		}
 		multi.exec(function(err, echo){
-			allem = allem.concat.apply(allem, echo);
-			for (a in allem)
-			//{client.del(allem[a])} //deleting all old feeds but not items DOOFUS	
-			//num = allem.length;
-			// need to add min/max to zunionstore to only "recent" scores
-			// or else use limit offset above, depenidng on size of indexes
-			//client.zunionstore(['frontPage', num].concat(allem), function (err, front){
-			//	if(err){sys.puts(err)};
-			//})
+			allem = allem.concat.apply(allem, echo);	
+			num = allem.length;
+			client.zunionstore([req.facts+':frontPage', num].concat(allem), function (err, front){
+				if(err){sys.puts(err)};
+			})
 		});	
-	});*/
+	});
 }
 
 // Routes
@@ -140,9 +136,9 @@ app.get('/what', getSesh, function (req, res){
 	console.log(whatThisIs)
 });
 
-app.get('/', function(req, res){
+app.get('/', getSesh, function(req, res){
 	console.log(req.session.uid);
-	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
+	client.zrevrangebyscore(req.facts+':frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 	multi = client.multi();
 		if(err){console.log(err)}
 		for (d in data)
