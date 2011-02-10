@@ -175,7 +175,7 @@ app.get('/userStations', getSesh, function (req, res){
 			obj.articles = media[0];
 			res.write(JSON.stringify(obj));
 			res.end();
-			console.log(media)
+			console.log(obj)
 		})
 	})
 });
