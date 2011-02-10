@@ -37,8 +37,8 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
-var channy = $.getJSON('/userChannels', function(channels){chans = channels});
 $(document).ready(function(){  
+  var channy = $.getJSON('/userChannels', function(channels){chans = channels});
   function getFeed(){
     for (c in chans)
     {
