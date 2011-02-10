@@ -18,7 +18,7 @@ $('#filter a').click(function(){
   return false;
 });
 
-$('ul#filter li.all').bind('click', function({
+$('ul#filter li.all a').bind('click', function({
 	$.get('/frontpage', function(data){
 		var $append;
 		for (d in data)
