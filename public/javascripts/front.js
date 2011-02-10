@@ -34,6 +34,10 @@ $.get('/frontpage', function(data){
 
 $(document).ready(function(){
 	alert('go');
+});
+
+$(document).ready(function(){
+	alert('go');
 	$.get('/frontpage', function(data){
 		var $append;
 		for (d in data)
@@ -41,6 +45,6 @@ $(document).ready(function(){
 			append += '<div class="articles "+'d.channel+', data-category='+d.channel+', data-score='+d.score+', id='+d.furl+'><h2><a href='d.link+', class="title">'+d.title+'</a></h2></div>'
 		}
 		alert($append);
-		$('#container').isotope('insert', $append)
+		$container.isotope('insert', $append)
 	})
 });
