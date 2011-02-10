@@ -58,8 +58,8 @@
         }
     });
     $('#console ul#newFeedChannels h2').live('click', function (event){
+      newFeedChannels = _.without(newFeedChannels, $(this).html());
       $(this).empty();
-      newFeedChannels = _.without(newFeedChannels, $(this).html())
     })
     
     /*{
