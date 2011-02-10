@@ -68,19 +68,20 @@
       chans = channels;
       getFeed(chans);
       });
-  
+    
+    function getFeed(chans){
+      for (c in chans)
+      {
+        $.getJSON('/userStations?channel='+chans[c], function(source){
+          for (s = 0; s < source.articles.length; s+=2)
+          {
+            append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
+          }})
+      }
+    };
+    
   });
   
-  function getFeed(chans){
-    for (c in chans)
-    {
-      $.getJSON('/userStations?channel='+chans[c], function(source){
-        for (s = 0; s < source.articles.length; s+=2)
-        {
-          append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
-        }})
-    }
-  };
   function admin(){
     $('.container').empty();$('.channels').empty();
       for (c in chans)
