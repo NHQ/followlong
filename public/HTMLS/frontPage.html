@@ -81,13 +81,19 @@ $(document).ready(function(){
   	  //$('#container').isotope({ sortBy : 'score' });
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 });	 
+  function getChannels(){
+     $.getJSON('/userChannels', function(channels){
+       channels = channels;
+       return channels
+     })
+  };
 
   function admin(){
     $('.container').empty();$('.channels').empty();
-    var hermes = $.getJSON('/userChannels', function(channels){
+    getChannels();
       for (c in channels)
     	  {
-    	    channel = '<a href="javascript:"<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+    	    channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
     	  }
     })
   }
