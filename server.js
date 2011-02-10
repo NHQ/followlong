@@ -157,7 +157,7 @@ app.get('/userChannels', getSesh, function (req, res){
 		})
 });
 
-app.get('/userFeeds', getSesh, function (req, res){
+app.get('/userStations', getSesh, function (req, res){
 	console.log(req.query.channel);
 	res.writeHead('200');
 	client.smembers(req.facts+':'+req.query.channel, function (err, sources){
