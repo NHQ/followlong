@@ -619,9 +619,9 @@ function unsubscribe (feed){
 };
 
 function subscribe (feed){
-		spfdr = http.createClient(80, 'superfeedr.com');
-		dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
-		request = spfdr.request('POST', '/hubbub', {
+		var spfdr = http.createClient(80, 'superfeedr.com');
+		var dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
+		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
@@ -687,8 +687,8 @@ function retrieve (channel, feed){
 app.post('/follow/', getSesh, function(req, res){
 	//path = url.parse(req.url).query;
 	//queriesPls = querystring.parse(path, sep='&', eq='=');
-	unfurl = decodeURIComponent(req.query.furl);
-	channelName = req.body.channel;
+	var unfurl = decodeURIComponent(req.query.furl);
+	var channelName = req.body.channel;
 	console.log(unfurl);  
 	client.exists(unfurl, function(err,answer){
 		if (err){console.log(err)}
@@ -722,7 +722,7 @@ app.get('/feed', function(req, res){
 	res.writeHead('200');
 	//path = url.parse(req.url).query;
 	//queriness = querystring.parse(path, sep='&', eq='=');
-	challenge = req.query.hub.challenge;
+	var challenge = req.query.hub.challenge;
 	res.write(challenge);
 	res.end();
 	console.log(req.headers);
@@ -730,18 +730,18 @@ app.get('/feed', function(req, res){
 });
 
 app.post('/feed', function(req, res){
-	path = url.parse(req.url).query;
-	queriness = querystring.parse(path, sep='&', eq='=');
-	channel = queriness.channel;
+	var path = url.parse(req.url).query;
+	var queriness = querystring.parse(path, sep='&', eq='=');
+	var channel = queriness.channel;
 	res.writeHead('200');
 	res.end();
-	d = req.body;
+	var d = req.body;
 	var dl = d.items.length;
-	unfurl = d.status.feed
+	var unfurl = d.status.feed
 	for (x = 0; x < dl; ++x){
-		picture = ""; // do what the green line says!
-		content = "";	
-		summary = "";
+		var picture = ""; // do what the green line says!
+		var content = "";	
+		var summary = "";
 		if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
 			picture = d.items[x].standardLinks.picture[0].href
 		};
@@ -752,7 +752,7 @@ app.post('/feed', function(req, res){
 			summary = d.items[x].summary
 		};
 		console.log(d.items[x].title);
-		title = d.items[x].title.replace(/&nbsp;/g, " ");
+		var title = d.items[x].title.replace(/&nbsp;/g, " ");
 		client.zadd(unfurl, d.items[x].postedTime, title.replace(/\s/g, "_"), function(err, reply){if (err){sys.puts(err)}});
 		client.zadd(unfurl,-2, d.status.title, function(err, reply){if (err){sys.puts(err)}});
 		client.hmset(title.replace(/\s/g, "_"), 
@@ -786,10 +786,10 @@ app.get('/fb', function (req, res) {
 });
 
 app.get('/auth', function (req, res) {
-	code = req.query.code;
-	url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
+	var code = req.query.code;
+	var url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
 	var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
-	request = fbGetAccessToken.request('POST', url, {
+	var request = fbGetAccessToken.request('POST', url, {
 		'Host':'graph.facebook.com',
 		'Content-Length': 0
 	});
@@ -802,7 +802,7 @@ app.get('/auth', function (req, res) {
 		response.on('end', function(){
 			 results= new querystring.parse( result );
 		var access_token = results['access_token'];
-		request2 = fbGetAccessToken.request('GET', '/me?fields=id,gender,name,location,locale&access_token='+access_token, {
+		var request2 = fbGetAccessToken.request('GET', '/me?fields=id,gender,name,location,locale&access_token='+access_token, {
 			'Host':'graph.facebook.com',
 			'Content-Length': 0
 		});
@@ -820,14 +820,14 @@ app.get('/auth', function (req, res) {
 						console.log(resulting.id);
 						req.session.uid = resulting.id;
 						res.redirect('./2');
-						//res.end();
+						res.end();
 					}
 					else
 					{
 							// To Do: check if user already has account, get new token, but don't overwrite anything else
 							req.session.uid = resulting.id;
 							//getLoco(resulting.id, access_token)
-							user_location = resulting.locale;
+							var user_location = resulting.locale;
 							if (resulting.location){user_location = resulting.user_location}
 							client.hmset(resulting.id, 'fname', resulting.first_name, 'lname', resulting.last_name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
 								res.writeHead('200');
@@ -835,7 +835,7 @@ app.get('/auth', function (req, res) {
 								res.end();
 							});
 							client.rpush("everybodyInTheSystem", resulting.id)
-							channels = '["Culture","Business","Poiltics"]';
+							var channels = '["Culture","Business","Poiltics"]';
 							client.set(resulting.id+':channels', channels)
 						}						
 					})
