@@ -114,10 +114,11 @@ function frontis(facts){
 	var articles = new Array();
 	client.get(facts+':channels', function (err, channels){
 		if(err){console.log(err)}
-		channels = JSON.parse(channels)
+		channels = JSON.parse(channels);
+		console.log(channels)
 		for (c in channels)
 		{
-			client.smembers(facts+':'+channel[c], function (err, source){
+			client.smembers(facts+':'+channels[c], function (err, source){
 				if(err){console.log(err)}
 				for (s in source)
 				{
@@ -125,7 +126,7 @@ function frontis(facts){
 						if(err){console.log(err)}
 						client.hmget(title, 'title', 'score', 'feed', 'link', function (err, content){
 							if(err){console.log(err)}	
-							media = {'channel':channel[c],'feed':source[s],'content':content}
+							media = {'channel':channels[c],'feed':source[s],'content':content}
 							articles.push(media);
 						})
 					})
