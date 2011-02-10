@@ -136,7 +136,8 @@ app.get('/frontpage', function(req, res){
 			articles = reply;
 			res.write(articles);
 			res.end();
-		}); console.log(req.isAdmin)
+			console.log("will be done")
+		})
 	})
 })
 

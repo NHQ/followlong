@@ -18,7 +18,7 @@ $('#filter a').click(function(){
   return false;
 });
 
-$('ul#filter li.all').click(function({
+$('ul#filter li.all').bind('click', function({
 	$.get('/frontpage', function(data){
 		var $append;
 		for (d in data)
@@ -26,6 +26,7 @@ $('ul#filter li.all').click(function({
 			append += '<div class="articles "+'d.channel+', data-category='+d.channel+', data-score='+d.score+', id='+d.furl+'><h2><a href='d.link+', class="title">'+d.title+'</a></h2></div>'
 		}
 	});
+		alert($append);
 		$('#container').isotope('insert', $append)	
 })
 
