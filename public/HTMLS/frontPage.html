@@ -3,6 +3,9 @@
   <head>
     <title></title>
     <style>
+    #channels{};
+    #console{};
+    #admin{};
     .hidden{display:none};
     .showin{display:inline-block};
     </style>
@@ -22,7 +25,7 @@
 
     </pre><!-- white text and background :) /!-->
     </td></tr></tbody></table>
-  <a href="javascript:grommen();" class="admin"><h1>ADMIN</h1></a>
+  <a href="javascript:grommen();" id="admin"><h1>ADMIN</h1></a>
   <div id="console">
     <ul class="channels"></ul>
     <h1 id="title"></h1>
@@ -37,56 +40,52 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>  
-  chans = [];
-
-
-  $(document).ready(function(){
-    
-    var $container = $('ul.container');
-    $container.isotope({
-        itemSelector : 'li.articles',
-    	  getSortData : {
-    	    score : function ( $elem ) {
-            return parseInt($elem.attr('data-score'));
-          }
-     	},
-      layoutMode: 'fitRows',
-      cellsByRow : {
-        columnWidth : 800,
-      	rowHeight: 100
-      },
-      animationOptions: {
-        duration: 0,
-        easing: 'none',
-        queue: true
-      },
-      sortBy : 'score',
-      sortAscending : false
-    });
-    
+  
+   var $container = $('ul.container');
+   $container.isotope({
+       itemSelector : 'li.articles',
+   	  getSortData : {
+   	    score : function ( $elem ) {
+           return parseInt($elem.attr('data-score'));
+         }
+    	},
+     layoutMode: 'fitRows',
+     cellsByRow : {
+       columnWidth : 800,
+     	rowHeight: 100
+     },
+     animationOptions: {
+       duration: 0,
+       easing: 'none',
+       queue: true
+     },
+     sortBy : 'score',
+     sortAscending : false
+   });
+  
+  $(document).ready(function(){    
     var channy = $.getJSON('/userChannels', function(channels){
       chans = channels;
       getFeed(chans);
       });
-    
-    function getFeed(chans){
-      for (c in chans)
-      {
-        $.getJSON('/userStations?channel='+chans[c], function(source){
-          for (s = 0; s < source.articles.length; s+=2)
-          {
-            append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
-          }})
-      }
-    };
-    
   });
+  
+  function getFeed(chans){
+    for (c in chans)
+    {
+      $.getJSON('/userStations?channel='+chans[c], function(source){
+        for (s = 0; s < source.articles.length; s+=2)
+        {
+          append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
+        }})
+    }
+  };
   function grommen(){
-    $('.container').empty();$('.channels').empty();
+    $('.container').empty();$('#channels').empty();
     getFeed();
   }
   function admin(){
-    $('.container').empty();$('.channels').empty();
+    $('.container').empty();$('#channels').empty();
       for (c in chans)
     	    {
     	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
