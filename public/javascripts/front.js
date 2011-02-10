@@ -25,7 +25,7 @@ $('#filter a').click(function(){
 
 $(window).load(function(){
 	var jqxhr = $.ajax({ url: "./schema.json", dataType: "json"})
-	    .success(function(data) { alert(data.slice(0,100)); })
+	    .success(function(data) { alert(data); })
 	    .error(function() { alert("error: "+textStatus); })
 	    .complete(function() { alert("complete"); });
 });
