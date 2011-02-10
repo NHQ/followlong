@@ -164,7 +164,7 @@ app.get('/userStations', getSesh, function (req, res){
 		multi = client.multi();
 		for (s in sources)
 		{
-		multi.zrevrangebyscore(sources[s], epoch(), epoch()-450061, "limit", "0", "75", withscores)
+		multi.zrevrangebyscore(sources[s], epoch(), epoch()-450061, "limit", "0", "75", 'withscores')
 		}
 		multi.exec(function(err, media){
 			obj = new Object();
