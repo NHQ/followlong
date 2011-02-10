@@ -52,7 +52,7 @@
   	  {
   	    var hermes2 = $.getJSON('/userStations?channel='+channels[c], function(source){
   	      console.log(source);
-  	      for (s = 0; s< source.articles.length; s+=2)
+  	      for (s = 0; s <= source.articles.length; s+=2)
   	      {
   	        append = '<li data-channel="'+source.channel+'" data-score="'+source.articles[s-1]+'"><h2>'+source.articles[s]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
   	      }  
