@@ -684,7 +684,6 @@ app.post('/feed', function(req, res){
 				"furl": unfurl,
 				"score": d.items[x].postedTime,
 				"created": d.items[x].postedTime,
-				"channel": channel,
 				'feed': d.status.title
 			}, function(err, reply){
 				if (err)
