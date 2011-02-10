@@ -117,6 +117,28 @@ app.get('/', getSesh, function(req, res){
 		}); console.log(req.isAdmin)
 	})
 });
+app.get('/ajax', function (req, res){
+	res.render('ajax', {
+		locals: {title: "MOSTMODERNIST"}
+	})
+})
+app.get('/frontpage', function(req, res){
+	multi = client.multi();
+	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
+		if(err){console.log(err)}
+		for (d in data)
+		{
+			multi.hgetall(data[d], function(err, contents){
+			})
+		}
+		multi.exec(function(err, reply){
+			if(err){console.log(err)}
+			articles = reply;
+			res.write(articles);
+			res.end();
+		}); console.log(req.isAdmin)
+	})
+})
 
 app.get('/admin', function(req, res){
 	var obj = new Object();
