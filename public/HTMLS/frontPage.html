@@ -83,7 +83,7 @@ $(document).ready(function(){
 });	 
   function admin(){
     $('#console').empty();
-    $.getJSON('/userChannels', function(channels){
+    var hermes = $.getJSON('/userChannels', function(channels){
       for (c in channels)
     	  {
     	    channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
