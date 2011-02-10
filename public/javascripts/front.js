@@ -19,6 +19,7 @@ $('#filter a').click(function(){
 });
 
 $(document).ready(function(){
+		alert('go');
 		$.get('/frontpage', function(data){
 			var $append;
 			for (d in data)
