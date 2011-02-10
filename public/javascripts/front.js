@@ -30,6 +30,4 @@ $(document).ready(function(){
 		});
 			alert($append);
 			$('#container').isotope('insert', $append)	
-	})
-	
-})
+});
