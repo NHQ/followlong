@@ -112,7 +112,7 @@ function userInterface (id){
 function frontis(facts){
 	var channel = new Array();
 	var articles = new Array();
-	client.smembers(facts+':channels', function (err, channels){
+	client.get(facts+':channels', function (err, channels){
 		if(err){console.log(err)}
 		channels = JSON.parse(channels)
 		for (c in channels)
