@@ -24,8 +24,8 @@ $('#filter a').click(function(){
 
 
 $(window).load(function(){
-	var jqxhr = $.ajax({ url: "./frontpage" })
+	var jqxhr = $.ajax({ url: "/frontpage" })
 	    .success(function() { alert("success"); })
-	    .error(function() { alert("error"); })
+	    .error(function() { alert("error: "+errorThrown); })
 	    .complete(function() { alert("complete"); });
 });
