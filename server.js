@@ -144,12 +144,12 @@ app.get('/', getSesh, function(req, res){
 	var facts = facts;
 	var channel = new Array();
 	var articles = new Array();
-	client.get(facts+':channels', function (err, channels){
+	client.get(req.facts+':channels', function (err, channels){
 		if(err){console.log(err)}
 		channels = JSON.parse(channels);
 		for (c in channels)
 		{
-			client.smembers(facts+':'+channels[c], function (err, source){
+			client.smembers(req.facts+':'+channels[c], function (err, source){
 				if(err){console.log(err)}
 				console.log(source);
 				for (s in source)
