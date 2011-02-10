@@ -80,13 +80,8 @@ $(document).ready(function(){
   	  //$('#container').isotope({ sortBy : 'score' });
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 });	 
-  function getChannels(){
-     var channels = $.getJSON('/userChannels', function(channels){
-      var channy = channels;
-      return channy;
-     })
-     return channels
-  };
+
+     channels = $.getJSON('/userChannels', function(channels){return channels);
 
   function admin(){
     $('.container').empty();$('.channels').empty();
