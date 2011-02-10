@@ -541,7 +541,7 @@ function unsubscribe (feed){
 		request.end();
 };
 
-function subscribe (channel, feed){
+function subscribe (feed){
 		spfdr = http.createClient(80, 'superfeedr.com');
 		dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
 		request = spfdr.request('POST', '/hubbub', {
@@ -629,10 +629,10 @@ app.post('/follow/', getSesh, function(req, res){
 	client.ismember('allfeeds1123848451', unfurl, function(err, answer){
 		if (err){sys.puts(err)}
 		if (answer === 0)
-		client.sadd('allFeeds', unfurl);
+		client.sadd('allfeeds1123848451', unfurl);
 	})
-	subscribe(channel, unfurl);
-	res.redirect('/');
+	subscribe(unfurl);
+	res.redirect('/index');
 	res.end();	
 	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 });
