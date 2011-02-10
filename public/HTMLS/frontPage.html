@@ -51,6 +51,7 @@
   	  for (c in channels)
   	  {
   	    var channel = channels[c];
+  	    console.log(channel);
   	    var hermes2 = $.getJSON('/userStations?channel='+channel, function(source){
   	      for (s in source)
   	       {
