@@ -1,5 +1,5 @@
 $(function(){
-
+alert('go');
   var $container = $('#container');
 
   $container.isotope({
