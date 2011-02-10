@@ -162,13 +162,13 @@ app.get('/', getSesh, function(req, res){
 								if(err){console.log(err)}	
 								media = {'channel':channels[c],'feed':source[s],'content':content}
 								articles.push(media);
-								console.log(media);
 							})
 						}
 					})
 				}
 			})		
 		}
+		console.log(articles);
 		res.render('index', {
 			locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
 		});
