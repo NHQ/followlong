@@ -58,7 +58,7 @@
               var hermes3 = $.getJSON('/userArticles?station='+station, function(content){
                 for (i in content)
                 {
-                  append = '<li data-source="'+station+'"><h2>'+content[i][0]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
+                  append = '<li data-channel="'+channel+'" data-source="'+station+'"><h2>'+content[i][0]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
                 }
               })
   	       }
