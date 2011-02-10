@@ -92,7 +92,7 @@ function frontis(){
 		multi.exec(function(err, echo){
 			allem = allem.concat.apply(allem, echo);
 			for (a in allem)
-			{client.del(allem[a])} //deleting all old feeds
+			//{client.del(allem[a])} //deleting all old feeds but not items DOOFUS	
 			//num = allem.length;
 			// need to add min/max to zunionstore to only "recent" scores
 			// or else use limit offset above, depenidng on size of indexes
@@ -184,7 +184,7 @@ app.post('/new/channel', getSesh, function (req, res){
 	});
 });
 */
-app.post('/new/channel', getSesh, function (req, res){
+app.post('/new/channel/', getSesh, function (req, res){
 	furl = '';
 	if (req.query.furl)
 	{
