@@ -17,6 +17,7 @@ $('#filter a').click(function(){
   $('#container').isotope({ filter: selector });
   return false;
 });
+});
 
 $(document).ready(function(){
 		alert('go');
@@ -32,6 +33,3 @@ $(document).ready(function(){
 	})
 	
 })
-
-
-});
