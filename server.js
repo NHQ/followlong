@@ -172,7 +172,7 @@ app.get('/userStations', getSesh, function (req, res){
 		multi.exec(function(err, media){
 			obj = new Object();
 			obj.channel = req.query.channel;
-			obj.articles.push(media);
+			obj.articles = media[0];
 			res.write(JSON.stringify(obj));
 			res.end();
 			console.log(media)
