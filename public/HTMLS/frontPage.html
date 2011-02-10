@@ -60,6 +60,7 @@
     $('#console ul#newFeedChannels h2').live('click', function (event){
       var target = $(this).html();
       newFeedChannels = _.without(newFeedChannels, target);
+      $(this).empty();
     });
     
     /*{
