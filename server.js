@@ -91,12 +91,14 @@ function frontis(){
 		}
 		multi.exec(function(err, echo){
 			allem = allem.concat.apply(allem, echo);
-			num = allem.length;
+			for (a in allem)
+			{client.del(allem[a])} //deleting all old feeds
+			//num = allem.length;
 			// need to add min/max to zunionstore to only "recent" scores
 			// or else use limit offset above, depenidng on size of indexes
-			client.zunionstore(['frontPage', num].concat(allem), function (err, front){
-				if(err){sys.puts(err)};
-			})
+			//client.zunionstore(['frontPage', num].concat(allem), function (err, front){
+			//	if(err){sys.puts(err)};
+			//})
 		});	
 	});
 }
