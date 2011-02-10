@@ -16,10 +16,10 @@ $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
   return false;
-
+	alert('go');
 
 });
-alert('go');
+
 $.get('/frontpage', function(data){
 	var $append;
 	for (d in data)
