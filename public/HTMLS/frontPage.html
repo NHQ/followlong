@@ -51,13 +51,12 @@
   	var hermes = $.getJSON('/userChannels', function(data){
   	  for (d in data)
   	  {
-  	    $.getJSON('/userFeeds?channel='+data[d], function(datat){
+  	    var hermes2 = $.getJSON('/userFeeds?channel='+data[d], function(datat){
   	      for (da in datat)
   	       {
   	         append+='<h2>'+datat[da].content[0]+'</h2>';
 	           var $appending = $(append);
              $('ul.container').append($appending);
-             console.log(datat[da])
   	       }
   	    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	  }

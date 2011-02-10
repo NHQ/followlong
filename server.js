@@ -158,6 +158,7 @@ app.get('/userChannels', getSesh, function (req, res){
 });
 
 app.get('/userFeeds', function (req, res){
+	console.log(req.query.channel);
 	res.writeHead('200');
 	client.smembers(req.facts+':'+req.query.channel, function (err, source){
 		var articles = new Array();
