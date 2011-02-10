@@ -176,6 +176,7 @@ app.get('/frontis', getSesh, function (req, res){
 			})		
 		}
 		res.write(JSON.stringify(articles));
+		console.log(JSON.stringify(articles));
 		res.end();
 	})
 });
