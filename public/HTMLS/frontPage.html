@@ -50,7 +50,7 @@
   	var hermes = $.getJSON('/userChannels', function(channels){
   	  for (c in channels)
   	  {
-  	    console.log(channel);
+  	    console.log(channels[c]);
   	    var hermes2 = $.getJSON('/userStations?channel='+channels[c], function(source){
   	      for (s in source)
   	       {
