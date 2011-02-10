@@ -81,10 +81,10 @@ $(document).ready(function(){
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 });	 
   function getChannels(){
-     $.getJSON('/userChannels', function(channels){
+     var channels = $.getJSON('/userChannels', function(channels){
        var channels = channels;
-       return channels
      })
+     return channels
   };
 
   function admin(){
