@@ -519,7 +519,7 @@ app.get('/test', function(req, res){
 */
 
 function unfollow (unfurl){
-	client.incr('subs@'+unfurl, -1, 'subs', function(err, score){if (score === 0){
+	client.decr('subs@'+unfurl, function(err, score){if (score === 0){
 		unsubscribe(unfurl)
 	}});
 }
@@ -617,11 +617,11 @@ app.post('/follow/', getSesh, function(req, res){
 		if (answer === 0)
 			{
 				client.zadd(unfurl, -1, unfurl);
-				client.incr('subs@'+unfurl, 1, 'subs');
+				client.incr('subs@'+unfurl);
 			}
 		else
 		{
-			client.incr('subs@'+unfurl, 1, 'subs');
+			client.incr('subs@'+unfurl);
 		}
 			
 	});	
