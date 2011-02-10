@@ -161,9 +161,6 @@ app.get('/userStations', getSesh, function (req, res){
 	console.log(req.query.channel);
 	res.writeHead('200');
 	client.smembers(req.facts+':'+req.query.channel, function (err, sources){
-		res.write(JSON.stringify(sources));
-		res.end();
-		console.log(JSON.stringify(sources));
 		multi = client.multi();
 		for (s in sources)
 		{
