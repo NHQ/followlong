@@ -150,17 +150,15 @@ app.get('/', getSesh, function(req, res){
 		{
 			client.smembers(req.facts+':'+channels[c], function (err, source){
 				if(err){console.log(err)}
-				console.log(source);
 				for (s in source)
 				{
 					client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
 						if(err){console.log(err)}
-						console.log(title);
 						for (t in title)
 						{
 							client.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
 								if(err){console.log(err)}	
-								media = {'channel':channels[c],'feed':source[s],'content':content}
+								media = {'channel':channels[c],'feed':source[s],'content':content};
 								articles.push(media);
 							})
 						}
