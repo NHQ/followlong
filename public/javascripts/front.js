@@ -22,6 +22,6 @@ $('#filter a').click(function(){
 
 });
 
-$(document).ready(function() {
+$(window).load(function() {
   alert('booga')
 });
