@@ -133,10 +133,7 @@ function frontis(facts){
 				}
 			})		
 		}
-		res.render('index', {
-			locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
-		});
-		res.end();
+		return articles
 	})
 };
 
@@ -145,6 +142,10 @@ function frontis(facts){
 app.get('/', getSesh, function(req, res){
 	frontis(req.facts);
 	console.log(req.session.uid);
+	res.render('index', {
+		locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
+	});
+	res.end();
 });
 
 
