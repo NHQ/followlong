@@ -50,18 +50,11 @@
   	var hermes = $.getJSON('/userChannels', function(channels){
   	  for (c in channels)
   	  {
-  	    console.log(channels[c]);
   	    var hermes2 = $.getJSON('/userStations?channel='+channels[c], function(source){
-  	      for (s in source)
-  	       {
-  	         station = source[s];
-              var hermes3 = $.getJSON('/userArticles?station='+station, function(content){
-                for (i in content)
-                {
-                  append = '<li data-channel="'+channels[c]+'" data-source="'+station+'"><h2>'+content[i][0]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
-                }
-              }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); }); 
-  	       }	    
+  	      for (s in source.articles)
+  	      {
+  	        append = '<li data-channel="'+source.channel+'"><h2>'+source.articles[s]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
+  	      }  
   	    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); }); 
 	    }
   	    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });

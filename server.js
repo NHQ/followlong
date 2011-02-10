@@ -164,6 +164,18 @@ app.get('/userStations', getSesh, function (req, res){
 		res.write(JSON.stringify(sources));
 		res.end();
 		console.log(JSON.stringify(sources));
+		multi = client.multi();
+		for (s in sources)
+		{
+		multi.zrevrangebyscore(sources[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, titles){})
+		}
+		multi.exec(function(err, media){
+			obj.channel = req.query.channel;
+			obj.articles = titles;
+			res.write(JSON.stringify(obj));
+			res.end();
+			console.log(obj)
+		})
 	})
 });
 
