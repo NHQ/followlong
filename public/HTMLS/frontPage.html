@@ -50,16 +50,15 @@
   	var hermes = $.getJSON('/userChannels', function(channels){
   	  for (c in channels)
   	  {
-  	    channel = channels[c];
   	    console.log(channel);
-  	    var hermes2 = $.getJSON('/userStations?channel='+channel, function(source){
+  	    var hermes2 = $.getJSON('/userStations?channel='+channels[c], function(source){
   	      for (s in source)
   	       {
   	         station = source[s];
               var hermes3 = $.getJSON('/userArticles?station='+station, function(content){
                 for (i in content)
                 {
-                  append = '<li data-channel="'+channel+'" data-source="'+station+'"><h2>'+content[i][0]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
+                  append = '<li data-channel="'+channels[c]+'" data-source="'+station+'"><h2>'+content[i][0]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
                 }
               }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); }); 
   	       }	    
