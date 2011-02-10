@@ -109,10 +109,10 @@ function userInterface (id){
 		})
 	};
 
-function frontis(req.facts){
+function frontis(facts){
 	var channel = new Array();
 	var articles = new Array();
-	client.smembers(req.facts+':channels', function (err, channel){
+	client.smembers(facts+':channels', function (err, channel){
 		if(err){console.log(err)}
 		channel = channel;
 		for (c in channel)
