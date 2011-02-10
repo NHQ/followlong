@@ -626,7 +626,7 @@ app.post('/follow/', getSesh, function(req, res){
 			
 	});	
 	client.sadd(req.facts+':'+channelName, unfurl);
-	client.ismember('allfeeds1123848451', unfurl, function(err, answer){
+	client.sismember('allfeeds1123848451', unfurl, function(err, answer){
 		if (err){sys.puts(err)}
 		if (answer === 0)
 		client.sadd('allfeeds1123848451', unfurl);
