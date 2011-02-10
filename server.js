@@ -121,7 +121,7 @@ app.get('/ajax', function (req, res){
 	res.render('ajax', {
 		locals: {title: "MOSTMODERNIST"}
 	})
-})
+});
 app.get('/frontpage', function(req, res){
 	multi = client.multi();
 	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
@@ -139,7 +139,7 @@ app.get('/frontpage', function(req, res){
 			console.log("will be done")
 		})
 	})
-})
+});
 
 app.get('/admin', function(req, res){
 	var obj = new Object();
