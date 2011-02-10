@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <style>
+    .hidden{display:none};
+    .showin{display:inline-block};
+    </style>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <table width="500" id="mostmodernist" border="0"><tbody><tr><td><pre>
+<span class="pigment">                                             .                                     .o8                                  o8o               .   </span>
+<span class="pigment">                                           .o8                                    "888                                  `"'             .o8   </span>
+<span class="pigment">    ooo. .oo.  .oo.    .ooooo.   .oooo.o .o888oo ooo. .oo.  .oo.    .ooooo.   .oooo888   .ooooo.  oooo d8b ooo. .oo.   oooo   .oooo.o .o888oo </span>
+<span class="pigment">    `888P"Y88bP"Y88b  d88' `88b d88(  "8   888   `888P"Y88bP"Y88b  d88' `88b d88' `888  d88' `88b `888""8P `888P"Y88b  `888  d88(  "8   888   </span>
+<span class="pigment">     888   888   888  888   888 `"Y88b.    888    888   888   888  888   888 888   888  888ooo888  888      888   888   888  `"Y88b.    888   </span>
+<span class="pigment">     888   888   888  888   888 o.  )88b   888 .  888   888   888  888   888 888   888  888    .o  888      888   888   888  o.  )88b   888 . </span>
+<span class="pigment">    o888o o888o o888o `Y8bod8P' 8""888P'   "888" o888o o888o o888o `Y8bod8P' `Y8bod88P" `Y8bod8P' d888b    o888o o888o o888o 8""888P'   "888" </span>
+
+
+
+    </pre><!-- white text and background :) /!-->
+    </td></tr></tbody></table>
+  <h1 id="title"></h1>
+  <h2 id="subTitle"></h2>
+  <ul class="container"></ul>
+  <a href="javascript:window.navigator.registerContentHandler('application/vnd.mozilla.maybe.feed',
+                                    'http://mostmodernist.no.de/index/#/%s',
+                                    'Mmmm');">click</a>
+  
+  
+  </body>
+  <script type='text/javascript', src='/javascripts/jquery-1.5.1.min.js'></script>
+  <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
+  <script type='text/javascript', src='/javascripts/path.min.js'></script>
+   <script type='text/javascript'>
+   $(document).ready(function(){  
+     if (window.location.hash)
+     {
+       $('#title').html('Choose Channel');
+      $('#subTitle').html('or create a new subChannel');
+     }
+     else 
+     {
+       $('#title').html('Your Channels, Sir or Miss');
+      $('#subTitle').html('You can create and delete channels and subChannels and sub sub channels');
+     };
+     var append = '';
+
+  	var hermes = $.getJSON('/frontis', function(data){
+  	  y = data.length;
+  	  append += '<h2>'+data.content[0]+'</h2>';
+     var $appending = $(append);
+    $('ul.container').append($appending)
+    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });  	   	 
+	 });
+  	 
+  </script>
+
+</html>

@@ -139,6 +139,44 @@ function frontis(facts){
 };
 
 // Routes
+app.get('/2', getSesh, function (req, res){
+	fs.readFile(__dirname + '/public/HTMLS/frontPage.html', function(err, data){
+      if (err) return send404(res);
+      res.writeHead(200, {'Content-Type': 'text/html'})
+      res.write(data, 'utf8');
+		res.end();
+    });
+});
+
+app.get('/frontis', getSesh, function (req, res){
+	var channel = new Array();
+	var articles = new Array();
+	client.get(req.facts+':channels', function (err, channels){
+		if(err){console.log(err)}
+		channels = JSON.parse(channels);
+		for (c in channels)
+		{
+			client.smembers(req.facts+':'+channels[c], function (err, source){
+				if(err){console.log(err)}
+				for (s in source)
+				{
+					client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
+						if(err){console.log(err)}
+						for (t in title)
+						{
+							client.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
+								if(err){console.log(err)}	
+								media = {'channel':channels[c],'feed':source[s],'content':content};
+								res.write(media);
+							})
+						}
+					})
+				}
+			})		
+		}
+		res.end();
+	})
+});
 
 app.get('/', getSesh, function(req, res){
 	var channel = new Array();
