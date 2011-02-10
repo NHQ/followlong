@@ -149,6 +149,7 @@ app.get('/2', getSesh, function (req, res){
 });
 
 app.get('/frontis', getSesh, function (req, res){
+	res.writeHead('200');
 	var channel = new Array();
 	var articles = new Array();
 	client.get(req.facts+':channels', function (err, channels){
