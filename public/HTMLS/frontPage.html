@@ -37,6 +37,7 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
+   channels = new Array();
 $(document).ready(function(){  
   if (window.location.hash)
      {
@@ -82,10 +83,12 @@ $(document).ready(function(){
 });	 
   function admin(){
     $('#console').empty();
-   for (c in channels)
-   {
-     channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
-   }
+    $.getJSON('/userChannels', function(channels){
+      for (c in channels)
+    	  {
+    	    channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+    	  }
+    })
   }
   </script>
 
