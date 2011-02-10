@@ -166,12 +166,12 @@ app.get('/', getSesh, function(req, res){
 				}
 			})		
 		}
-		console.log(articles);
-		res.render('index', {
-			locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
-		});
-		res.end();
 	})
+	console.log(articles);
+	res.render('index', {
+		locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
+	});
+	res.end();
 });
 
 
