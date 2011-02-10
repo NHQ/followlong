@@ -77,9 +77,9 @@ function getSesh (req, res, next){
 		next();
 	}
 };
-/*
+
 function frontis(){
-	var t = setTimeout(function(){frontis()}, 60000);
+	/*var t = setTimeout(function(){frontis()}, 60000);
 	var repo = new Array();
 	var allem = new Array();
 	multi = client.multi();
@@ -100,9 +100,9 @@ function frontis(){
 			//	if(err){sys.puts(err)};
 			//})
 		});	
-	});
+	});*/
 }
-*/
+
 // Routes
 
 app.get('/', function(req, res){
