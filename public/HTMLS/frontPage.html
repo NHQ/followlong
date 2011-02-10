@@ -81,12 +81,10 @@ $(document).ready(function(){
   	  //$('#container').isotope({ sortBy : 'score' });
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 });	 
-  function getChannels(){
-    $.getJSON('/userChannels', function(channels){
-  })};
+
   function admin(){
     $('.container').empty();$('.channels').empty();
-    $.getJSON('/userChannels', function(channels){
+    var hermes = $.getJSON('/userChannels', function(channels){
       for (c in channels)
     	  {
     	    channel = '<a href="javascript:"<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
