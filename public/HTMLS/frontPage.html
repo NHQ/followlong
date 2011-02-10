@@ -63,14 +63,11 @@
       sortBy : 'score',
       sortAscending : false
     });
-    var channy = $.getJSON('/userChannels', function(channels){chans = channels});
-    function admin(){
-      $('.container').empty();$('.channels').empty();
-        for (c in chans)
-      	    {
-      	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
-      	    }
-    };
+    var channy = $.getJSON('/userChannels', function(channels){
+      chans = channels;
+      getFeed();
+      });
+
     function getFeed(){
       for (c in chans)
       {
@@ -82,7 +79,14 @@
       }
     };
     getFeed();
-  })
+  });
+  function admin(){
+    $('.container').empty();$('.channels').empty();
+      for (c in chans)
+    	    {
+    	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+    	    }
+  };
   </script>
 
 </html>
