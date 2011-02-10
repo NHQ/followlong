@@ -37,8 +37,6 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
-$(document).ready(function(){  
-  var channy = $.getJSON('/userChannels', function(channels){chans = channels});
   function getFeed(){
     for (c in chans)
     {
@@ -72,10 +70,8 @@ $(document).ready(function(){
     sortBy : 'score',
     sortAscending : false
   });
-
+  var channy = $.getJSON('/userChannels', function(channels){chans = channels});
   getFeed();
-});
-  
   function admin(){
     $('.container').empty();$('.channels').empty();
       for (c in chans)
