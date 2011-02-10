@@ -3,8 +3,9 @@
   <head>
     <title></title>
     <style>
-    #channels{};
-    #console{};
+    #channels{float:right;width:250px;};
+    #console{width:1200px;float:left;};
+    #container{width:900px;background:green;}
     #admin{};
     .hidden{display:none};
     .showin{display:inline-block};
@@ -27,9 +28,9 @@
     </td></tr></tbody></table>
   <a href="javascript:admin();" id="admin"><h1>ADMIN</h1></a>
   <div id="console">
-    <ul class="channels">Channels:</ul>
+    <ul id="channels">Channels:</ul>
     <h1 id="title"></h1>
-    <ul class="container"></ul>
+    <ul id="container"></ul>
     <a href="javascript:window.navigator.registerContentHandler('application/vnd.mozilla.maybe.feed',
                                       'http://mostmodernist.no.de/index/#/%s',
                                       'Mmmm');">click</a>
@@ -41,7 +42,7 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>  
   
-   var $container = $('ul.container');
+   var $container = $('ul#container');
    $container.isotope({
        itemSelector : 'li.articles',
    	  getSortData : {
@@ -83,10 +84,10 @@
     }
   };
   function admin(){
-    $('.container').empty();$('#channels').empty();
+    $('#container').empty();$('#channels').empty();
       for (c in chans)
     	    {
-    	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+    	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul#channels').append($channeling);
     	    }
   };
   </script>
