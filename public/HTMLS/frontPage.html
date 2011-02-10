@@ -60,13 +60,12 @@
                 {
                   append = '<li data-channel="'+channel+'" data-source="'+station+'"><h2>'+content[i][0]+'</h2></li>';var $appending = $(append);$('ul.container').append($appending);
                 }
-              })
+              }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); }); 
   	       }	    
-  	    })
+  	    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); }); 
 	    }
   	    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
-  	  }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });  	   	 
-	 });
+  	  })	 
   	 //append+='<h2>'+datat[da].content[0]+'</h2>';
      //var $appending = $(append);
   	 //  	    append += '<h2>'+data.content[0]+'</h2>';
