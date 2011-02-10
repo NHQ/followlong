@@ -49,9 +49,9 @@
      var append = '';
 
   	var hermes = $.getJSON('/frontis', function(data){
-  	  y = data.length;
-  	  append += '<h2>'+data.content[0]+'</h2>';
-     var $appending = $(append);
+  	  alert(data);
+//  	    append += '<h2>'+data.content[0]+'</h2>';
+  //      var $appending = $(append);
     $('ul.container').append($appending)
     }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });  	   	 
 	 });
