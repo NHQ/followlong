@@ -25,7 +25,7 @@
 
     </pre><!-- white text and background :) /!-->
     </td></tr></tbody></table>
-  <a href="javascript:grommen();" id="admin"><h1>ADMIN</h1></a>
+  <a href="javascript:admin();" id="admin"><h1>ADMIN</h1></a>
   <div id="console">
     <ul class="channels"></ul>
     <h1 id="title"></h1>
@@ -78,10 +78,6 @@
         }})
     }
   };
-  function grommen(){
-    $('.container').empty();$('#channels').empty();
-    getFeed(chans);
-  }
   function admin(){
     $('.container').empty();$('#channels').empty();
       for (c in chans)
