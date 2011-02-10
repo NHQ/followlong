@@ -45,7 +45,7 @@
     };
   $('body').css({'width':winy,'height':winx});
   if (window.location.pathname === '/newFeed/')
-    newFeedChannels = [];
+    var newFeedChannels = [];
     $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><ul id="newFeedChannels">Channels (Click to remove):</ul>');
     $('#remote ul#channels li.channel h1').live('click', function(event){
       event.preventDefault();
@@ -59,7 +59,7 @@
     });
     $('#console ul#newFeedChannels h2').live('click', function (event){
       $(this).empty();
-      newFeedChannels = _without(newFeedChannels, $(this).html())
+      newFeedChannels = ._without(newFeedChannels, $(this).html())
     })
     
     /*{
