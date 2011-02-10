@@ -162,7 +162,7 @@ app.get('/userFeeds', getSesh, function (req, res){
 	res.writeHead('200');
 	client.smembers(req.facts+':'+req.query.channel, function (err, sources){
 		res.write(JSON.stringify(sources));
-		res.(end);
+		res.end();
 		console.log(JSON.stringify(sources));
 	})
 });
@@ -174,8 +174,8 @@ app.get('/userArticles', getSesh, function (req, res){
 		multi = client.multi();
 		for (t in titles)
 		{
-			multi.hmget(title[t], 'title', 'score', 'feed', 'link')
-		}
+			multi.hmget(titles[t], 'title', 'score', 'feed', 'link')
+		};
 		multi.exec(function (err, content){
 			res.write(JSON.stringify(content));
 			console.log(JSON.stringify(content));
