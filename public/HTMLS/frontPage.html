@@ -36,18 +36,7 @@
   <script type='text/javascript', src='/javascripts/jquery-1.5.1.min.js'></script>
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
-   <script type='text/javascript'>
-  function getFeed(){
-    for (c in chans)
-    {
-      $.getJSON('/userStations?channel='+channels[c], function(source){
-        for (s = 0; s < source.articles.length; s+=2)
-        {
-          append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
-        }})
-    }
-  };
-  
+   <script type='text/javascript'>  
   var $container = $('ul.container');
   
   $container.isotope({
@@ -71,7 +60,6 @@
     sortAscending : false
   });
   var channy = $.getJSON('/userChannels', function(channels){chans = channels});
-  getFeed();
   function admin(){
     $('.container').empty();$('.channels').empty();
       for (c in chans)
@@ -79,8 +67,20 @@
     	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
     	    }
   };
+  function getFeed(){
+    for (c in chans)
+    {
+      $.getJSON('/userStations?channel='+channels[c], function(source){
+        for (s = 0; s < source.articles.length; s+=2)
+        {
+          append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
+        }})
+    }
+  };
 
-  
+  $(document).ready(function(){
+      getFeed();
+  })
   </script>
 
 </html>
