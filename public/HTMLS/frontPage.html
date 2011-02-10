@@ -59,8 +59,7 @@
     });
     $('#console ul#newFeedChannels h2').live('click', function (event){
       var target = $(this).html();
-      lessFeedChannels = _.without(newFeedChannels, target);
-      newFeedChannels = lessFeedChannels;
+      newFeedChannels = _.without(newFeedChannels, target);
     });
     
     /*{
