@@ -21,7 +21,7 @@
 
 
     </pre><!-- white text and background :) /!-->
-    <font color="#FFFFFF">Have fun. Don't forget to bookmark this website :)</font></td></tr></tbody></table>
+    </td></tr></tbody></table>
   <h1 id="title"></h1>
   <h2 id="subTitle"></h2>
   <ul class="container"></ul>
@@ -31,7 +31,7 @@
   
   
   </body>
-  <script type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
+  <script type='text/javascript', src='/javascripts/jquery-1.5.1.min.js'></script>
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
@@ -86,7 +86,7 @@
       if (window.location.hash)
    	 {
    	   fURL = window.location.hash.slice(2);
-   	   return '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="this channel"></form></li>'
+   	   return '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="this channel" onclick="window.location.href=./index"></form></li>'
    	 }
  	   else 
  	   {
