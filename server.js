@@ -110,16 +110,17 @@ function userInterface (id){
 	};
 
 function frontis(facts){
+	var facts = facts;
 	var channel = new Array();
 	var articles = new Array();
 	client.get(facts+':channels', function (err, channels){
 		if(err){console.log(err)}
 		channels = JSON.parse(channels);
-		console.log(channels)
 		for (c in channels)
 		{
 			client.smembers(facts+':'+channels[c], function (err, source){
 				if(err){console.log(err)}
+				console.log(source);
 				for (s in source)
 				{
 					client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
