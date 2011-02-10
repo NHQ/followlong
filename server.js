@@ -109,52 +109,42 @@ function userInterface (id){
 		})
 	};
 
-function frontis(){
-	var t = setTimeout(function(){frontis()}, 60000);
-	var repo = new Array();
-	var allem = new Array();
-	multi = client.multi();
-	client.smembers(req.facts+':channels', function (err, repo){
-		repo = repo;
-		for (r in repo)
+function frontis(req.facts){
+	var channel = new Array();
+	var articles = new Array();
+	client.smembers(req.facts+':channels', function (err, channel){
+		if(err){console.log(err)}
+		channel = channel;
+		for (c in channel)
 		{
-			multi.smembers(repo[r], function (err, reply){})		
+			client.smembers(channel[c], function (err, source){
+				if(err){console.log(err)}
+				multi = client.multi();
+				for (s in source)
+				{
+					multi.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
+						if(err){console.log(err)}
+						client.hmget(title, 'title', 'score', 'feed', function (err, content){
+							if(err){console.log(err)}	
+							media = {'channel':channel[c],'feed':source[s],'content':content}
+							articles.push(media);
+						})
+					})
+				}
+			})		
 		}
-		multi.exec(function(err, echo){
-			allem = allem.concat.apply(allem, echo);	
-			num = allem.length;
-			client.zunionstore([req.facts+':frontPage', num].concat(allem), function (err, front){
-				if(err){sys.puts(err)};
-			})
-		});	
-	});
-}
+		res.render('index', {
+			locals: {title: "MOSTMODERNIST", articles: articles}
+		});
+		res.end();
+	})
+};
 
 // Routes
-app.get('/what', getSesh, function (req, res){
-	userInterface(req.facts);
-	console.log(whatThisIs)
-});
 
 app.get('/', getSesh, function(req, res){
+	frontis(req.facts);
 	console.log(req.session.uid);
-	client.zrevrangebyscore(req.facts+':frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
-	multi = client.multi();
-		if(err){console.log(err)}
-		for (d in data)
-		{
-			multi.hgetall(data[d], function(err, contents){
-			})
-		}
-		multi.exec(function(err, reply){
-			if(err){console.log(err)}
-			articles = reply;
-			res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles}
-			});
-			res.end();
-		}); 
-	});
 });
 
 
@@ -670,7 +660,7 @@ app.post('/feed', function(req, res){
 		if (d.items[x].summary){
 			summary = d.items[x].summary
 		};
-		console.log(d.items.title);
+		console.log(d.items[x].title);
 		title = d.items[x].title.replace(/&nbsp;/g, " ");
 		client.zadd(unfurl, d.items[x].postedTime, title.replace(/\s/g, "_"), function(err, reply){if (err){sys.puts(err)}});
 		client.zadd(unfurl,-2, d.status.title, function(err, reply){if (err){sys.puts(err)}});
@@ -807,5 +797,4 @@ getLoco = (function (id, token) {
 if (!module.parent) {
   app.listen(80);
   sys.puts("Express server listening on port %d", app.address().port);
-	frontis();
 }
