@@ -168,15 +168,14 @@ app.get('/frontis', getSesh, function (req, res){
 							client.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
 								if(err){console.log(err)}	
 								media = {'channel':channels[c],'feed':source[s],'content':content};
-								medium = JSON.stringify(media);
-								console.log(medium);
-								res.write(medium);
+								articles.push(media)
 							})
 						}
 					})
 				}
 			})		
 		}
+		res.write(JSON.stringify(articles));
 		res.end();
 	})
 });
