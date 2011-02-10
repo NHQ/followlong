@@ -32,8 +32,8 @@ $.get('/frontpage', function(data){
 
 });
 
-$(document).ready(function(){
-	alert('go');
+$(document).ready(function() {
+  alert('booga')
 });
 
 $(document).ready(function(){
