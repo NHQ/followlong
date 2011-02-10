@@ -90,12 +90,11 @@ $(document).ready(function(){
 
   function admin(){
     $('.container').empty();$('.channels').empty();
-    getChannels();
+      getChannels();
       for (c in channels)
-    	  {
-    	    channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
-    	  }
-    })
+    	    {
+    	      channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+    	    }
   }
   </script>
 
