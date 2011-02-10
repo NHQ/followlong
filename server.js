@@ -124,7 +124,7 @@ function frontis(facts){
 				{
 					multi.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
 						if(err){console.log(err)}
-						client.hmget(title, 'title', 'score', 'feed', function (err, content){
+						client.hmget(title, 'title', 'score', 'feed', 'link', function (err, content){
 							if(err){console.log(err)}	
 							media = {'channel':channel[c],'feed':source[s],'content':content}
 							articles.push(media);
@@ -134,7 +134,7 @@ function frontis(facts){
 			})		
 		}
 		res.render('index', {
-			locals: {title: "MOSTMODERNIST", articles: articles}
+			locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
 		});
 		res.end();
 	})

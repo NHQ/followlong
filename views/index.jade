@@ -37,8 +37,10 @@ ul#filter
             a(href=article.link, class="title") #{article.title}
 - else
   #container
-    - each article in articles
-      div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
+    - each a in articles
+      div(class="articles "+article[a].channel, data-category: article[a].channel, data-score: article[a].content[1], id: article[a].content[2])
         .fit
           h2
-            a(href=article.link, class="title") #{article.title}
+            a(href=article[a].content[3], class="title") #{article[a].content[0]}
+          h4
+            a(href=articles[a].feed class="source") #{article[a].content[2]}
