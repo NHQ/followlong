@@ -82,7 +82,8 @@ $(document).ready(function(){
 });	 
   function getChannels(){
      var channels = $.getJSON('/userChannels', function(channels){
-       var channels = channels;
+      var channy = channels;
+      return channy;
      })
      return channels
   };
