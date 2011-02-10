@@ -46,21 +46,20 @@
        $('#title').html('Your Channels, Sir or Miss');
       $('#subTitle').html('You can create and delete channels and subChannels and sub sub channels');
      };
-     var append = '';
 
-  	var hermes = $.getJSON('/userChannels', function(data){
-  	  for (d in data)
+  	var hermes = $.getJSON('/userChannels', function(channels){
+  	  for (c in channels)
   	  {
-  	    var obj = new Object();
-  	    var channel = data[d];
-  	    var hermes2 = $.getJSON('/userStations?channel='+data[d], function(datat){
-  	      for (da in datat)
+  	    var append = '';
+  	    var channel = channels[c];
+  	    var hermes2 = $.getJSON('/userStations?channel='+channel, function(source){
+  	      for (s in source)
   	       {
-  	         var station = datat[da];
-              var hermes3 = $.getJSON('/userArticles?station='+datat[da], function(datata){
-                for (dat in datata)
+  	         var station = source[s];
+              var hermes3 = $.getJSON('/userArticles?station='+station, function(content){
+                for (i in content)
                 {
-                  append+='<h2>'+datata[dat][0]+'</h2>';var $appending = $(append);$('ul.container').append($appending);
+                  append+='<h2>'+content[i][0]+'</h2>';var $appending = $(append);$('ul.container').append($appending);
                 }
               })
   	       }
