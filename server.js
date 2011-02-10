@@ -167,7 +167,7 @@ app.get('/frontis', getSesh, function (req, res){
 							client.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
 								if(err){console.log(err)}	
 								media = {'channel':channels[c],'feed':source[s],'content':content};
-								res.write(media);
+								res.write(JSON.stringify(media));
 							})
 						}
 					})
