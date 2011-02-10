@@ -131,6 +131,7 @@ function frontis(facts){
 						})
 					})
 				}
+				multi.exec()
 			})		
 		}
 		return articles
