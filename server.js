@@ -148,36 +148,38 @@ app.get('/2', getSesh, function (req, res){
     });
 });
 
-app.get('/frontis', getSesh, function (req, res){
+app.get('/userChannels', getSesh, function (req, res){
+		res.writeHead('200');
+		client.get(req.facts+':channels', function (err, channels){
+			if(err){console.log(err)}
+			res.write(channels)
+			res.end();
+		})
+});
+
+app.get('/userFeeds', function (req, res){
 	res.writeHead('200');
-	var channel = new Array();
-	var articles = new Array();
-	client.get(req.facts+':channels', function (err, channels){
-		if(err){console.log(err)}
-		channels = JSON.parse(channels);
-		for (c in channels)
+	client.smembers(req.facts+':'+req.query.channel, function (err, source){
+		var articles = new Array();
+		for (s in source)
 		{
-			client.smembers(req.facts+':'+channels[c], function (err, source){
+			client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
 				if(err){console.log(err)}
-				for (s in source)
+				multi = client.multi();
+				for (t in title)
 				{
-					client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
-						if(err){console.log(err)}
-						for (t in title)
-						{
-							client.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
-								if(err){console.log(err)}	
-								media = {'channel':channels[c],'feed':source[s],'content':content};
-								articles.push(media)
-							})
-						}
+					multi.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
+						if(err){console.log(err)}	
+						media = {'channel':channels[c],'feed':source[s],'content':content};
+						articles.push(media);
 					})
 				}
-			})		
+			})
 		}
-		res.write(JSON.stringify(articles));
-		console.log(JSON.stringify(articles));
-		res.end();
+		multi.exec(function (err, stuff){
+			res.write(JSON.stringify(articles));
+			res.end();
+		})
 	})
 });
 

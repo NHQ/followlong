@@ -48,13 +48,24 @@
      };
      var append = '';
 
-  	var hermes = $.getJSON('/frontis', function(data){
-  	  alert(data);
-//  	    append += '<h2>'+data.content[0]+'</h2>';
-  //      var $appending = $(append);
-//    $('ul.container').append($appending)
+  	var hermes = $.getJSON('/userChannels', function(data){
+  	  for (d in data)
+  	  {
+  	    $.getJSON('/userFeeds?channel='+data[d], function(datat){
+  	      for (da in datat)
+  	       {
+  	         append+='<h2>'+datat[da].content[0]+'</h2>';
+	           var $appending = $(append);
+             $('ul.container').append($appending);
+             console.log(datat[da])
+  	       }
+  	    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
+  	  }
     }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });  	   	 
 	 });
+  	 
+  	 //  	    append += '<h2>'+data.content[0]+'</h2>';
+  	 
   	 
   </script>
 
