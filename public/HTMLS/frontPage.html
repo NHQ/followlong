@@ -81,7 +81,7 @@ $(document).ready(function(){
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 });	 
 
-     channy = function (){$.getJSON('/userChannels', function(channels){chans = channels});return chans};
+     channy = $.getJSON('/userChannels', function(channels){chans = channels})
 
   function admin(){
     $('.container').empty();$('.channels').empty();
