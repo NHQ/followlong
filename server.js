@@ -141,7 +141,6 @@ function frontis(facts){
 // Routes
 
 app.get('/', getSesh, function(req, res){
-	var facts = facts;
 	var channel = new Array();
 	var articles = new Array();
 	client.get(req.facts+':channels', function (err, channels){
@@ -156,6 +155,7 @@ app.get('/', getSesh, function(req, res){
 				{
 					client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
 						if(err){console.log(err)}
+						console.log(title);
 						client.hmget(title, 'title', 'score', 'feed', 'link', function (err, content){
 							if(err){console.log(err)}	
 							media = {'channel':channels[c],'feed':source[s],'content':content}
@@ -165,12 +165,12 @@ app.get('/', getSesh, function(req, res){
 				}
 			})		
 		}
+		console.log(articles);
 		res.render('index', {
 			locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
 		});
 		res.end();
 	})
-	console.log(articles)
 });
 
 
