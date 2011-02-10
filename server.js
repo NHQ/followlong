@@ -253,6 +253,16 @@ var path = url.parse(req.url).pathname;
       });
 }),
 */
+app.get("/schema.json", function(req, res){
+var path = url.parse(req.url).pathname;
+      fs.readFile(__dirname + path, function(err, data){
+        if (err) return send404(res);
+        res.writeHead(200, {'Content-Type': 'application/json'})
+        res.write(data, 'utf8');
+        res.end();
+      });
+}),
+
 app.error(function(err, req, res, next) {
   if (err instanceof NotFound) {
     res.redirect('/');
