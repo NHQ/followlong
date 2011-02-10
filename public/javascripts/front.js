@@ -25,7 +25,7 @@ $('#filter a').click(function(){
 
 $(window).load(function(){
 	$.ajax({
-	  url: 'frontpage',
+	  url: './frontpage',
 	  success: function(data) {
 	    alert('Load was performed.');
 	  }
