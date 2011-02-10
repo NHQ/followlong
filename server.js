@@ -141,7 +141,7 @@ function frontis(facts){
 
 app.get('/', getSesh, function(req, res){
 	frontis(req.facts);
-	console.log(req.session.uid);
+	console.log(articles)
 	res.render('index', {
 		locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
 	});
