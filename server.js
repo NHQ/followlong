@@ -117,7 +117,7 @@ function frontis(facts){
 		channel = channel;
 		for (c in channel)
 		{
-			client.smembers(channel[c], function (err, source){
+			client.smembers(facts+':'+channel[c], function (err, source){
 				if(err){console.log(err)}
 				multi = client.multi();
 				for (s in source)
