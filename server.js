@@ -112,17 +112,16 @@ function userInterface (id){
 function frontis(facts){
 	var channel = new Array();
 	var articles = new Array();
-	client.smembers(facts+':channels', function (err, channel){
+	client.smembers(facts+':channels', function (err, channels){
 		if(err){console.log(err)}
-		channel = channel;
-		for (c in channel)
+		channels = JSON.parse(channels)
+		for (c in channels)
 		{
 			client.smembers(facts+':'+channel[c], function (err, source){
 				if(err){console.log(err)}
-				multi = client.multi();
 				for (s in source)
 				{
-					multi.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
+					client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
 						if(err){console.log(err)}
 						client.hmget(title, 'title', 'score', 'feed', 'link', function (err, content){
 							if(err){console.log(err)}	
@@ -131,7 +130,6 @@ function frontis(facts){
 						})
 					})
 				}
-				multi.exec()
 			})		
 		}
 		return articles
