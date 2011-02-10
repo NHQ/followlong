@@ -156,16 +156,19 @@ app.get('/', getSesh, function(req, res){
 					client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
 						if(err){console.log(err)}
 						console.log(title);
-						client.hmget(title, 'title', 'score', 'feed', 'link', function (err, content){
-							if(err){console.log(err)}	
-							media = {'channel':channels[c],'feed':source[s],'content':content}
-							articles.push(media);
-						})
+						for (t in title)
+						{
+							client.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
+								if(err){console.log(err)}	
+								media = {'channel':channels[c],'feed':source[s],'content':content}
+								articles.push(media);
+								console.log(media);
+							})
+						}
 					})
 				}
 			})		
 		}
-		console.log(articles);
 		res.render('index', {
 			locals: {title: "MOSTMODERNIST", admin:0, articles: articles}
 		});
