@@ -157,29 +157,29 @@ app.get('/userChannels', getSesh, function (req, res){
 		})
 });
 
-app.get('/userFeeds', function (req, res){
+app.get('/userFeeds', getSesh, function (req, res){
 	console.log(req.query.channel);
 	res.writeHead('200');
-	client.smembers(req.facts+':'+req.query.channel, function (err, source){
-		var articles = new Array();
-		for (s in source)
+	client.smembers(req.facts+':'+req.query.channel, function (err, sources){
+		res.write(JSON.stringify(sources));
+		res.(end);
+		console.log(JSON.stringify(sources));
+	})
+});
+
+app.get('/userArticles', getSesh, function (req, res){
+	res.writeHead('200');
+	source = req.query.station;
+	client.zrevrangebyscore(source, epoch(), epoch()-450061, "limit", "0", "75", function(err, titles){
+		multi = client.multi();
+		for (t in titles)
 		{
-			client.zrevrangebyscore(source[s], epoch(), epoch()-450061, "limit", "0", "75", function(err, title){
-				if(err){console.log(err)}
-				multi = client.multi();
-				for (t in title)
-				{
-					multi.hmget(title[t], 'title', 'score', 'feed', 'link', function (err, content){
-						if(err){console.log(err)}	
-						media = {'channel':channels[c],'feed':source[s],'content':content};
-						articles.push(media);
-					})
-				}
-			})
+			multi.hmget(title[t], 'title', 'score', 'feed', 'link')
 		}
-		multi.exec(function (err, stuff){
-			res.write(JSON.stringify(articles));
-			res.end();
+		multi.exec(function (err, content){
+			res.write(JSON.stringify(content));
+			console.log(JSON.stringify(content));
+			res.end()
 		})
 	})
 });

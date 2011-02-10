@@ -51,18 +51,25 @@
   	var hermes = $.getJSON('/userChannels', function(data){
   	  for (d in data)
   	  {
-  	    var hermes2 = $.getJSON('/userFeeds?channel='+data[d], function(datat){
+  	    var obj = new Object();
+  	    var channel = data[d];
+  	    var hermes2 = $.getJSON('/userStations?channel='+data[d], function(datat){
   	      for (da in datat)
   	       {
-  	         append+='<h2>'+datat[da].content[0]+'</h2>';
-	           var $appending = $(append);
-             $('ul.container').append($appending);
+  	         var station = datat[da];
+              var hermes3 = $.getJSON('/userArticles?station='+datat[da], function(datata){
+                for (dat in datata)
+                {
+                  append+='<h2>'+datata[dat][0]+'</h2>';var $appending = $(append);$('ul.container').append($appending);
+                }
+              })
   	       }
   	    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	  }
     }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });  	   	 
 	 });
-  	 
+  	 //append+='<h2>'+datat[da].content[0]+'</h2>';
+     //var $appending = $(append);
   	 //  	    append += '<h2>'+data.content[0]+'</h2>';
   	 
   	 
