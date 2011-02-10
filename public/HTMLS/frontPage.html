@@ -27,7 +27,7 @@
     </td></tr></tbody></table>
   <a href="javascript:admin();" id="admin"><h1>ADMIN</h1></a>
   <div id="console">
-    <ul class="channels"></ul>
+    <ul class="channels">Channels:</ul>
     <h1 id="title"></h1>
     <ul class="container"></ul>
     <a href="javascript:window.navigator.registerContentHandler('application/vnd.mozilla.maybe.feed',
@@ -63,10 +63,14 @@
      sortAscending : false
    });
    
-  var channy = $.getJSON('/userChannels', function(channels){
-      chans = channels;
-      getFeed(chans);
-      });
+   var channy = $.getJSON('/userChannels', function(channels){
+       chans = channels;
+       getFeed(chans);
+       for (c in chans)
+     	    {
+     	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+     	    }
+    });
   
   function getFeed(chans){
     for (c in chans)
