@@ -24,13 +24,8 @@ $('#filter a').click(function(){
 
 
 $(window).load(function(){
-	$.get('frontpage', function(data){
-		var $append;
-		for (d in data)
-		{
-			append += '<div class="articles "+'d.channel+', data-category='+d.channel+', data-score='+d.score+', id='+d.furl+'><h2><a href='d.link+', class="title">'+d.title+'</a></h2></div>'
-		}
-		alert($append);
-		$container.isotope('insert', $append)
-	})
+	var jqxhr = $.ajax({ url: "ajax" })
+	    .success(function() { alert("success"); })
+	    .error(function() { alert("error"); })
+	    .complete(function() { alert("complete"); });
 });
