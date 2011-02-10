@@ -82,7 +82,10 @@ $(document).ready(function(){
 });	 
   function admin(){
     $('#console').empty();
-    hermes();
+   for (c in channels)
+   {
+     channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+   }
   }
   </script>
 
