@@ -81,13 +81,13 @@ $(document).ready(function(){
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 });	 
 
-     channy = $.getJSON('/userChannels', function(channels){chans = channels})
+     var channy = $.getJSON('/userChannels', function(channels){chans = channels})
 
   function admin(){
     $('.container').empty();$('.channels').empty();
-      for (c in channy)
+      for (c in chans)
     	    {
-    	      var channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+    	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
     	    }
   }
   </script>
