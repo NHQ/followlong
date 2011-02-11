@@ -110,6 +110,7 @@
   };
   function infoFeed(feed){
     $.getJSON('/infoFeed?feed='+encodeURIComponent(feed), function (items){
+      console.log(items);
       $('#container').empty();
       for (i = 0; i < items.length; i += 2)
       {
