@@ -82,6 +82,7 @@ function userInterface (id){
 	var repo = new Array(), allem = new Array();
 	multi= client.multi();
 	client.smembers(id+':'+channels, function(err, repo){
+		if (err) console.log(err);
 		repo = repo;
 		for (r in repo)
 		{
@@ -95,6 +96,7 @@ function userInterface (id){
 					if (err) console.log(err);
 				})
 				multi.exec(function (err, list){
+					if (err) console.log(err);
 					for (l in list)
 					multi.mget(list[l], "title", function (err, whatThisIs){
 					return whatThisIs;
