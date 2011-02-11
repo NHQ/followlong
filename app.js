@@ -59,34 +59,62 @@ function loadUser(req, res, next) {
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	var titles = new Array();
-	var ids;
-	client.lrange('video', 0, -1, function(err, items){
-		if(err){console.log(err)};
-		for (item in items)
+	client.zrevrangebyscore('frontPage',1271851245, 1271851241, function(err, data){
+		if(err){console.log(err)}
+		for (d in data)
 		{
-			ids = items[item];
-			console.log(ids)
+			multi.hgetall(data[d], function(err, contents){
+			})
 		}
-	});
-	client.zrevrangebyscore("Angeline's Likes", 1271851245, 1271851241, function(err, list){
-		ids = "Angeline's Likes";
-		if (err)(console.log(err));
-		console.log(list);
-		for (i in list)
-		{
-			multi.hgetall(list[i])
-		}
-		
-		multi.exec(function(err, response){
-			if (err){console.log(err)}
-			console.dir(response);
-			console.log(response[0]);
-			data = response;
+		multi.exec(function(err, reply){
+			if(err){console.log(err)}
+			console.log(reply);
+			articles = reply;
 			res.render('index', {
-				locals: {title: "Angeline's Likes", articles: data, id: ids}
+				locals: {title: "Redis", articles: articles}
 			})
 		})
+	})
+});
+
+app.get('/test', function(req, res){
+	d = fs.readFileSync('./schema.json', 'utf8');
+	datum = JSON.stringify(d);
+	data = JSON.parse(d);
+	var request = local.request('POST', '/feed/Johnny', {
+		'host': '127.0.0.1',
+		'Application-type': 'application/json'
+	});
+	request.end(d, encoding='utf8');
+	var peep = client.ZREVRANGEBYSCORE("Johnny's Likes", 1241616887, 1271851241, "WITHSCORES", function(err, ditto){
+		if (err){console.log(err)};
+		ditto = ditto;
+		console.log(ditto)
+	});
+});
+
+app.get('/admin', function(req, res){
+	client.lrange('channels', 0, -1, function(err, data){
+		res.render('admin', {
+			locals: {title: "Admin", channels: data}
+		})
+	})
+});
+
+app.post('/admin', function(req, res){
+	channel = req.body.channel;
+	client.lpush('channels', channel, function(err, body){
+		if (err){console.log(err)};
+		res.redirect('/admin');
+	})
+});
+
+app.post('/delete', function(req, res){
+	channel = req.body.channel;
+	console.log(channel);
+	client.lrem('channels', 0, channel, function(err, body){
+		if (err){console.log(err)};
+		res.redirect('/admin');
 	})
 });
 
@@ -112,6 +140,12 @@ app.post('/new', function(req, res){
 	res.end('hello');
 });
 
+app.get('/new-user', function(res, res){
+	res.render('new-user', {
+		locals: {title: "create user"}
+	})
+})
+
 app.post('/new-user', function(req, res){
 	newuser.fUSR(req.body.email, req.body.password);
     req.session.user_id = req.body.email;
@@ -120,15 +154,15 @@ app.post('/new-user', function(req, res){
 	res.end('hello');
 });
 
-app.post('/new/:cat/:feed/:feedName', function(req, res){
+app.post('/new/:channel/:feed/:feedName', function(req, res){
 // Get important stuff.
   feedURL = decodeURIComponent(req.params.feed);
   feedName = req.params.feedName;
-  cat = req.params.cat;
+  channel = req.params.channel;
 // Create sorted set with the first item = feedURL with score -1. Careful not to delete it when pruning
 	client.zadd(feedTitle, -1, feedURL);	
 // Add to videos feed index. The videos index is set of feed names.
-	client.rpush(cat, feedName);
+	client.rpush(channel, feedName);
 	res.writeHead('200');
 	res.end();
 // Fwd feed url info to superfeedr. The callback should be a unique URL with the feed name.
@@ -170,6 +204,7 @@ app.post('/feed/:feedName', function(req, res){
 					"id": d.title // NOTE: just added this
 				}, function(err, reply){if (err){console.log("error: " + err)}})
 		};
+	res.redirect('/admin')
 	});
 });
 // Only listen on $ node app.js
@@ -178,4 +213,25 @@ if (!module.parent) {
   app.listen(8080);
   console.log("Express server listening on port %d", app.address().port)
 }
-
+var into = new function(){
+	var titres = ["Johnny's Likes", "Angeline's Likes"];
+	var repo = new Array();
+	multi = client.multi();
+	client.lrange('channels', 0, -1, function (err, repo){
+		repo = repo;
+		console.log(repo);
+		for (r in repo)
+		{
+			multi.lrange(repo[r], -0, -1, function (err, reply){})		
+		}
+	multi.exec(function(err, echo){
+		num = titres.length;
+		titties = titres.toString();
+		client.zunionstore(['frontPage', num].concat(titres), function (err, front){
+		if(err){console.log(err)};
+		front = front;
+		console.log(front)
+	})
+		});	
+});
+};

@@ -1,27 +1,41 @@
+2/5/10
+
+To DO List
+
+write start-up functions and repeater functions to sort aggregate sections, etc
+write (hard code) categories/sections for to go live
+write admin sessions and delete/promote functions [HARD!]
+write admin section which returns all categories, feeds, and content items
+get going with joyent
+hack up google feed reader
+
+
 2/4/2010
 
 so gonna go with auto zunionstore of necessary items. routes will just load whichever one they need. 
 What does this do to sockets and auto updates?
 
+get list of channels
+  get feeds per channel -> array
+    zunionstore frontPage array.length() array
 
-new feed
-d = fs.readFileSync('./schema.json', 'utf8');
-datum = JSON.stringify(d);
-data = JSON.parse(d);
-var request = local.request('POST', '/feed/Angeline', {
-	'host': '127.0.0.1',
-	'Application-type': 'application/json'
-});
-request.end(d, encoding='utf8');
-var peep = client.ZREVRANGEBYSCORE("A wonderful feed", 1241616887, 1271851241, "WITHSCORES", function(err, data){
-	if (err){console.log(err)};
-res.render('index', {
-    locals: {
-      title: 'user signup',
-      body: data
-	}
-  })
-});
+
+
+    app.get('/test', function(req, res){
+    	d = fs.readFileSync('./schema.json', 'utf8');
+    	datum = JSON.stringify(d);
+    	data = JSON.parse(d);
+    	var request = local.request('POST', '/feed/Johnny', {
+    		'host': '127.0.0.1',
+    		'Application-type': 'application/json'
+    	});
+    	request.end(d, encoding='utf8');
+    	var peep = client.ZREVRANGEBYSCORE("Johnny's Likes", 1241616887, 1271851241, "WITHSCORES", function(err, ditto){
+    		if (err){console.log(err)};
+    		ditto = ditto;
+    		console.log(ditto)
+    	});
+    });
 
 
 update feedUrl ordered set with item title and score = epoch

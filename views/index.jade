@@ -3,8 +3,8 @@ h1= title
   - each article in articles
     .articles
       .title 
-        a(href=article.link, id: id) #{article.title}
+        a(href=article.link, id: article.id) #{article.title}
       .picture
-        a(href=article.link)
+        a(href=article.link, id: article.id)
           img(src=article.pic)  
       .body #{article.content}
