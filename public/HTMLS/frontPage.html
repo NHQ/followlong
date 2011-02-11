@@ -70,7 +70,7 @@
        getFeed(chans);
        for (c in chans)
      	    {
-     	      var channel = '<li><a class="channel" href="/#/"'+chans[c]+'"><h1>'+chans[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
+     	      var channel = '<li class="channel"><h1>'+chans[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
     });
   
@@ -86,7 +86,7 @@
   };
   function admin(){
     $('#container').empty();
-    	    $('ul.channels a.channel').click(function(event){
+    	    $('ul#channels li.channel').click(function(event){
     	      event.preventDefault();
     	      var chan = $(this).attr('class');
     	      infoChan(chan);
