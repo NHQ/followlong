@@ -22,6 +22,7 @@
 
     </pre><!-- white text and background :) /!-->
     </td></tr></tbody></table>
+  <ul class="channels"></ul>
   <h1 id="title"></h1>
   <h2 id="subTitle"></h2>
   <ul class="container"></ul>
@@ -50,6 +51,7 @@
   	var hermes = $.getJSON('/userChannels', function(channels){
   	  for (c in channels)
   	  {
+  	    channel = '<h1>'+channels[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
   	    var hermes2 = $.getJSON('/userStations?channel='+channels[c], function(source){
   	      for (s = 0; s < source.articles.length; s+=2)
   	      {
