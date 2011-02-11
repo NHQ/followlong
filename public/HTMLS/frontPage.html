@@ -87,14 +87,14 @@
     $('#container').empty();$('#channels').empty();
       for (c in chans)
     	    {
-    	      var channel = '<li><a href="javascript:infoChan('+chans[c]+');><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
+    	      var channel = '<li><a href="javascript:infoChan("'+chans[c]+'");"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
     	    }
   };
   function infoChan(chan){
     $.getJSON('/infoChan?chan='+chan, function(feeds){
       for (f in feeds)
       {
-        var feeds = '<a href="javascript:infoFeed('+feeds[f][1]+');><li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
+        var feeds = '<a href="javascript:infoFeed("'+feeds[f][1]+'");"><li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
       }
     });  
   };
