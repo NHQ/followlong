@@ -88,15 +88,20 @@
       for (c in chans)
     	    {
     	      var chauncy = chans[c];
-    	      var channel = '<li><a href="javascript:infoChan('+chauncy+');"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
+    	      var channel = '<li><a href="" class="'+chauncy+'"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
     	    }
+    	    $('ul#channels li a').bind('click', function(event){
+    	      event.preventDefault();
+    	      var chan = $(this).attr('class');
+    	      infoChan(chan);
+    	    })
   };
   function infoChan(chan){
     $.getJSON('/infoChan?chan='+chan, function(feeds){
       for (f in feeds)
       {
         var feedle = feeds[f][1]; 
-        var feeds = '<a href="javascript:infoFeed('+feeds[f][1]+');"><li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
+        var feeds = '<a href=""><li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
       }
     });  
   };
