@@ -82,7 +82,7 @@ function userInterface (id){
 	var allem = new Array();
 	multi = client.multi();
 	client.get(id+':'+channels, function(err, repo){
-		if (err) console.log(err);
+		if (err) {console.log(err)}
 		repost = JSON.parse(repo);
 		for (r in repost)
 		{
@@ -98,14 +98,15 @@ function userInterface (id){
 				multi.exec(function (err, list){
 					if (err) console.log(err);
 					for (l in list)
-					multi.hmget(list[l], "title", function (err, whatThisIs){
-					return whatThisIs;
+					{multi.hmget(list[l], "title")}
+					multi.exec(function (err, whatThisIs){
+						return whatThisIs;
 					})
 				})
 			}
 		})
 	})
-}
+};
 
 function frontis(){
 	/*var t = setTimeout(function(){frontis()}, 60000);
