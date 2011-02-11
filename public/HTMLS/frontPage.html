@@ -87,7 +87,8 @@
     $('#container').empty();$('#channels').empty();
       for (c in chans)
     	    {
-    	      var channel = '<li><a href="javascript:infoChan("'+chans[c]+"');"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
+    	      var chauncy = chan[c];
+    	      var channel = '<li><a href="javascript:infoChan('chauncy');"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
     	    }
   };
   function infoChan(chan){
