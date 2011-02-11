@@ -114,7 +114,7 @@
       $('#container').empty();
       for (i = 0; i < items.length; i += 2)
       {
-        var append = '<li class="articles" data-score="'+items[i+1]+'"><h2>"'+items[i]+'"</h2></li>';var $appending = $(append);$('#container').append($appending)
+        var append = '<li class="articles" data-score="'+items[i+1]+'"><h2>"'+items[i]+'"</h2></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
       }
     })
   };
