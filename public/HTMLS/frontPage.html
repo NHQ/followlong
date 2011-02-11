@@ -48,15 +48,15 @@
       $('#subTitle').html('You can create and delete channels and subChannels and sub sub channels');
      };
 
-     var $container = $('.container');
+     var $container = $('ul.container');
 
        $container.isotope({
+     	  itemSelector : 'li.articles',
      	  getSortData : {
      	    score : function ( $elem ) {
      	      return parseInt($elem.attr('data-score'));
      	    }
      	  },
-         itemSelector : '.articles',
          layoutMode: 'fitRows',
        	cellsByRow : {
        	    columnWidth : 800,
@@ -66,7 +66,8 @@
             duration: 0,
             easing: 'none',
             queue: true
-          }
+          },
+          sortBy : 'score'
        });
 
   	var hermes = $.getJSON('/userChannels', function(channels){
@@ -76,7 +77,7 @@
   	    var hermes2 = $.getJSON('/userStations?channel='+channels[c], function(source){
   	      for (s = 0; s < source.articles.length; s+=2)
   	      {
-  	        append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$('.container').isotope( 'insert', $appending );
+  	        append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$('ul.container').isotope( 'insert', $appending );
   	      }
   	    })
   	  }
