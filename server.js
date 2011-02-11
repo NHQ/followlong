@@ -79,6 +79,7 @@ function getSesh (req, res, next){
 };
 
 function userInterface (id){
+	console.log(id+"wgaaaaa")
 	var allem = new Array();
 	multi = client.multi();
 	client.get(id+':'+channels, function(err, repo){
