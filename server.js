@@ -31,7 +31,9 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.bodyDecoder());
   app.use(express.cookieDecoder());
-  app.use(express.session({ store: new RedisStore }));
+  app.use(express.session({key: 'k33k33',
+                         	secret: 'cocofarts2010!',
+ 							store: new RedisStore }));
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.staticProvider(__dirname + '/public'));
