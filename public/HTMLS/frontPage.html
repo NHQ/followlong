@@ -4,7 +4,7 @@
     <title></title>
     <style>
     #channels{float:right;width:250px;};
-    #channels li{height:40px;}
+    #channels li{};
     #console{width:1200px;float:left;};
     #container{width:900px;background:green;}
     #admin{};
@@ -85,12 +85,7 @@
     }
   };
   function admin(){
-    $('#container').empty();$('#channels').empty();
-      for (c in chans)
-    	    {
-    	      var chauncy = chans[c];
-    	      var channel = '<li><a href="/#/'+chauncy+'" class="'+chauncy+'"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
-    	    }
+    $('#container').empty();
     	    $('ul#channels li a').bind('click', function(event){
     	      event.preventDefault();
     	      var chan = $(this).attr('class');
