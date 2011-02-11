@@ -69,7 +69,7 @@
        getFeed(chans);
        for (c in chans)
      	    {
-     	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul#channels').append($channeling);
+     	      var channel = '<li><h1>'+chans[c]+'</h1></li>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
     });
   
@@ -87,7 +87,7 @@
     $('#container').empty();$('#channels').empty();
       for (c in chans)
     	    {
-    	      var channel = '<a href="javascript:infoChan('+chans[c]+');>"<h1>'+chans[c]+'</h1></a>';var $channeling = $(channel);$('ul#channels').append($channeling);
+    	      var channel = '<li><a href="javascript:infoChan('+chans[c]+');>"<h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
     	    }
   };
   function infoChan(chan){
@@ -98,7 +98,7 @@
         var feeds = '<a href="javascript:infoFeed('+feeds[f][1]+');>"<li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
       }
     });  
-  }
+  };
   
   function infoFeed(feed){
     $.getJSON('/infoFeed?feed='+encodeURIComponent(feed), function (items){
@@ -108,7 +108,7 @@
         var append = '<li class="articles"" data-score="'+items[i+1]+'"><h2>"'+items[i]+'"</h2></li>';var $appending = $(append);$container.isotope( 'insert', $appending );
       }
     })
-  }
+  };
   </script>
 
 </html>
