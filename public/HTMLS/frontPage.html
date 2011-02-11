@@ -53,7 +53,7 @@
        $container.isotope({
      	  getSortData : {
      	    score : function ( $elem ) {
-     	      return parseFloat($elem.attr('data-score').text());
+     	      return parseFloat($elem.attr('data-score'));
      	    }
      	  },
          itemSelector : '.articles',
