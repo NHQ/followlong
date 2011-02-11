@@ -88,7 +88,7 @@
       for (c in chans)
     	    {
     	      var chauncy = chans[c];
-    	      var channel = '<li><a href="" class="'+chauncy+'"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
+    	      var channel = '<li  ><a href="" class="'+chauncy+'"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
     	    }
     	    $('ul#channels li a').bind('click', function(event){
     	      event.preventDefault();
@@ -98,6 +98,7 @@
   };
   function infoChan(chan){
     $.getJSON('/infoChan?chan='+chan, function(feeds){
+       $('#container').empty();
       for (f in feeds)
       {
         var feedle = feeds[f][1]; 

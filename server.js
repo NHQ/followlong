@@ -177,6 +177,7 @@ app.get('/infoChan', getSesh, function (req, res){
 		}
 		multi.exec(function (err, rayRay){
 			res.write(JSON.stringify(rayRay));
+			console.log(JSON.stringify(rayRay));
 			res.end();
 		})
 	})
@@ -186,6 +187,7 @@ app.get('/infoFeed', function (req, res){
 	res.writeHead('200');
 	client.zrevrangebyscore(decodeURIComponent(req.query.feed), epoch(), epoch()-(450061*3), "limit", "0", "75", 'withscores', function(err, info){
 		res.write(JSON.stringify(info));
+		console.log(JSON.stringify(info));
 		res.end();
 	})
 });
