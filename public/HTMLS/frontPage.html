@@ -86,6 +86,7 @@
   };
   function admin(){
     $('#container').empty();
+    	    $('ul#channels li').css({'cursor':'pointer'});
     	    $('ul#channels li').click(function(event){
     	      event.preventDefault();
     	      var chan = $(this).attr('id');
@@ -100,9 +101,13 @@
       { 
         var food = '<a href="/" class="'+feeds[f][1]+'"><li>'+feeds[f][0]+'</li></a>';var $channeling = $(food);$('#container').append($channeling);
       }
+      $('#container a').click(function(event){
+        event.preventDefault();
+        var feed = $(this).attr('class');
+        infoFeed(feed);
+      })
     });  
   };
-  
   function infoFeed(feed){
     $.getJSON('/infoFeed?feed='+encodeURIComponent(feed), function (items){
       $('#container').empty();
