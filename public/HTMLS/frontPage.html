@@ -88,13 +88,14 @@
       for (c in chans)
     	    {
     	      var chauncy = chan[c];
-    	      var channel = '<li><a href="javascript:infoChan('chauncy');"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
+    	      var channel = '<li><a href="javascript:infoChan('+chauncy+');"><h1>'+chans[c]+'</h1></a></li>';var $channeling = $(channel);$('ul#channels').append($channeling);
     	    }
   };
   function infoChan(chan){
     $.getJSON('/infoChan?chan='+chan, function(feeds){
       for (f in feeds)
       {
+        var feedle = feeds[f][1]; 
         var feeds = '<a href="javascript:infoFeed('+feeds[f][1]+');"><li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
       }
     });  
