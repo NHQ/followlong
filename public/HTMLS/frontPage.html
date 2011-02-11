@@ -69,7 +69,7 @@
        getFeed(chans);
        for (c in chans)
      	    {
-     	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul.channels').append($channeling);
+     	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
     });
   
@@ -87,9 +87,28 @@
     $('#container').empty();$('#channels').empty();
       for (c in chans)
     	    {
-    	      var channel = '<h1>'+chans[c]+'</h1>';$channeling = $(channel);$('ul#channels').append($channeling);
+    	      var channel = '<a href="javascript:infoChan('+chans[c]+');>"<h1>'+chans[c]+'</h1></a>';var $channeling = $(channel);$('ul#channels').append($channeling);
     	    }
   };
+  function infoChan(chan){
+    $.getJSON('/infoChan?chan='+chan, function(feeds){
+      $('#container').empty();
+      for (f in feeds)
+      {
+        var feeds = '<a href="javascript:infoFeed('+feeds[f][1]+');>"<li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
+      }
+    });  
+  }
+  
+  function infoFeed(feed){
+    $.getJSON('/infoFeed?feed='+encodeURIComponent(feed), function (items){
+      $('#container').empty();
+      for (i = 0; i < items.length, i += 2)
+      {
+        var append = "<li class='articles' data-score="items[i+1]">"+items[i]+"</li>";var $appending = $(append);$container.isotope( 'insert', $appending );
+      }
+    })
+  }
   </script>
 
 </html>

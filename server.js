@@ -167,6 +167,29 @@ app.get('/userChannels', getSesh, function (req, res){
 		})
 });
 
+app.get('/infoChan', getSesh, function (req, res){
+	res.writeHead('200');
+	client.smembers(req.facts+':'+req.query.chan, function (err, info){
+		var multi = client.multi();
+		for (i in info)
+		{
+			multi.zrangebyscore(req.facts+':'+info[i], -2, -1)
+		}
+		multi.exec(function (err, rayRay){
+			res.write(JSON.stringify(rayRay));
+			res.end();
+		})
+	})
+});
+
+app.get('/infoFeed', function (req, res){
+	res.writeHead('200');
+	client.zrevrangebyscore(decodeURIComponent(req.query.feed), epoch(), epoch()-(450061*3), "limit", "0", "75", 'withscores', function(err, info){
+		res.write(JSON.stringify(info));
+		res.end();
+	})
+});
+
 app.get('/userStations', getSesh, function (req, res){
 	console.log(req.query.channel);
 	res.writeHead('200');
@@ -751,7 +774,6 @@ app.post('/feed', function(req, res){
 		if (d.items[x].summary){
 			summary = d.items[x].summary
 		};
-		console.log(d.items[x].title);
 		var title = d.items[x].title.replace(/&nbsp;/g, " ");
 		client.zadd(unfurl, d.items[x].postedTime, title.replace(/\s/g, "_"), function(err, reply){if (err){sys.puts(err)}});
 		client.zadd(unfurl,-2, d.status.title, function(err, reply){if (err){sys.puts(err)}});
