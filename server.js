@@ -608,9 +608,10 @@ function retrieve (channel, feed){
 */
 
 app.post('/follow/', getSesh, function(req, res){
-	path = url.parse(req.url).query;
-	queriesPls = querystring.parse(path, sep='&', eq='=');
-	unfurl = decodeURIComponent(queriesPls.furl);
+	//path = url.parse(req.url).query;
+	//queriesPls = querystring.parse(path, sep='&', eq='=');
+	unfurl = decodeURIComponent(req.query.furl);
+	console.log(unfurl);
 	channelName = req.body.channel;
 	client.exists(unfurl, function(err,answer){
 		if (err){sys.puts(err)}
