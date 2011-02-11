@@ -100,9 +100,8 @@
     $.getJSON('/infoChan?chan='+chan, function(feeds){
        $('#container').empty();
       for (f in feeds)
-      {
-        var feedle = feeds[f][1]; 
-        var feeds = '<a href=""><li>'+feeds[f][0]+'</li></a>';var $channeling = $(feeds);$('#container').append($channeling);
+      { 
+        var food = '<a href="/" class="'+feeds[f][1]+'"><li>'+feeds[f][0]+'</li></a>';var $channeling = $(food);$('#container').append($channeling);
       }
     });  
   };
