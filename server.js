@@ -79,7 +79,6 @@ function getSesh (req, res, next){
 };
 
 function userInterface (id){
-	console.log(id+"wgaaaaa")
 	var allem = new Array();
 	multi = client.multi();
 	client.get(id+':'+channels, function(err, repo){
@@ -90,6 +89,7 @@ function userInterface (id){
 			multi.smembers(repost[r])
 		}
 		multi.exec(function (err, echo){
+			console.log(id+"wgaaaaa");
 			allem = allem.concat.apply(allem, echo);
 			for (a in allem)
 			{
