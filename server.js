@@ -95,6 +95,7 @@ function userInterface (id){
 				multi.zrevrangebyscore(allem[a], epoch(), epoch()-450061, "limit", "0", "20", function(err, data){
 					if (err) console.log(err);
 				})
+			}
 				multi.exec(function (err, list){
 					if (err) console.log(err);
 					for (l in list)
@@ -104,10 +105,9 @@ function userInterface (id){
 						return whatThisIs;
 					})
 				})
-			}
+			})
 		})
-	})
-};
+	};
 
 function frontis(){
 	/*var t = setTimeout(function(){frontis()}, 60000);
