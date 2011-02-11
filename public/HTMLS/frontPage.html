@@ -103,7 +103,7 @@
   function infoFeed(feed){
     $.getJSON('/infoFeed?feed='+encodeURIComponent(feed), function (items){
       $('#container').empty();
-      for (i = 0; i < items.length, i += 2)
+      for (i = 0; i < items.length; i += 2)
       {
         var append = "<li class='articles' data-score="items[i+1]">"+items[i]+"</li>";var $appending = $(append);$container.isotope( 'insert', $appending );
       }
