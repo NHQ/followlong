@@ -70,7 +70,7 @@
        getFeed(chans);
        for (c in chans)
      	    {
-     	      var channel = '<li><h1>'+chans[c]+'</h1></li>';$channeling = $(channel);$('ul#channels').append($channeling);
+     	      var channel = '<li><a href="/#/"'+chans[c]+'"><h1>'+chans[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
     });
   
