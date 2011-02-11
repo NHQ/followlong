@@ -31,9 +31,6 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.bodyDecoder());
   app.use(express.cookieDecoder());
-  app.use(express.session({key: 'k33k33',
-                         	secret: 'cocofarts2010!',
- 							store: new RedisStore }));
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.staticProvider(__dirname + '/public'));
@@ -185,7 +182,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(80);
+  app.listen(8080);
   console.log("Express server listening on port %d", app.address().port)
 }
 var into = new function(){
