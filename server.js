@@ -92,16 +92,15 @@ function userInterface (id){
 			allem = allem.concat.apply(allem, echo);
 			for (a in allem)
 			{
-				multi.zrevrangebyscore(allem[a], epoch(), epoch()-450061, "limit", "0", "20", function(err, data){
-					if (err) console.log(err);
-				})
+				multi.zrevrangebyscore(allem[a], epoch(), epoch()-450061, "limit", "0", "20")
 			}
 				multi.exec(function (err, list){
-					if (err) console.log(err);
+					if (err){console.log(err)}
 					for (l in list)
-					{multi.hmget(list[l], "title")}
+					{
+						multi.hmget(list[l], "title")
+					}
 					multi.exec(function (err, whatThisIs){
-						if (err) console.log(err);
 						return whatThisIs;
 					})
 				})
