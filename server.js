@@ -100,6 +100,7 @@ function userInterface (id){
 					for (l in list)
 					{multi.hmget(list[l], "title")}
 					multi.exec(function (err, whatThisIs){
+						if (err) console.log(err);
 						return whatThisIs;
 					})
 				})
