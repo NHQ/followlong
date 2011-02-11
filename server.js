@@ -89,7 +89,7 @@ function userInterface (id){
 			multi.smembers(repost[r])
 		}
 		multi.exec(function (err, echo){
-			console.log(id+"wgaaaaa");
+			console.log(echo+"wgaaaaa");
 			allem = allem.concat.apply(allem, echo);
 			for (a in allem)
 			{
