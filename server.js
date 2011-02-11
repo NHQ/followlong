@@ -202,7 +202,7 @@ var into = new function(){
 			client.zunionstore(['frontPage', num].concat(echo), function (err, front){
 				if(err){console.log(err)};
 				front = front;
-				console.log(front)
+				console.log("hi")
 			})
 		});	
 	});
