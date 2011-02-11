@@ -88,7 +88,7 @@
     $('#container').empty();
     	    $('ul#channels li').click(function(event){
     	      event.preventDefault();
-    	      var chan = event.target.attr('class');
+    	      var chan = $(this).attr('id');
     	      console.log(chan);
     	      infoChan(chan);
     	    })
