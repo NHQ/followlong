@@ -78,10 +78,13 @@
     for (c in chans)
     {
       $.getJSON('/userStations?channel='+chans[c], function(source){
+        var append;
         for (s = 0; s < source.articles.length; s+=2)
         {
-          var append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
-        }})
+          append += '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a               href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';
+        }
+         var $appending = $(append);$container.isotope( 'insert', $appending );
+      })
     }
   };
   function admin(){
@@ -114,7 +117,7 @@
       $('#container').empty();
       for (i = 0; i < items.length; i += 2)
       {
-        var append = '<li class="articles" data-score="'+items[i+1]+'"><h2>"'+items[i]+'"</h2></li>';var $appending = $(append);$container.isotope( 'insert', $appending )
+        var append = '<li class="articles" data-score="'+items[i+1]+'"><h2>"'+items[i]+'"</h2></li>';var $appending = $(append);$('#container').append($appending);
       }
     })
   };
