@@ -80,8 +80,8 @@
   	      {
   	        append += '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';
   	      }
-  	      $appending = $(append);
-  	      $('ul.container').isotope( 'insert', $appending );
+  	      $appending = $( append );
+  	      $('ul.container').append($appending);
   	    })
   	  }
   	  //$('#container').isotope({ sortBy : 'score' });
