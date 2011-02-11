@@ -150,7 +150,8 @@ app.get('/2', getSesh, function (req, res){
 
 app.get('/link', function (req, res ){
 	res.writeHead('200');
-	client.hget(req.query.title, 'link', function (err, link){
+	title = decodeURIComponent(req.query.title);
+	client.hget(title, 'link', function (err, link){
 		res.redirect(link);
 		res.end()
 	})
