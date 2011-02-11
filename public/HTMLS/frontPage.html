@@ -48,7 +48,7 @@
       $('#subTitle').html('You can create and delete channels and subChannels and sub sub channels');
      };
 
-     var $container = $('#container');
+     var $container = $('.container');
 
        $container.isotope({
      	  getSortData : {
@@ -66,11 +66,11 @@
   	    var hermes2 = $.getJSON('/userStations?channel='+channels[c], function(source){
   	      for (s = 0; s < source.articles.length; s+=2)
   	      {
-  	        append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$('ul.container').append($appending);
+  	        append = '<li class="articles" data-channel="'+source.channel+'" data-score="'+source.articles[s+1]+'"><a href="/link?title='+encodeURIComponent(source.articles[s])+'"><h2>'+source.articles[s].replace(/_/g, " ")+'</h2></a></li>';var $appending = $(append);$('.container').isotope( 'insert', $appending );
   	      }
   	    })
   	  }
-  	  $('#container').isotope({ sortBy : 'symbol' });
+  	  //$('#container').isotope({ sortBy : 'score' });
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   })	 
   </script>
