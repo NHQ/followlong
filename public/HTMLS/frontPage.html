@@ -86,7 +86,7 @@
   };
   function admin(){
     $('#container').empty();
-    	    $('ul#channels li.channel').click(function(event){
+    	    $('ul#channels li').click(function(event){
     	      event.preventDefault();
     	      var chan = $(this).attr('class');
     	      infoChan(chan);
