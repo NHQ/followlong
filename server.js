@@ -79,8 +79,8 @@ function getSesh (req, res, next){
 };
 
 function userInterface (id){
-	var repo = new Array(), allem = new Array();
-	multi= client.multi();
+	var allem = new Array();
+	multi = client.multi();
 	client.get(id+':'+channels, function(err, repo){
 		if (err) console.log(err);
 		repost = JSON.parse(repo);
@@ -98,7 +98,7 @@ function userInterface (id){
 				multi.exec(function (err, list){
 					if (err) console.log(err);
 					for (l in list)
-					multi.mget(list[l], "title", function (err, whatThisIs){
+					multi.hmget(list[l], "title", function (err, whatThisIs){
 					return whatThisIs;
 					})
 				})
