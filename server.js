@@ -78,6 +78,33 @@ function getSesh (req, res, next){
 	}
 };
 
+function userInterface (id){
+	var repo = new Array(), allem = new Array();
+	multi= client.multi();
+	client.smembers(id+':'+channels, function(err, repo){
+		repo = repo;
+		for (r in repo)
+		{
+			multi.smembers(repo[r])
+		}
+		multi.exec(function (err, echo){
+			allem = allem.concat.apply(allem, echo);
+			for (a in allem)
+			{
+				multi.zrevrangebyscore(allem[a], epoch(), epoch()-450061, "limit", "0", "20", function(err, data){
+					if (err) console.log(err);
+				})
+				multi.exec(function (err, list){
+					for (l in list)
+					multi.mget(list[l], "title", function (err, whatThisIs){
+					return whatThisIs;
+					})
+				})
+			}
+		})
+	})
+}
+
 function frontis(){
 	/*var t = setTimeout(function(){frontis()}, 60000);
 	var repo = new Array();
@@ -104,6 +131,10 @@ function frontis(){
 }
 
 // Routes
+app.get('/what', getSesh, function (req, res){
+	userInterface(req.facts);
+	console.log(whatThisIs)
+});
 
 app.get('/', function(req, res){
 	console.log(req.session.uid);
@@ -611,7 +642,7 @@ app.post('/follow/', getSesh, function(req, res){
 	//path = url.parse(req.url).query;
 	//queriesPls = querystring.parse(path, sep='&', eq='=');
 	unfurl = decodeURIComponent(req.query.furl);
-	console.log(unfurl);
+	console.log(unfurl);  
 	channelName = req.body.channel;
 	client.exists(unfurl, function(err,answer){
 		if (err){sys.puts(err)}
@@ -685,7 +716,7 @@ app.post('/feed', function(req, res){
 				"furl": unfurl,
 				"score": d.items[x].postedTime,
 				"created": d.items[x].postedTime,
-				'feed': d.status.title
+				"feed": d.status.title
 			}, function(err, reply){
 				if (err)
 					{
