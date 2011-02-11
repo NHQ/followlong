@@ -86,7 +86,7 @@ function userInterface (id){
 		repost = JSON.parse(repo);
 		for (r in repost)
 		{
-			multi.smembers(repo[r])
+			multi.smembers(repost[r])
 		}
 		multi.exec(function (err, echo){
 			allem = allem.concat.apply(allem, echo);
