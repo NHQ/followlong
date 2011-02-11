@@ -173,7 +173,7 @@ app.get('/infoChan', getSesh, function (req, res){
 		var multi = client.multi();
 		for (i in info)
 		{
-			multi.zrangebyscore(req.facts+':'+info[i], -2, -1)
+			multi.zrangebyscore(info[i], -2, -1)
 		}
 		multi.exec(function (err, rayRay){
 			res.write(JSON.stringify(rayRay));
