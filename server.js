@@ -81,10 +81,10 @@ function getSesh (req, res, next){
 function userInterface (id){
 	var repo = new Array(), allem = new Array();
 	multi= client.multi();
-	client.smembers(id+':'+channels, function(err, repo){
+	client.get(id+':'+channels, function(err, repo){
 		if (err) console.log(err);
-		repo = repo;
-		for (r in repo)
+		repost = JSON.parse(repo);
+		for (r in repost)
 		{
 			multi.smembers(repo[r])
 		}
