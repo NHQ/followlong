@@ -676,7 +676,6 @@ app.post('/follow/', getSesh, function(req, res){
 app.get('/feed', function(req, res){
 	path = url.parse(req.url).query;
 	queriness = querystring.parse(path, sep='&', eq='=');
-	channel = queriness.channel;
 	challenge = queriness.hub.challenge;
 	res.writeHead('200');
 	res.write(challenge);
