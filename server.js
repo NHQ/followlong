@@ -146,10 +146,15 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 	res.end();
 // TODO createClient()
 });
+app.get('/feedr', function(err, res){
+	var path = url.parse(req.url).pathname;
+	client.set('path', path);
+});
 
-app.get('/feed?:challenge', function(req, res){
-		challenge = req.params.challenge;
+app.get('/feed/challenge=:q', function(req, res){
+		challenge = req.params.q;
 		res.writeHead('200');
+		console.log(challenge);
 		//res.write(challenge);
 		client.set("challenge", challenge, function(err, reply){
 			res.redirect('/');	
@@ -188,7 +193,7 @@ app.get('/feed?:challenge', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(80);
+  app.listen(8080);
   sys.puts("Express server listening on port %d", app.address().port)
 }
 var into = new function(){
