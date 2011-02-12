@@ -147,7 +147,7 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feed/:channel/:feedName', function(req, res){
+app.get('/feed/:channel/:feedName?:challenge', function(req, res){
 	if(req.params.challenge)
 	{	
 		challenge = req.params.challenge;
