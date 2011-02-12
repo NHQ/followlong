@@ -148,12 +148,15 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 });
 
 app.get('/feed/:channel/:feedName?:challenge', function(req, res){
+	feedName = decodeURIComponent(req.params.feedName);
+	channel = req.params.channel;
 	if(req.params.challenge)
 	{	
 		challenge = req.params.challenge;
 		res.writeHead('200');
 		res.write(challenge);
 		client.incr("challenge");
+		client.hset('challenger', challenge, feedName);
 		console.log(challenge);
 		res.redirect('/')
 	}
