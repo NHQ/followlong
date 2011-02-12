@@ -154,9 +154,11 @@ app.get('/feed/:channel/:feedName', function(req, res){
 		res.writeHead('200');
 		res.write(challenge);
 		client.incr("challenge");
-		console.log(challenge)
+		console.log(challenge);
+		res.redirect('/')
 	}
-	req.setEncoding('utf8');
+	else res.redirect('/admin')
+/*	req.setEncoding('utf8');
 	feedName = decodeURIComponent(req.params.feedName);
 	channel = req.params.channel;
 	req.on('data', function(data){
@@ -183,7 +185,7 @@ app.get('/feed/:channel/:feedName', function(req, res){
 		};
 	res.redirect('/admin');
 	res.end()
-	});
+	}); */
 });
 // Only listen on $ node app.js
 
