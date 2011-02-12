@@ -147,14 +147,15 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feed?challenge=:challenge', function(req, res){
+app.get('/feed?challenge=:q', function(req, res){
+		challenge = req.params.q;
 		res.writeHead('200');
-		challenge = req.params.challenge;
-		res.write(challenge);
-		client.set("challenge", challenge);
+		//res.write(challenge);
+		client.set("challenge", challenge, function(err, reply){
+			res.redirect('/');	
+		});
 		//console.log(challenge);
-		res.redirect('/');
-		res.end();
+				//res.end();
 /*	req.setEncoding('utf8');
 	feedName = decodeURIComponent(req.params.feedName);
 	channel = req.params.channel;
