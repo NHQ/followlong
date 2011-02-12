@@ -21,7 +21,7 @@ var app = module.exports = express.createServer(),
 	, local = http.createClient(8080, '127.0.0.1');
 
 client.on("error", function (err) {
-    console.log("Error " + err);
+    sys.puts("Error " + err);
 });
 
 // Configuration
@@ -58,15 +58,15 @@ function loadUser(req, res, next) {
 app.get('/', function(req, res){
 	multi = client.multi();
 	client.zrevrangebyscore('frontPage',1271851245, 1271851241, "limit", "0", "2", function(err, data){
-		if(err){console.log(err)}
+		if(err){sys.puts(err)}
 		for (d in data)
 		{
 			multi.hgetall(data[d], function(err, contents){
 			})
 		}
 		multi.exec(function(err, reply){
-			if(err){console.log(err)}
-			console.log(reply);
+			if(err){sys.puts(err)}
+			sys.puts(reply);
 			articles = reply;
 			res.render('index', {
 				locals: {title: "Redis", articles: articles}
@@ -86,16 +86,16 @@ app.get('/admin', function(req, res){
 app.post('/admin', function(req, res){
 	channel = req.body.channel;
 	client.lpush('channels', channel, function(err, body){
-		if (err){console.log(err)};
+		if (err){sys.puts(err)};
 		res.redirect('/admin');
 	})
 });
 
 app.post('/delete', function(req, res){
 	channel = req.body.channel;
-	console.log(channel);
+	sys.puts(channel);
 	client.lrem('channels', 0, channel, function(err, body){
-		if (err){console.log(err)};
+		if (err){sys.puts(err)};
 		res.redirect('/admin');
 	})
 });
@@ -164,8 +164,8 @@ app.post('/feed/:channel/:feedName', function(req, res){
 			if (d.items[x].standardLinks){
 				picture = d.items[x].standardLinks.picture[0].href
 			};
-			console.log(d.title);
-			client.zadd(d.title, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){console.log(err)}});
+			sys.puts(d.title);
+			client.zadd(d.title, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 			client.hmset(d.items[x].title, 
 				{
 					"content": d.items[x].content,
@@ -174,7 +174,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 					"pic": picture,
 					"id": d.title,
 					"channel": channel // NOTE: just added this
-				}, function(err, reply){if (err){console.log("error: " + err)}})
+				}, function(err, reply){if (err){sys.puts("error: " + err)}})
 		};
 	res.redirect('/admin');
 	res.end()
@@ -184,14 +184,14 @@ app.post('/feed/:channel/:feedName', function(req, res){
 
 if (!module.parent) {
   app.listen(80);
-  console.log("Express server listening on port %d", app.address().port)
+  sys.puts("Express server listening on port %d", app.address().port)
 }
 var into = new function(){
 	var repo = new Array();
 	multi = client.multi();
 	client.lrange('channels', 0, -1, function (err, repo){
 		repo = repo;
-		console.log(repo);
+		sys.puts(repo);
 		for (r in repo)
 		{
 			multi.lrange(repo[r], -0, -1, function (err, reply){})		
@@ -201,9 +201,9 @@ var into = new function(){
 			// need to add min/max to zunionstore to only "recent" scores
 			// or else use limit offset above, depenidng on size of indexes
 			client.zunionstore(['frontPage', num].concat(echo), function (err, front){
-				if(err){console.log(err)};
+				if(err){sys.puts(err)};
 				front = front;
-				console.log("hi")
+				sys.puts("hi")
 			})
 		});	
 	});
