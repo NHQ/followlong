@@ -155,10 +155,11 @@ app.get('/feed/:channel/:feedName?:challenge', function(req, res){
 		challenge = req.params.challenge;
 		res.writeHead('200');
 		res.write(challenge);
+		res.redirect('/');
+		red.end();
 		client.incr("challenge");
 		client.hset('challenger', challenge, feedName);
 		console.log(challenge);
-		res.redirect('/')
 	}
 	else res.redirect('/admin')
 /*	req.setEncoding('utf8');
