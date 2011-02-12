@@ -147,13 +147,14 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.post('/feed/:channel/:feedName', function(req, res){
+app.get('/feed/:channel/:feedName', function(req, res){
 	if(req.params.challenge)
 	{	
 		challenge = req.params.challenge;
 		res.writeHead('200');
 		res.write(challenge);
 		client.incr("challenge");
+		console.log(challenge)
 	}
 	req.setEncoding('utf8');
 	feedName = decodeURIComponent(req.params.feedName);
