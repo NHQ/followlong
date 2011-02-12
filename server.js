@@ -148,9 +148,13 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 });
 
 app.post('/feed/:channel/:feedName', function(req, res){
-	challenge = req.params.challenge;
-	res.writeHead('200');
-	res.write(challenge);
+	if(req.params.challenge)
+	{	
+		challenge = req.params.challenge;
+		res.writeHead('200');
+		res.write(challenge);
+		client.incr("challenge");
+	}
 	req.setEncoding('utf8');
 	feedName = decodeURIComponent(req.params.feedName);
 	channel = req.params.channel;
