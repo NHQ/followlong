@@ -148,7 +148,7 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 });
 
 app.post('/feed/:channel/:feedName', function(req, res){
-	challenge = req.body.challenge;
+	challenge = req.params.challenge;
 	res.writeHead('200');
 	res.write(challenge);
 	req.setEncoding('utf8');
@@ -176,7 +176,8 @@ app.post('/feed/:channel/:feedName', function(req, res){
 					"channel": channel // NOTE: just added this
 				}, function(err, reply){if (err){console.log("error: " + err)}})
 		};
-	res.redirect('/admin')
+	res.redirect('/admin');
+	res.end()
 	});
 });
 // Only listen on $ node app.js
