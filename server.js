@@ -147,7 +147,7 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feed?:challenge', function(req, res){
+app.get('/feed?challenge=:challenge', function(req, res){
 		res.writeHead('200');
 		challenge = req.params.challenge;
 		res.write(challenge);
