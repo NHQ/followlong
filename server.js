@@ -147,7 +147,7 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 app.get('/feedr', function(err, res){
-	var path = url.parse(req.url).pathname;
+	var path = url.parse(req.url);
 	client.set('path', path);
 });
 
