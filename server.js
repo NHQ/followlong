@@ -147,10 +147,13 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feedr', function(req, res){
-var path = url.parse(req.url).query;
-	challenge = path.substr(indexOf('='), indexOf('&'));
-	client.set('path', challenge)
+app.get('/feedr/:channel/:feedName/', function(req, res){
+	var path = url.parse(req.url).query;
+	challenge = path.substring(path.indexOf('=')+1, path.indexOf('&'));
+	client.set('path', challenge);
+	res.writeHead('200');
+	res.write(challenge);
+	res.end();
 });
 
 app.get('/feed/challenge=:q', function(req, res){
