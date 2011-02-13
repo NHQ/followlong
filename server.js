@@ -147,10 +147,10 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feedr', function(req, res){
+app.get('/feedr?hub.challenge=:q', function(req, res){
+	q = req.params.q;
 var path = url.parse(req.url).query;
- challenge = path.hub.challenge;
-	client.set('path', challenge)
+	client.set('path', q)
 });
 
 app.get('/feed/challenge=:q', function(req, res){
