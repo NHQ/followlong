@@ -44,6 +44,7 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+/*
 function loadUser(req, res, next) {
   if (req.session.user_id) {
 	next();
@@ -52,12 +53,13 @@ function loadUser(req, res, next) {
     res.redirect('/new-user');
   }
 }
+*/
 
 // Routes
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage',1271851245, 1271851241, "limit", "0", "2", function(err, data){
+	client.zrevrangebyscore('frontPage',1397561773, 1296956973, "limit", "0", "10", function(err, data){
 		if(err){sys.puts(err)}
 		for (d in data)
 		{
@@ -100,6 +102,7 @@ app.post('/delete', function(req, res){
 	})
 });
 
+/*
 app.get("/chat.html", function(req, res){
 var path = url.parse(req.url).pathname;
       fs.readFile(__dirname + path, function(err, data){
@@ -109,6 +112,7 @@ var path = url.parse(req.url).pathname;
         res.end();
       });
 }),
+*/
 
 send404 = function(res){
   res.writeHead(404);
@@ -122,6 +126,7 @@ app.post('/new', function(req, res){
 	res.end('hello');
 });
 
+/* 
 app.get('/new-user', function(res, res){
 	res.render('new-user', {
 		locals: {title: "create user"}
@@ -135,6 +140,7 @@ app.post('/new-user', function(req, res){
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('hello');
 });
+*/
 
 app.post('/new/:channel/:feed/:feedName', function(req, res){
   feedURL = decodeURIComponent(req.params.feed);
@@ -147,34 +153,21 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feedr/:channel/:feedName/', function(req, res){
+app.get('/feed/:channel/:feedName', function(req, res){
 	var path = url.parse(req.url).query;
 	challenge = path.substring(path.indexOf('=')+1, path.indexOf('&'));
 	client.set('path', challenge);
 	res.writeHead('200');
 	res.write(challenge);
-	res.end();
-});
-
-app.get('/feed/challenge=:q', function(req, res){
-		challenge = req.params.q;
-		res.writeHead('200');
-		console.log(challenge);
-		//res.write(challenge);
-		client.set("challenge", challenge, function(err, reply){
-			res.redirect('/');	
-		});
-		//console.log(challenge);
-				//res.end();
-/*	req.setEncoding('utf8');
 	feedName = decodeURIComponent(req.params.feedName);
-	channel = req.params.channel;
+	channel = decodeURIComponent(req.params.channel);
+	req.setEncoding('utf8');
 	req.on('data', function(data){
 		var d = JSON.parse(data);
 		var dl = d.items.length;
 
 		for (x = 0; x < dl; ++x){
-			picture = "Set Me to some kind of default picture";
+			picture = "Set Me to some kind of default picture"; // do what the green line says!
 			var content;	
 			if (d.items[x].standardLinks){
 				picture = d.items[x].standardLinks.picture[0].href
@@ -188,10 +181,10 @@ app.get('/feed/challenge=:q', function(req, res){
 					"title": d.items[x].title,
 					"pic": picture,
 					"id": d.title,
-					"channel": channel // NOTE: just added this
+					"channel": channel,
+					"score": d.items[x].postedTime
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
 		};
-	res.redirect('/admin');
 	res.end()
 	}); */
 });
