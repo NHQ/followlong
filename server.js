@@ -149,7 +149,7 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 
 app.get('/feedr', function(req, res){
 var path = url.parse(req.url).query;
-	challenge = path.substr(13, data[d].firstIndexOf('&'));
+	challenge = path.substr(13, data[d].indexOf('&'));
 	client.set('path', challenge)
 });
 
