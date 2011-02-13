@@ -186,7 +186,7 @@ app.get('/feed/:channel/:feedName', function(req, res){
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
 		};
 	res.end()
-	}); */
+	});
 });
 // Only listen on $ node app.js
 
