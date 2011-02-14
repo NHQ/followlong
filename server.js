@@ -141,6 +141,21 @@ app.post('/new-user', function(req, res){
 	res.end('hello');
 });
 */
+app.get('/test', function(req, res){
+	d = fs.readFileSync('./schema.json', 'utf8');
+	datum = JSON.stringify(d);
+	data = JSON.parse(d);
+	var request = local.request('POST', '/feed/Johnny', {
+		'host': '127.0.0.1',
+		'Application-type': 'application/json'
+	});
+	request.end(d, encoding='utf8');
+	var peep = client.ZREVRANGEBYSCORE("Johnny's Likes", 1241616887, 1271851241, "WITHSCORES", function(err, ditto){
+		if (err){console.log(err)};
+		ditto = ditto;
+		console.log(ditto)
+	});
+});
 
 app.post('/new/:channel/:feed/:feedName', function(req, res){
 	var spfdr = http.createClient(80, 'http://superfeedr.com/');
