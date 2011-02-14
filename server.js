@@ -147,7 +147,8 @@ app.get('/test', function(req, res){
 		'host': '64.30.138.240',
 		'Application-type': 'application/json'
 	});
-	request.end(d, encoding='utf8');
+	request.end(d, encoding='utf8')
+	res.redirect('/');
 });
 
 app.post('/new/:channel/:feed/:feedName', function(req, res){
