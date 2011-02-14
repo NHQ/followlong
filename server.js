@@ -163,7 +163,7 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feed', function(req, res){
+app.get('/feed/:channel', function(req, res){
 	var path = url.parse(req.url).query;
 	challenge = path.substring(path.indexOf('=')+1, path.indexOf('&'));
 	client.set('path', challenge);
@@ -172,7 +172,8 @@ app.get('/feed', function(req, res){
 	res.end();
 });
 
-app.post('/feed', function(req, res){
+app.post('/feed/:channel', function(req, res){
+	var channel = req.params.channel;
 	req.setEncoding('utf8');
 	req.on('data', function(data){
 		var d = JSON.parse(data);
