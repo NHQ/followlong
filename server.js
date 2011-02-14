@@ -147,7 +147,7 @@ app.get('/test', function(req, res){
 		'host': 'http://64.30.138.240',
 		'Application-type': 'application/json'
 	});
-	request.end(d, encoding='utf8')
+	inquest.end(d, encoding='utf8')
 	res.redirect('/');
 });
 
