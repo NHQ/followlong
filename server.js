@@ -143,17 +143,27 @@ app.post('/new-user', function(req, res){
 */
 
 app.post('/new/:channel/:feed/:feedName', function(req, res){
-  feedURL = decodeURIComponent(req.params.feed);
-  feedName = decodeURIComponent(req.params.feedName);
-  channel = req.params.channel;
+	var spfdr = http.createClient(80, 'http://superfeedr.com/');
+	feedURL = decodeURIComponent(req.params.feed);
+	feedName = decodeURIComponent(req.params.feedName);
+	channel = req.params.channel;
 	client.zadd(feedName, -1, feedURL);	
 	client.rpush(channel, feedName);
 	res.writeHead('200');
 	res.end();
+	var request = spfdr.request('POST', '/hubbub', {
+		'Host':'superfeedr.com',
+		"Authorization":"basic TkhROmxvb3Bob2xl",
+		'hub.mode':'subscribe',
+		'hub.topic':feedURL,
+		'hub.callback': 'http://64.30.138.240/feed/'+channel+'/'+feedName+'/',
+		'Accept':'application/json',
+		'hub.verify':'async'
+	})
 // TODO createClient()
 });
 
-app.get('/feed/:channel/:feedName/', function(req, res){
+app.get('/feed', function(req, res){
 	var path = url.parse(req.url).query;
 	challenge = path.substring(path.indexOf('=')+1, path.indexOf('&'));
 	client.set('path', challenge);
@@ -162,14 +172,11 @@ app.get('/feed/:channel/:feedName/', function(req, res){
 	res.end();
 });
 
-app.post('/feed/:channel/:feedName/', function(req, res){
-	feedName = decodeURIComponent(req.params.feedName);
-	channel = decodeURIComponent(req.params.channel);
+app.post('/feed', function(req, res){
 	req.setEncoding('utf8');
 	req.on('data', function(data){
 		var d = JSON.parse(data);
 		var dl = d.items.length;
-
 		for (x = 0; x < dl; ++x){
 			picture = "Set Me to some kind of default picture"; // do what the green line says!
 			var content;	
