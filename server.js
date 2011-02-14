@@ -176,6 +176,7 @@ app.post('/feed/:channel/', function(req, res){
 	var channel = req.params.channel;
 	req.setEncoding('utf8');
 	req.on('data', function(data){
+		client.publish("data", "got data!");
 		var d = JSON.parse(data);
 		var dl = d.items.length;
 		for (x = 0; x < dl; ++x){
