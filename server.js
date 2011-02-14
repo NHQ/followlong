@@ -18,7 +18,7 @@ var app = module.exports = express.createServer(),
 	, newfeed = require('./models/newfeed')
 	, newuser = require('./models/user')
 	, RedisStore = require('connect-redis'), multi
-	, local = http.createClient(8080, 'http://64.30.138.240');
+	, local = http.createClient(80, 'http://64.30.138.240/');
 
 client.on("error", function (err) {
     sys.puts("Error " + err);
@@ -59,7 +59,7 @@ function loadUser(req, res, next) {
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage',1397561773, 1296956973, "limit", "0", "10", function(err, data){
+	client.zrevrangebyscore('frontPage',1271851245, 1271851241, "limit", "0", "10", function(err, data){
 		if(err){sys.puts(err)}
 		for (d in data)
 		{
@@ -68,7 +68,6 @@ app.get('/', function(req, res){
 		}
 		multi.exec(function(err, reply){
 			if(err){sys.puts(err)}
-			sys.puts(reply);
 			articles = reply;
 			res.render('index', {
 				locals: {title: "Redis", articles: articles}
@@ -143,12 +142,18 @@ app.post('/new-user', function(req, res){
 */
 app.get('/test', function(req, res){
 	d = fs.readFileSync('./schema.json', 'utf8');
-	var inquest = local.request('POST', '/feed/vimeo/', {
-		'host': 'http://64.30.138.240',
+	datum = JSON.stringify(d);
+	data = JSON.parse(d);
+	var request = local.request('POST', '/feed/vimeo/Videos%20Angeline%20Gragasin%20likes', {
+		'host': 'http://64.30.138.240/',
 		'Application-type': 'application/json'
 	});
-	inquest.end(d, encoding='utf8')
-	res.redirect('/');
+	request.end(d, encoding='utf8');
+	var peep = client.ZREVRANGEBYSCORE("Johnny's Likes", 1241616887, 1271851241, "WITHSCORES", function(err, ditto){
+		if (err){console.log(err)};
+		ditto = ditto;
+		console.log(ditto)
+	});
 });
 
 app.post('/new/:channel/:feed/:feedName', function(req, res){
@@ -172,7 +177,7 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feed/:channel/', function(req, res){
+app.get('/feed/:channel/:feedName', function(req, res){
 	var path = url.parse(req.url).query;
 	challenge = path.substring(path.indexOf('=')+1, path.indexOf('&'));
 	client.set('path', challenge);
@@ -181,13 +186,16 @@ app.get('/feed/:channel/', function(req, res){
 	res.end();
 });
 
-app.post('/feed/:channel/', function(req, res){
-	var channel = req.params.channel;
+app.post('/feed/:channel/:feedName', function(req, res){
+	res.writeHead('200');
 	req.setEncoding('utf8');
+
+	channel = req.params.channel;
+	feedName = req.params.feedName;
 	req.on('data', function(data){
-		pub.publish("data", "got data!");
 		var d = JSON.parse(data);
 		var dl = d.items.length;
+		
 		for (x = 0; x < dl; ++x){
 			picture = "Set Me to some kind of default picture"; // do what the green line says!
 			var content;	
@@ -208,7 +216,7 @@ app.post('/feed/:channel/', function(req, res){
 					"created": d.items[x].postedTime
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
 		};
-	res.end()
+	//res.end()
 	});
 });
 // Only listen on $ node app.js
