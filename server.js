@@ -18,7 +18,7 @@ var app = module.exports = express.createServer(),
 	, newfeed = require('./models/newfeed')
 	, newuser = require('./models/user')
 	, RedisStore = require('connect-redis'), multi
-	, local = http.createClient(8080, '127.0.0.1');
+	, local = http.createClient(8080, '64.30.138.240');
 
 client.on("error", function (err) {
     sys.puts("Error " + err);
@@ -145,8 +145,8 @@ app.get('/test', function(req, res){
 	d = fs.readFileSync('./schema.json', 'utf8');
 	datum = JSON.stringify(d);
 	data = JSON.parse(d);
-	var request = local.request('POST', '/feed/Johnny', {
-		'host': '127.0.0.1',
+	var request = local.request('POST', '/feed/vimeo.', {
+		'host': '64.30.138.240',
 		'Application-type': 'application/json'
 	});
 	request.end(d, encoding='utf8');
