@@ -153,12 +153,16 @@ app.post('/new/:channel/:feed/:feedName', function(req, res){
 // TODO createClient()
 });
 
-app.get('/feed/:channel/:feedName', function(req, res){
+app.get('/feed/:channel/:feedName/', function(req, res){
 	var path = url.parse(req.url).query;
 	challenge = path.substring(path.indexOf('=')+1, path.indexOf('&'));
 	client.set('path', challenge);
 	res.writeHead('200');
 	res.write(challenge);
+	res.end();
+});
+
+app.post('/feed/:channel/:feedName/', function(req, res){
 	feedName = decodeURIComponent(req.params.feedName);
 	channel = decodeURIComponent(req.params.channel);
 	req.setEncoding('utf8');
@@ -182,7 +186,8 @@ app.get('/feed/:channel/:feedName', function(req, res){
 					"pic": picture,
 					"id": d.title,
 					"channel": channel,
-					"score": d.items[x].postedTime
+					"score": d.items[x].postedTime,
+					"created": d.items[x].postedTime
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
 		};
 	res.end()
