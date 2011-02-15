@@ -175,8 +175,8 @@ app.get('/test', function(req, res){
 
 app.get('/new/:channel/:feed/:feedName', function(req, res){
 	//var spfdr = http.createClient(80, 'superfeedr.com');
-	feedURL = decodeURIComponent(req.params.feed);
-	feedName = decodeURIComponent(req.params.feedName);
+	feedURL = req.params.feed;
+	feedName = req.params.feedName;
 	channel = req.params.channel;
 	console.log(feedURL+'\n'+feedName+'\n'+channel);
 	client.zadd(feedName, -1, feedURL);	
