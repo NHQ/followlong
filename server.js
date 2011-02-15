@@ -174,7 +174,7 @@ app.get('/test', function(req, res){
 });
 
 app.get('/new/:channel/:feed/:feedName', function(req, res){
-	var spfdr = http.createClient(80, 'superfeedr.com');
+	//var spfdr = http.createClient(80, 'superfeedr.com');
 	feedURL = decodeURIComponent(req.params.feed);
 	feedName = decodeURIComponent(req.params.feedName);
 	channel = req.params.channel;
@@ -184,7 +184,7 @@ app.get('/new/:channel/:feed/:feedName', function(req, res){
 	res.writeHead('200');
 	rew.write('hello');
 	res.end();
-	var request = spfdr.request('POST', '/hubbub', {
+/*	var request = spfdr.request('POST', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
 		'hub.mode':'subscribe',
@@ -192,7 +192,7 @@ app.get('/new/:channel/:feed/:feedName', function(req, res){
 		'hub.callback': 'http://64.30.138.240/feed/'+channel+'/'+feedName,
 		'Accept':'application/json',
 		'hub.verify':'async'
-	})
+	}) */
 // TODO createClient()
 });
 
