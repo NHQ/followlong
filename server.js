@@ -174,6 +174,7 @@ app.get('/test', function(req, res){
 });
 
 app.get('/new/:channel/:feed/:feedName', function(err, req, res){
+	res.redirect('/');
 	if (err){sys.puts(err)};
 	//var spfdr = http.createClient(80, 'superfeedr.com');
 	feedURL = req.params.feed;
