@@ -18,7 +18,7 @@ var app = module.exports = express.createServer(),
 	, newfeed = require('./models/newfeed')
 	, newuser = require('./models/user')
 	, RedisStore = require('connect-redis'), multi
-	, local = http.createClient(80, 'http://64.30.138.240/');
+	, local = http.createClient(80, '64.30.138.240');
 
 client.on("error", function (err) {
     sys.puts("Error " + err);
@@ -145,7 +145,7 @@ app.get('/test', function(req, res){
 	datum = JSON.stringify(d);
 	data = JSON.parse(d);
 	var request = local.request('POST', '/feed/vimeo/Videos%20Angeline%20Gragasin%20likes', {
-		'host': 'http://64.30.138.240/',
+		'host': '64.30.138.240',
 		'Application-type': 'application/json'
 	});
 	request.end(d, encoding='utf8');
