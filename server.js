@@ -173,13 +173,13 @@ app.get('/test', function(req, res){
 	res.redirect('/');
 });
 
-app.get('/new', function(req, res){
+app.get('/new/:channel/:feed/:feedName', function(req, res){
 	var spfdr = http.createClient(80, 'superfeedr.com');
-	//feedURL = decodeURIComponent(req.params.feed);
-	//feedName = decodeURIComponent(req.params.feedName);
-	//channel = req.params.channel;
-	//client.zadd(feedName, -1, feedURL);	
-	// client.rpush(channel, feedName);
+	feedURL = decodeURIComponent(req.params.feed);
+	feedName = decodeURIComponent(req.params.feedName);
+	channel = req.params.channel;
+	client.zadd(feedName, -1, feedURL);	
+	client.rpush(channel, feedName);
 	res.writeHead('200');
 	rew.write('hello');
 	res.end();
