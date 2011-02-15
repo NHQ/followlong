@@ -178,6 +178,7 @@ app.get('/new/:channel/:feed/:feedName', function(req, res){
 	feedURL = decodeURIComponent(req.params.feed);
 	feedName = decodeURIComponent(req.params.feedName);
 	channel = req.params.channel;
+	console.log(feedURL '\n' feedName '\n' channel);
 	client.zadd(feedName, -1, feedURL);	
 	client.rpush(channel, feedName);
 	res.writeHead('200');
