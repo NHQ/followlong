@@ -54,7 +54,28 @@ function loadUser(req, res, next) {
   }
 }
 */
-
+var into = new function(){
+	var repo = new Array();
+	multi = client.multi();
+	client.lrange('channels', 0, -1, function (err, repo){
+		repo = repo;
+		sys.puts(repo);
+		for (r in repo)
+		{
+			multi.lrange(repo[r], -0, -1, function (err, reply){})		
+		}
+		multi.exec(function(err, echo){
+			num = echo.length;
+			// need to add min/max to zunionstore to only "recent" scores
+			// or else use limit offset above, depenidng on size of indexes
+			client.zunionstore(['frontPage', num].concat(echo), function (err, front){
+				if(err){sys.puts(err)};
+				front = front;
+				sys.puts("hi")
+			})
+		});	
+	});
+};
 // Routes
 
 app.get('/', function(req, res){
@@ -152,21 +173,22 @@ app.get('/test', function(req, res){
 	res.redirect('/');
 });
 
-app.post('/new/:channel/:feed/:feedName', function(req, res){
-	var spfdr = http.createClient(80, 'http://superfeedr.com/');
-	feedURL = decodeURIComponent(req.params.feed);
-	feedName = decodeURIComponent(req.params.feedName);
-	channel = req.params.channel;
-	client.zadd(feedName, -1, feedURL);	
-	client.rpush(channel, feedName);
+app.get('/new', function(req, res){
+	var spfdr = http.createClient(80, 'superfeedr.com');
+	//feedURL = decodeURIComponent(req.params.feed);
+	//feedName = decodeURIComponent(req.params.feedName);
+	//channel = req.params.channel;
+	//client.zadd(feedName, -1, feedURL);	
+	// client.rpush(channel, feedName);
 	res.writeHead('200');
+	rew.write('hello');
 	res.end();
 	var request = spfdr.request('POST', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
 		'hub.mode':'subscribe',
 		'hub.topic':feedURL,
-		'hub.callback': 'http://64.30.138.240/feed/'+channel+'/'+feedName+'/',
+		'hub.callback': 'http://64.30.138.240/feed/'+channel+'/'+feedName,
 		'Accept':'application/json',
 		'hub.verify':'async'
 	})
@@ -221,25 +243,3 @@ if (!module.parent) {
   app.listen(80);
   sys.puts("Express server listening on port %d", app.address().port)
 }
-var into = new function(){
-	var repo = new Array();
-	multi = client.multi();
-	client.lrange('channels', 0, -1, function (err, repo){
-		repo = repo;
-		sys.puts(repo);
-		for (r in repo)
-		{
-			multi.lrange(repo[r], -0, -1, function (err, reply){})		
-		}
-		multi.exec(function(err, echo){
-			num = echo.length;
-			// need to add min/max to zunionstore to only "recent" scores
-			// or else use limit offset above, depenidng on size of indexes
-			client.zunionstore(['frontPage', num].concat(echo), function (err, front){
-				if(err){sys.puts(err)};
-				front = front;
-				sys.puts("hi")
-			})
-		});	
-	});
-};
