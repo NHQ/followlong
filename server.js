@@ -139,13 +139,13 @@ send404 = function(res){
   res.write('404');
   res.end();
 };
-
+/*
 app.post('/new', function(req, res){
 	newfeed.fURL(req.body.url, req.body.fname);
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('hello');
 });
-
+*/
 /* 
 app.get('/new-user', function(res, res){
 	res.render('new-user', {
@@ -174,7 +174,10 @@ app.get('/test', function(req, res){
 });
 
 app.get('/new/:channel/:feed/:feedName', function(req, res){
+	res.writeHead('200');
+	rew.write('hello');
 	res.redirect('/');
+	res.end();
 	//var spfdr = http.createClient(80, 'superfeedr.com');
 	feedURL = req.params.feed;
 	feedName = req.params.feedName;
@@ -182,9 +185,6 @@ app.get('/new/:channel/:feed/:feedName', function(req, res){
 	console.log(feedURL+'\n'+feedName+'\n'+channel);
 	client.zadd(feedName, -1, feedURL);	
 	client.rpush(channel, feedName);
-	res.writeHead('200');
-	rew.write('hello');
-	res.end();
 /*	var request = spfdr.request('POST', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
