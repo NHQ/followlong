@@ -149,11 +149,7 @@ app.get('/test', function(req, res){
 		'Application-type': 'application/json'
 	});
 	request.end(d, encoding='utf8');
-	var peep = client.ZREVRANGEBYSCORE("Johnny's Likes", 1241616887, 1271851241, "WITHSCORES", function(err, ditto){
-		if (err){console.log(err)};
-		ditto = ditto;
-		console.log(ditto)
-	});
+	res.redirect('/');
 });
 
 app.post('/new/:channel/:feed/:feedName', function(req, res){
