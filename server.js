@@ -198,7 +198,7 @@ app.get('/new/:channel/', function(req, res){
 	})
 });
 
-app.get('/feed/', function(req, res){
+app.get('/feed', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(url, sep='&', eq='=');
@@ -208,7 +208,7 @@ app.get('/feed/', function(req, res){
 	res.end();
 });
 
-app.post('/feed/', function(req, res){
+app.post('/feed', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
 	req.on('data', function(data){
