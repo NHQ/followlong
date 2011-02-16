@@ -201,7 +201,7 @@ app.get('/new/:channel/', function(req, res){
 app.get('/feed', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
-	query = querystring.parse(url, sep='&', eq='=');
+	query = querystring.parse(path, sep='&', eq='=');
 	challenge = query.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
