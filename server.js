@@ -198,7 +198,7 @@ app.get('/new/:channel/', function(req, res){
 	})
 });
 
-app.get('/feed', function(req, res){
+app.get('/feed/:channel/:feedName', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
@@ -208,9 +208,12 @@ app.get('/feed', function(req, res){
 	res.end();
 });
 
-app.post('/feed', function(req, res){
+app.post('/feed/:channel/:feedName', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
+
+	feedName: req.params.feedName;
+	channel = req.params.channel;
 	req.on('data', function(data){
 		var d = JSON.parse(data);
 		var dl = d.items.length;
@@ -218,21 +221,21 @@ app.post('/feed', function(req, res){
 		for (x = 0; x < dl; ++x){
 			picture = "Set Me to some kind of default picture"; // do what the green line says!
 			var content;	
-			if (d.items[x].standardLinks){
-				picture = d.items[x].standardLinks.picture[0].href
+			if (d.entries[x].standardLinks){
+				picture = d.entries[x].standardLinks.picture[0].href
 			};
 			sys.puts(d.title);
-			client.zadd(d.title, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
+			client.zadd(feedName, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
 			client.hmset(d.items[x].title, 
 				{
-					"content": d.items[x].content,
-					"link": d.items[x].permalinkUrl,
-					"title": d.items[x].title,
+					"content": d.entries[x].content,
+					"link": d.entries[x].permalinkUrl,
+					"title": FeedName,
 					"pic": picture,
-					"id": d.title,
+					"id": d.status.feed,
 					"channel": channel,
-					"score": d.items[x].postedTime,
-					"created": d.items[x].postedTime
+					"score": d.entries[x].postedTime,
+					"created": d.entries[x].postedTime
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
 		};
 	//res.end()
