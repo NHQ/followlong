@@ -221,7 +221,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 	});
 	
 	req.on('end', function (){
-		console.log('data');
+		console.log(data);
 		//var d = JSON.parse(data);
 		var dl = d.items.length;
 		for (x = 0; x < dl; ++x){
