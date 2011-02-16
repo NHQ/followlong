@@ -12,6 +12,7 @@ var app = module.exports = express.createServer(),
     crypto = require('crypto')
     , http = require('http')
     , url = require('url')
+	, querystring = require('querystring')
     , fs = require('fs')
     , sys = require(process.binding('natives').util ? 'util' : 'sys')
     , server
@@ -173,45 +174,43 @@ app.get('/test', function(req, res){
 	res.redirect('/');
 });
 
-app.get('/new/:channel/:feed/:feedName', function(req, res){
+app.get('/new/:channel/', function(req, res){
 	res.writeHead('200');
-	rew.write('hello');
 	res.redirect('/');
 	res.end();
-	//var spfdr = http.createClient(80, 'superfeedr.com');
-	feedURL = req.params.feed;
-	feedName = req.params.feedName;
+	var spfdr = http.createClient(80, 'superfeedr.com');
+	var path = url.parse(req.url).query;
+	query = querystring.parse(path, sep='&', eq='=');
+	feedName = query.feedName;
+	feedURL = query.feedURL;
 	channel = req.params.channel;
-	console.log(feedURL+'\n'+feedName+'\n'+channel);
+	console.log(query);
 	client.zadd(feedName, -1, feedURL);	
 	client.rpush(channel, feedName);
-/*	var request = spfdr.request('POST', '/hubbub', {
+	var request = spfdr.request('POST', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
 		'hub.mode':'subscribe',
 		'hub.topic':feedURL,
-		'hub.callback': 'http://64.30.138.240/feed/'+channel+'/'+feedName,
+		'hub.callback': 'http://64.30.138.240/feed/',
 		'Accept':'application/json',
 		'hub.verify':'async'
-	}) */
-// TODO createClient()
+	})
 });
 
-app.get('/feed/:channel/:feedName', function(req, res){
+app.get('/feed/', function(req, res){
 	var path = url.parse(req.url).query;
-	challenge = path.substring(path.indexOf('=')+1, path.indexOf('&'));
+	query = querystring.parse(url, sep='&', eq='=');
+	challenge = query.challenge;
 	client.set('path', challenge);
 	res.writeHead('200');
 	res.write(challenge);
 	res.end();
 });
 
-app.post('/feed/:channel/:feedName', function(req, res){
+app.post('/feed/', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
-
-	channel = req.params.channel;
-	feedName = req.params.feedName;
 	req.on('data', function(data){
 		var d = JSON.parse(data);
 		var dl = d.items.length;
