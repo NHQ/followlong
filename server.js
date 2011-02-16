@@ -214,10 +214,15 @@ app.post('/feed/:channel/:feedName', function(req, res){
 
 	feedName: req.params.feedName;
 	channel = req.params.channel;
-	req.on('data', function(data){
+	var data;
+	
+	req.on('data', function(chunk){
+		data += chunk;
+	});
+	
+	req.on('end', function (){
 		var d = JSON.parse(data);
 		var dl = d.items.length;
-		
 		for (x = 0; x < dl; ++x){
 			picture = "Set Me to some kind of default picture"; // do what the green line says!
 			var content;	
