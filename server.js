@@ -221,6 +221,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 	});
 	
 	req.on('end', function (){
+		console.log('request ended. What now?')
 		var d = JSON.parse(data);
 		var dl = d.items.length;
 		for (x = 0; x < dl; ++x){
@@ -233,7 +234,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 			client.zadd(feedName, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
 			client.hmset(d.items[x].title, 
 				{
-					"content": d.entries[x].content,
+					"content": d.entries[x].summary,
 					"link": d.entries[x].permalinkUrl,
 					"title": FeedName,
 					"pic": picture,
