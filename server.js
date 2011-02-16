@@ -163,10 +163,10 @@ app.post('/new-user', function(req, res){
 });
 */
 app.get('/test', function(req, res){
-	d = fs.readFileSync('./schema.json', 'utf8');
+	d = fs.readFileSync('./more.json', 'utf8');
 	datum = JSON.stringify(d);
 	data = JSON.parse(d);
-	var request = local.request('POST', '/feed/vimeo/Videos%20Angeline%20Gragasin%20likes', {
+	var request = local.request('POST', '/feed/vimeo/Angeline_Likes', {
 		'host': '64.30.138.240',
 		'Application-type': 'application/json'
 	});
@@ -221,8 +221,8 @@ app.post('/feed/:channel/:feedName', function(req, res){
 	});
 	
 	req.on('end', function (){
-		console.log('request ended. What now?')
-		var d = JSON.parse(data);
+		console.log('request ended. What now?');
+		//var d = JSON.parse(data);
 		var dl = d.items.length;
 		for (x = 0; x < dl; ++x){
 			picture = "Set Me to some kind of default picture"; // do what the green line says!
