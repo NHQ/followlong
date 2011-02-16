@@ -202,7 +202,7 @@ app.get('/feed', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	challenge = query.challenge;
+	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
 	res.end();
