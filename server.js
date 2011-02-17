@@ -145,7 +145,7 @@ app.post('/newChannel', getSesh, function (req, res) {
 app.post('/deleteChannel', getSesh, function (req, res){
 	res.writeHead('200');
 	client.srem(req.facts+'@channels', req.query.channel, function (err, result){
-		if (err)(res.write("error");res.end())
+		if (err)res.write("error");res.end()
 	})
 });
 
