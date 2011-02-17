@@ -76,6 +76,7 @@ var into = new function(){
 			})
 		});	
 	});
+	setTimeout(into, 60000);
 };
 // Routes
 
@@ -182,24 +183,28 @@ app.get('/new/:channel/', function(req, res){
 	var spfdr = http.createClient(80, 'superfeedr.com');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	feedName = query.feedName;
-	feedURL = query.feedURL;
+	unfurl = decodeURIComponent(query.furl);
 	channel = req.params.channel;
 	console.log(query);
-	client.zadd(feedName, -1, feedURL);	
-	client.rpush(channel, feedName);
+	client.zadd(unfurl, -1, unfurl);	
+	client.rpush(channel, unfurl);
+	var datum = 'hub.mode=subscribe&hub.callback=http://64.30.138.240/feed/'+channel+'/'+encodeURIComponent(query.furl)+'/&hub.verify=sync&hub.topic='+query.furl+"'";
 	var request = spfdr.request('POST', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
-		'hub.mode':'subscribe',
-		'hub.topic':feedURL,
-		'hub.callback': 'http://64.30.138.240/feed/',
 		'Accept':'application/json',
-		'hub.verify':'async'
+		'Content-Length': datum.length
+	});
+	request.write(datum, 'utf8');
+	request.end();
+	request.on('response', function (response){
+		response.on('data', function (stuff){
+			console.log(stuff.toString('utf8', 0, stuff.length))
+		})
 	})
 });
 
-app.get('/feed/:channel/:feedName', function(req, res){
+app.get('/feed/:channel/:furl/', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
@@ -209,7 +214,7 @@ app.get('/feed/:channel/:feedName', function(req, res){
 	res.end();
 });
 
-app.post('/feed/:channel/:feedName', function(req, res){
+app.post('/feed/:channel/:furl/', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
 
@@ -223,7 +228,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 		console.log(data);
 		var d = JSON.parse(data);
 		var dl = d.entries.length;
-		feedName = req.params.feedName;
+		unfurl = decodeURIComponent(req.params.furl);
 		channel = req.params.channel;
 		for (x = 0; x < dl; ++x){
 			picture = ""; // do what the green line says!
@@ -232,16 +237,15 @@ app.post('/feed/:channel/:feedName', function(req, res){
 				picture = d.entries[x].standardLinks.picture[0].href
 			};
 			sys.puts(d.title);
-			client.zadd(feedName, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
+			client.zadd(unfurl, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
 			client.hmset(d.entries[x].title, 
 				{
 					"content": d.entries[x].summary,
 					"link": d.entries[x].permalinkUrl,
 					"title": d.entries[x].title,
 					"pic": picture,
-					"id": d.status.feed,
 					"channel": channel,
-					"feedName": feedName,
+					"furl": unfurl,
 					"score": d.entries[x].postedTime,
 					"created": d.entries[x].postedTime
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
@@ -252,6 +256,6 @@ app.post('/feed/:channel/:feedName', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(80);
+  app.listen(8080);
   sys.puts("Express server listening on port %d", app.address().port)
 }
