@@ -93,7 +93,7 @@ app.get('/', function(req, res){
 			console.log(reply)
 			articles = reply;
 			res.render('index', {
-				locals: {title: "Redis", articles: articles}
+				locals: {title: "Redis", !{articles: articles}}
 			})
 		})
 	})
