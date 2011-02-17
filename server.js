@@ -188,7 +188,7 @@ app.get('/new/:channel/', function(req, res){
 	console.log(query);
 	client.zadd(unfurl, -1, unfurl);	
 	client.rpush(channel, unfurl);
-	var datum = 'hub.mode=subscribe&hub.callback=http://64.30.138.240/feed/'+channel+'/'+encodeURIComponent(query.furl)+'/&hub.verify=sync&hub.topic='+query.furl+"'";
+	var datum = 'hub.mode=subscribe&hub.callback=http://64.30.138.240/feed/?channel='+channel+'&furl='+encodeURIComponent(query.furl)+'/&hub.verify=sync&hub.topic='+query.furl+"'";
 	var request = spfdr.request('POST', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -204,7 +204,7 @@ app.get('/new/:channel/', function(req, res){
 	})
 });
 
-app.get('/feed/:channel/:furl/', function(req, res){
+app.get('/feed/', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
@@ -214,10 +214,10 @@ app.get('/feed/:channel/:furl/', function(req, res){
 	res.end();
 });
 
-app.post('/feed/:channel/:furl/', function(req, res){
+app.post('/feed/', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
-
+	var query = url.parse(req.url).query;
 	var data = new String();
 	console.log(data);
 	req.on('data', function(chunk){
@@ -228,8 +228,8 @@ app.post('/feed/:channel/:furl/', function(req, res){
 		console.log(data);
 		var d = JSON.parse(data);
 		var dl = d.entries.length;
-		unfurl = decodeURIComponent(req.params.furl);
-		channel = req.params.channel;
+		unfurl = query.furl;
+		channel = query.channel;
 		for (x = 0; x < dl; ++x){
 			picture = ""; // do what the green line says!
 			var content;	
