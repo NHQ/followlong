@@ -182,7 +182,7 @@ app.post('/addChannel', getSesh, function (req, res){
 	})
 });
 
-app.get('/getFeed', getSesh, function (req. res){
+app.get('/getFeed', getSesh, function (req, res){
 	res.writeHead('200');
 	client.zrevrangebyscore(decodeURIComponent(req.query.feed), epoch(), epoch()-450061, "limit", "0", "75", function(err, titles){
 		if(err){res.write('error')}
