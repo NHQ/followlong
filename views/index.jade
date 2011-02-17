@@ -6,5 +6,5 @@ h1= title
         a(href=article.link, id: article.id) #{article.title}
       .picture
         a(href=article.link, id: article.id)
-          img(src=article.pic)  
-      .body #{article.content}
+          #{article.pic}
+      .body !{article.content}
