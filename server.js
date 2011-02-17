@@ -82,14 +82,15 @@ var into = new function(){
 app.get('/', function(req, res){
 	multi = client.multi();
 	client.zrevrangebyscore('frontPage',1297885787, 1296718384, "limit", "0", "10", function(err, data){
-		if(err){sys.puts(err)}
+		if(err){console.log(err)}
 		for (d in data)
 		{
 			multi.hgetall(data[d], function(err, contents){
 			})
 		}
 		multi.exec(function(err, reply){
-			if(err){sys.puts(err)}
+			if(err){console.log(err)}
+			console.log(reply)
 			articles = reply;
 			res.render('index', {
 				locals: {title: "Redis", articles: articles}
