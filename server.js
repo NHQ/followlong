@@ -81,7 +81,7 @@ var into = new function(){
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage',1297885787, 1296718384, "limit", "0", "10", function(err, data){
+	client.zrevrangebyscore('frontPage',1397885787, 1295718384, "limit", "0", "10", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{
@@ -226,7 +226,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 		feedName = req.params.feedName;
 		channel = req.params.channel;
 		for (x = 0; x < dl; ++x){
-			picture = "Set Me to some kind of default picture"; // do what the green line says!
+			picture = ""; // do what the green line says!
 			var content;	
 			if (d.entries[x].standardLinks.picture){
 				picture = d.entries[x].standardLinks.picture[0].href
@@ -237,10 +237,11 @@ app.post('/feed/:channel/:feedName', function(req, res){
 				{
 					"content": d.entries[x].summary,
 					"link": d.entries[x].permalinkUrl,
-					"title": feedName,
+					"title": d.entries[x].title,
 					"pic": picture,
 					"id": d.status.feed,
 					"channel": channel,
+					"feedName": feedName,
 					"score": d.entries[x].postedTime,
 					"created": d.entries[x].postedTime
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
