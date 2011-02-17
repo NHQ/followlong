@@ -212,11 +212,10 @@ app.post('/feed/:channel/:feedName', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
 
-	var data = {};
+	var data = new String();
 	console.log(data);
 	req.on('data', function(chunk){
 		data += chunk;
-	console.log(data);
 	});
 	
 	req.on('end', function (){
