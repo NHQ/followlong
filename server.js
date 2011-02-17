@@ -81,7 +81,7 @@ var into = new function(){
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage',1271851245, 1271851241, "limit", "0", "10", function(err, data){
+	client.zrevrangebyscore('frontPage',1297885787, 1296718384, "limit", "0", "10", function(err, data){
 		if(err){sys.puts(err)}
 		for (d in data)
 		{
