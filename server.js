@@ -227,7 +227,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 		for (x = 0; x < dl; ++x){
 			picture = "Set Me to some kind of default picture"; // do what the green line says!
 			var content;	
-			if (d.entries[x].standardLinks){
+			if (d.entries[x].standardLinks.picture){
 				picture = d.entries[x].standardLinks.picture[0].href
 			};
 			sys.puts(d.title);
