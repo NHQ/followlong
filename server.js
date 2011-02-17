@@ -232,7 +232,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 			};
 			sys.puts(d.title);
 			client.zadd(feedName, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
-			client.hmset(d.items[x].title, 
+			client.hmset(d.entries[x].title, 
 				{
 					"content": d.entries[x].summary,
 					"link": d.entries[x].permalinkUrl,
