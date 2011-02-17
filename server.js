@@ -222,7 +222,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 		console.log(data);
 		var d = JSON.parse(data);
 		var dl = d.entries.length;
-		feedName: req.params.feedName;
+		feedName = req.params.feedName;
 		channel = req.params.channel;
 		for (x = 0; x < dl; ++x){
 			picture = "Set Me to some kind of default picture"; // do what the green line says!
@@ -236,7 +236,7 @@ app.post('/feed/:channel/:feedName', function(req, res){
 				{
 					"content": d.entries[x].summary,
 					"link": d.entries[x].permalinkUrl,
-					"title": FeedName,
+					"title": feedName,
 					"pic": picture,
 					"id": d.status.feed,
 					"channel": channel,
