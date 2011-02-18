@@ -207,11 +207,10 @@ app.get('/new/:channel/', function(req, res){
 	channel = req.params.channel;
 	console.log(query);
 	client.zadd(unfurl, -1, unfurl);	
-	client.rpush(channel, unfurl, function(
-		res.redirect('/');
-		res.end();
-	));
+	client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
+	res.redirect('/');
+	res.end();
 });
 
 app.get('/feed/', function(req, res){
