@@ -208,9 +208,38 @@ function retrieve (channel, feed){
 	request.write(data, encoding='utf8');
 	request.end();
 	request.on('response', function (response){
-		response.on('data', function (stuff){
-			console.log(stuff.toString('utf8', 0, stuff.length))
-		})
+		var data = new String();
+		response.on('data', function(chunk){
+			data += chunk;
+			console.log(chunk.toString('utf8', 0, chunk.length))
+		});
+
+		response.on('end', function (){
+			console.log(data);
+			var d = JSON.parse(data);
+			var dl = d.entries.length;
+			for (x = 0; x < dl; ++x){
+				picture = ""; // do what the green line says!
+				var content;	
+				if (d.entries[x].standardLinks.picture){
+					picture = d.entries[x].standardLinks.picture[0].href
+				};
+				sys.puts(d.title);
+				client.zadd(feed, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
+				client.hmset(d.entries[x].title, 
+					{
+						"content": d.entries[x].summary,
+						"link": d.entries[x].permalinkUrl,
+						"title": d.entries[x].title,
+						"pic": picture,
+						"channel": channel,
+						"furl": feed,
+						"score": d.entries[x].postedTime,
+						"created": d.entries[x].postedTime
+					}, function(err, reply){if (err){sys.puts("error: " + err)}})
+			};
+		//res.end()
+		});
 	})
 }
 
