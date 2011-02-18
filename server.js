@@ -70,7 +70,7 @@ function frontis(){
 		}
 		multi.exec(function(err, echo){
 			allem = new Array();
-			allem.concat(allem, echo);
+			allem.concat.apply(allem, echo);
 			num = allem.length;
 			// need to add min/max to zunionstore to only "recent" scores
 			// or else use limit offset above, depenidng on size of indexes
