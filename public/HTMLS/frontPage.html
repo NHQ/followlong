@@ -68,7 +68,7 @@
    var channy = $.getJSON('/userChannels', function(channels){
        for (c in chans)
      	    {
-     	      var channel = '<li class="channel" id="'+chans[c]+'"><h1>'+chans[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
+     	      var channel = '<li class="channel data-filter="'+chans[c]+'"><h1>'+chans[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
     });
   var feedMe = $.getJSON('/init', function (feeds){
