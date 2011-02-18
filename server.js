@@ -215,25 +215,25 @@ function retrieve (channel, feed){
 		response.on('end', function (){
 			var d = JSON.parse(ditto);
 			console.log(d);
-			var dl = d.entries.length;
+			var dl = d.items.length;
 			for (x = 0; x < dl; ++x){
 				picture = ""; // do what the green line says!
 				var content;	
 				if (d.entries[x].standardLinks.picture){
-					picture = d.entries[x].standardLinks.picture[0].href
+					picture = d.items[x].standardLinks.picture[0].href
 				};
 				sys.puts(d.title);
-				client.zadd(feed, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
-				client.hmset(d.entries[x].title, 
+				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
+				client.hmset(d.items[x].title, 
 					{
-						"content": d.entries[x].summary,
-						"link": d.entries[x].permalinkUrl,
-						"title": d.entries[x].title,
+						"content": d.items[x].summary,
+						"link": d.items[x].permalinkUrl,
+						"title": d.items[x].title,
 						"pic": picture,
 						"channel": channel,
 						"furl": feed,
-						"score": d.entries[x].postedTime,
-						"created": d.entries[x].postedTime
+						"score": d.items[x].postedTime,
+						"created": d.items[x].postedTime
 					}, function(err, reply){if (err){sys.puts("error: " + err)}})
 			};
 		//res.end()
