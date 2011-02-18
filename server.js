@@ -196,6 +196,24 @@ function subscribe (channel, feed){
 		})
 };
 
+function retrieve (channel, feed){
+	var spfdr = http.createClient(80, 'superfeedr.com');
+	data = "hub.mode=retrieve&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+encodeURIComponent(feed);
+	var request = spfdr.request('POST', '/hubbub', {
+		'Host':'superfeedr.com',
+		"Authorization":"basic TkhROmxvb3Bob2xl",
+		'Accept':'application/json',
+		'Content-Length': data.length
+	});
+	request.write(data, encoding='utf8');
+	request.end();
+	request.on('response', function (response){
+		response.on('data', function (stuff){
+			console.log(stuff.toString('utf8', 0, stuff.length))
+		})
+	})
+}
+
 app.get('/new/:channel/', function(req, res){
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
@@ -205,6 +223,7 @@ app.get('/new/:channel/', function(req, res){
 	client.zadd(unfurl, -1, unfurl);	
 	client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
+	retrieve(channel, unfurl);
 	res.redirect('/');
 	res.end();
 });
@@ -229,6 +248,8 @@ app.post('/feed/', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
 	var query = url.parse(req.url).query;
+	unfurl = query.furl;
+	channel = query.channel;
 	var data = new String();
 	req.on('data', function(chunk){
 		data += chunk;
@@ -239,8 +260,6 @@ app.post('/feed/', function(req, res){
 		console.log(data);
 		var d = JSON.parse(data);
 		var dl = d.entries.length;
-		unfurl = query.furl;
-		channel = query.channel;
 		for (x = 0; x < dl; ++x){
 			picture = ""; // do what the green line says!
 			var content;	
