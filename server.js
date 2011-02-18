@@ -192,7 +192,9 @@ function subscribe (channel, feed){
 			'Accept':'application/json',
 			'Content-Length': data.length
 		});
-		request.write(datum.concat(data), 'utf8');
+		for (chunk in data){
+		request.write(data[chunk], 'utf8');
+		};
 		request.end();
 		request.on('response', function (response){
 			response.on('data', function (stuff){
