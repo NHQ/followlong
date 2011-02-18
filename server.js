@@ -21,6 +21,8 @@ var app = module.exports = express.createServer(),
 	, RedisStore = require('connect-redis'), multi
 	, local = http.createClient(80, '64.30.138.240');
 
+var epoch = Math.round(new Date().getTime()/1000.0);
+
 client.on("error", function (err) {
     sys.puts("Error " + err);
 });
@@ -82,7 +84,7 @@ var into = new function(){
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage',1397885787, 1295718384, "limit", "0", "10", function(err, data){
+	client.zrevrangebyscore('frontPage', epoch, 1295718384, "limit", "0", "10", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{
@@ -256,6 +258,6 @@ app.post('/feed/', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(80);
+  app.listen(8080);
   sys.puts("Express server listening on port %d", app.address().port)
 }
