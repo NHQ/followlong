@@ -69,6 +69,7 @@ function frontis(){
 			multi.lrange(repo[r], 0, -1, function (err, reply){})		
 		}
 		multi.exec(function(err, echo){
+			console.log(echo);
 			num = echo.length;
 			// need to add min/max to zunionstore to only "recent" scores
 			// or else use limit offset above, depenidng on size of indexes
