@@ -57,7 +57,8 @@ function loadUser(req, res, next) {
   }
 }
 */
-var into = new function(){
+function frontis(){
+	var t = setTimeout(function(){frontis()}, 60000);
 	var repo = new Array();
 	multi = client.multi();
 	client.lrange('channels', 0, -1, function (err, repo){
@@ -75,11 +76,11 @@ var into = new function(){
 				if(err){sys.puts(err)};
 				front = front;
 				sys.puts("hi")
+				pub.publish('frontis', "hello");
 			})
 		});	
 	});
-	setTimeout(into, 60000);
-};
+}
 // Routes
 
 app.get('/', function(req, res){
@@ -214,6 +215,7 @@ app.get('/feed/', function(req, res){
 	client.set('path', challenge);
 	res.write(challenge);
 	res.end();
+	console.log(req.headers)
 });
 
 app.post('/feed/', function(req, res){
@@ -259,5 +261,6 @@ app.post('/feed/', function(req, res){
 
 if (!module.parent) {
   app.listen(80);
-  sys.puts("Express server listening on port %d", app.address().port)
+  sys.puts("Express server listening on port %d", app.address().port);
+	frontis();
 }
