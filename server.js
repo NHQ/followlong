@@ -219,7 +219,7 @@ function retrieve (channel, feed){
 			for (x = 0; x < dl; ++x){
 				picture = ""; // do what the green line says!
 				var content;	
-				if (d.entries[x].standardLinks.picture){
+				if (d.items[x].standardLinks.picture){
 					picture = d.items[x].standardLinks.picture[0].href
 				};
 				sys.puts(d.title);
