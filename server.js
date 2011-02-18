@@ -207,7 +207,6 @@ function retrieve (channel, feed){
 		'Content-Length': data.length
 	});
 	request.write(data, encoding='utf8');
-	request.end();
 	request.on('response', function (response){
 		response.on('data', function(chunk){
 			ditto += chunk;
