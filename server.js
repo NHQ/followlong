@@ -69,11 +69,12 @@ function frontis(){
 			multi.lrange(repo[r], 0, -1, function (err, reply){})		
 		}
 		multi.exec(function(err, echo){
-			console.log(echo);
-			num = echo.length;
+			allem = new Array();
+			allem.concat(allem, echo);
+			num = allem.length;
 			// need to add min/max to zunionstore to only "recent" scores
 			// or else use limit offset above, depenidng on size of indexes
-			client.zunionstore(['frontPage', num].concat(echo), function (err, front){
+			client.zunionstore(['frontPage', num].concat(alem), function (err, front){
 				if(err){sys.puts(err)};
 			})
 		});	
