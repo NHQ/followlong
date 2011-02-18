@@ -185,13 +185,14 @@ function subscribe (channel, feed){
 		t = 'hub.topic='+feed;
 		cb = 'hub.callback=http://64.30.138.240/feed/?channel='+channel+'&furl='+encodeURIComponent(feed);
 		data = [mode, v, t, cb];
+		datum = new Array();
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
 			'Content-Length': data.length
 		});
-		request.write(data.toString('utf8', 0, data.length), 'utf8');
+		request.write(datum.concat(data), 'utf8');
 		request.end();
 		request.on('response', function (response){
 			response.on('data', function (stuff){
