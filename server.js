@@ -180,19 +180,13 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		mode = 'hub.mode=subscribe';
-		v = 'hub.verify:sync';
-		t = 'hub.topic:'+feed;
-		cb = 'hub.callback:http://64.30.138.240/feed/?channel='+channel+'&furl='+encodeURIComponent(feed);
-		data = [mode, v, t, cb];
-		datum = new Array();
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
 			'Content-Length': data.length
 		});
-		request.write(mode, encoding='utf8');
+		request.write("hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+encodeURIComponent(feed), encoding='utf8');
 		request.end();
 		request.on('response', function (response){
 			response.on('data', function (stuff){
