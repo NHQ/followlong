@@ -74,7 +74,7 @@ function frontis(){
 			num = allem.length;
 			// need to add min/max to zunionstore to only "recent" scores
 			// or else use limit offset above, depenidng on size of indexes
-			client.zunionstore(['frontPage', num].concat(alem), function (err, front){
+			client.zunionstore(['frontPage', num].concat(allem), function (err, front){
 				if(err){sys.puts(err)};
 			})
 		});	
