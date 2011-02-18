@@ -215,7 +215,10 @@ app.get('/feed/', function(req, res){
 	client.set('path', challenge);
 	res.write(challenge);
 	res.end();
-	console.log(req.headers)
+	console.log(req.headers);
+	request.setBodyEncoding('utf8');
+	req.on('data', function(signal)	
+	{console.log(signal+' \n ' + signal.toString)})
 });
 
 app.post('/feed/', function(req, res){
