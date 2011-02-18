@@ -207,7 +207,8 @@ app.get('/new/:channel/', function(req, res){
 });
 
 app.get('/feed/', function(req, res){
-	console.log(req.headers);
+	heads = req.headers;
+	console.log(heads);
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
@@ -215,8 +216,9 @@ app.get('/feed/', function(req, res){
 	client.set('path', challenge);
 	res.write(challenge);
 	req.setEncoding('utf8');
-	req.on('data', function(stuff)
-		{console.log(stuff.toString('utf8', 0, stuff.length))});
+	req.on('data', function	(stuff){
+			console.log(stuff.toString('utf8', 0, stuff.length))
+	});
 	res.end();
 });
 
