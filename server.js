@@ -60,6 +60,7 @@ function loadUser(req, res, next) {
 function frontis(){
 	var t = setTimeout(function(){frontis()}, 60000);
 	var repo = new Array();
+	var allem = new Array();
 	multi = client.multi();
 	client.lrange('channels', 0, -1, function (err, repo){
 		repo = repo;
@@ -69,7 +70,6 @@ function frontis(){
 			multi.lrange(repo[r], 0, -1, function (err, reply){})		
 		}
 		multi.exec(function(err, echo){
-			allem = new Array();
 			allem.concat.apply(allem, echo);
 			num = allem.length;
 			// need to add min/max to zunionstore to only "recent" scores
