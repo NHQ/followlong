@@ -192,7 +192,7 @@ function subscribe (channel, feed){
 			'Accept':'application/json',
 			'Content-Length': data.length
 		});
-		request.write(encodeURIComponent(data.toString('utf8', 0, data.length)), 'utf8');
+		request.write(encodeURI(data.toString('utf8', 0, data.length)), 'utf8');
 		request.end();
 		request.on('response', function (response){
 			response.on('data', function (stuff){
