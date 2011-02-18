@@ -230,9 +230,9 @@ app.post('/feed/', function(req, res){
 	req.setEncoding('utf8');
 	var query = url.parse(req.url).query;
 	var data = new String();
-	console.log(data);
 	req.on('data', function(chunk){
 		data += chunk;
+		console.log(chunk.toString('utf8', 0, chunk.length))
 	});
 	
 	req.on('end', function (){
