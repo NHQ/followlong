@@ -66,11 +66,12 @@
    });
    
    var channy = $.getJSON('/userChannels', function(channels){
+     console.log(channels)
        for (c in channels)
      	    {
      	      var channel = '<li class="channel data-filter="'+channels[c]+'"><h1>'+channelss[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
-    });
+    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   var feedMe = $.getJSON('/init', function (feeds){
     $.each(feeds, function (k, v){
       var obj = new Object();
@@ -80,9 +81,9 @@
       $.getJSON('/getfeed?feed='+encodeURIComponent(k), function (content){
         for (c in content)
         var item = '<li class="article" data-feedName="'+content[c][1]+'" data-score="'+content[c][2]+'" data-channels="'+channels+'"><h1>'+content[c][0]+'</h1></a></li>';$appending = $(item);$container.isotope('insert', $appending);
-      })
+      }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
     })
-  });
+  }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 
   function admin(){
     $('#container').empty();
