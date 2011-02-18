@@ -66,7 +66,7 @@ function frontis(){
 		sys.puts(repo);
 		for (r in repo)
 		{
-			multi.lrange(repo[r], -0, -1, function (err, reply){})		
+			multi.lrange(repo[r], 0, -1, function (err, reply){})		
 		}
 		multi.exec(function(err, echo){
 			num = echo.length;
@@ -82,7 +82,7 @@ function frontis(){
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "10", function(err, data){
+	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "30", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{
