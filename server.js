@@ -495,7 +495,7 @@ app.get('/auth', function (req, res) {
 							});
 							client.rpush("everybodyInTheSystem", resulting.id)
 							var channels = ["Culture","Business","Politics","Work","Local"];
-							for (c = 0, c < 3, ++c) {client.sadd(resulting.id+'@channels', channels[c])};
+							for (c = 0;c < 3;++c) {client.sadd(resulting.id+'@channels', channels[c])};
 							// client.hmset(resulting.id+'@feeds', channels[0],placeHolder,channels[1],placeHolder,channels[2],placeHolder)
 						}						
 					})
