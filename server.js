@@ -215,8 +215,8 @@ app.get('/feed/', function(req, res){
 	client.set('path', challenge);
 	res.write(challenge);
 	req.setEncoding('utf8');
-	req.on('data', function(signal)	
-	{console.log(signal+' \n ' + signal.toString)})
+	req.on('data', function(stuff)	
+	{console.log(stuff.toString('utf8', 0, stuff.length)})
 	res.end();
 });
 
