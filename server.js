@@ -187,12 +187,12 @@ function subscribe (channel, feed){
 			'Content-Length': data.length
 		});
 		request.write(data, encoding='utf8');
-		request.end();
 		request.on('response', function (response){
 			response.on('data', function (stuff){
 				console.log(stuff.toString('utf8', 0, stuff.length))
 			})
 		})
+		request.end();
 };
 
 function retrieve (channel, feed){
@@ -247,7 +247,6 @@ app.get('/new/:channel/', function(req, res){
 	client.zadd(unfurl, -1, unfurl);	
 	client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
-	retrieve(channel, unfurl);
 	res.redirect('/');
 	res.end();
 });
@@ -258,12 +257,16 @@ app.get('/feed/', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
+	channel = query.channel;
+	feed = query.furl;
+	console.log(feed+"   "+channel)
 	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
 	req.setEncoding('utf8');
 	req.on('data', function	(stuff){
-			console.log(stuff.toString('utf8', 0, stuff.length))
+			console.log(stuff.toString('utf8', 0, stuff.length));
+			retrieve(channel,feed);
 	});
 	res.end();
 });
@@ -302,7 +305,7 @@ app.post('/feed/', function(req, res){
 					"furl": unfurl,
 					"score": d.items[x].postedTime,
 					"created": d.items[x].postedTime
-				}, function(err, reply){if (err){sys.puts("error: " + err)}})
+				}, function(err, reply){if (err){console.log("error: " + err)}})
 		};
 	//res.end()
 	});
