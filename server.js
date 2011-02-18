@@ -207,17 +207,17 @@ app.get('/new/:channel/', function(req, res){
 });
 
 app.get('/feed/', function(req, res){
+	console.log(req.headers);
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
 	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
-	res.end();
-	console.log(req.headers);
 	req.setEncoding('utf8');
 	req.on('data', function(signal)	
 	{console.log(signal+' \n ' + signal.toString)})
+	res.end();
 });
 
 app.post('/feed/', function(req, res){
