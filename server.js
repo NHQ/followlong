@@ -283,25 +283,25 @@ app.post('/feed/', function(req, res){
 	req.on('end', function (){
 		console.log(data);
 		var d = JSON.parse(data);
-		var dl = d.entries.length;
+		var dl = d.items.length;
 		for (x = 0; x < dl; ++x){
 			picture = ""; // do what the green line says!
 			var content;	
-			if (d.entries[x].standardLinks.picture){
-				picture = d.entries[x].standardLinks.picture[0].href
+			if (d.items[x].standardLinks.picture){
+				picture = d.items[x].standardLinks.picture[0].href
 			};
 			sys.puts(d.title);
-			client.zadd(unfurl, d.entries[x].postedTime, d.entries[x].title, function(err, reply){if (err){sys.puts(err)}});
-			client.hmset(d.entries[x].title, 
+			client.zadd(unfurl, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
+			client.hmset(d.items[x].title, 
 				{
-					"content": d.entries[x].summary,
-					"link": d.entries[x].permalinkUrl,
-					"title": d.entries[x].title,
+					"content": d.items[x].summary,
+					"link": d.items[x].permalinkUrl,
+					"title": d.items[x].title,
 					"pic": picture,
 					"channel": channel,
 					"furl": unfurl,
-					"score": d.entries[x].postedTime,
-					"created": d.entries[x].postedTime
+					"score": d.items[x].postedTime,
+					"created": d.items[x].postedTime
 				}, function(err, reply){if (err){sys.puts("error: " + err)}})
 		};
 	//res.end()
