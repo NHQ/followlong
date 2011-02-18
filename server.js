@@ -21,7 +21,7 @@ var app = module.exports = express.createServer(),
 	, RedisStore = require('connect-redis'), multi
 	, local = http.createClient(80, '64.30.138.240');
 
-var epoch = Math.round(new Date().getTime()/1000.0);
+function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
 client.on("error", function (err) {
     sys.puts("Error " + err);
@@ -74,9 +74,6 @@ function frontis(){
 			// or else use limit offset above, depenidng on size of indexes
 			client.zunionstore(['frontPage', num].concat(echo), function (err, front){
 				if(err){sys.puts(err)};
-				front = front;
-				sys.puts("hi")
-				pub.publish('frontis', "hello");
 			})
 		});	
 	});
@@ -221,7 +218,6 @@ function retrieve (channel, feed){
 				if (d.items[x].standardLinks.picture){
 					picture = d.items[x].standardLinks.picture[0].href
 				};
-				sys.puts(d.title);
 				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 				client.hmset(d.items[x].title, 
 					{
