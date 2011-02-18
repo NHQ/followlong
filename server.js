@@ -208,15 +208,14 @@ function retrieve (channel, feed){
 	request.write(data, encoding='utf8');
 	request.end();
 	request.on('response', function (response){
-		var data = new String();
+		var ditto = new String();
 		response.on('data', function(chunk){
-			data += chunk;
+			ditto += chunk;
 			console.log(chunk.toString('utf8', 0, chunk.length))
 		});
 
 		response.on('end', function (){
-			console.log(data);
-			var d = JSON.parse(data);
+			var d = JSON.parse(ditto);
 			var dl = d.entries.length;
 			for (x = 0; x < dl; ++x){
 				picture = ""; // do what the green line says!
