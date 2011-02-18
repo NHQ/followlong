@@ -198,7 +198,7 @@ function subscribe (channel, feed){
 
 function retrieve (channel, feed){
 	var spfdr = http.createClient(80, 'superfeedr.com');
-	data = "hub.mode=retrieve&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+encodeURIComponent(feed);
+	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+encodeURIComponent(feed);
 	var request = spfdr.request('POST', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
