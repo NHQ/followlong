@@ -66,13 +66,14 @@
    });
    
    var channy = $.getJSON('/userChannels', function(channels){
-     console.log(channels)
+     console.log(channels);
        for (c in channels)
      	    {
-     	      var channel = '<li class="channel data-filter="'+channels[c]+'"><h1>'+channelss[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
+     	      var channel = '<li class="channel data-filter="'+channels[c]+'"><h1>'+channels[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
     }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   var feedMe = $.getJSON('/init', function (feeds){
+    console.log(feeds);
     $.each(feeds, function (k, v){
       var obj = new Object();
       obj.feed = k;
