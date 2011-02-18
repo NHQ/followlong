@@ -178,32 +178,40 @@ app.get('/test', function(req, res){
 	res.redirect('/');
 });
 
+function subscribe (channel, feed){
+		var spfdr = http.createClient(80, 'superfeedr.com');
+		mode = 'hub.mode=subscribe';
+		v = 'hub.verify=sync';
+		t = 'hub.topic='+feed;
+		cb = 'hub.callback=http://64.30.138.240/feed/?channel='+channel+'&furl='+encodeURIComponent(feed);
+		data = [mode, v, t, cb];
+		var request = spfdr.request('POST', '/hubbub', {
+			'Host':'superfeedr.com',
+			"Authorization":"basic TkhROmxvb3Bob2xl",
+			'Accept':'application/json',
+			'Content-Length': data.length
+		});
+		request.write(data, 'utf8');
+		request.end();
+		request.on('response', function (response){
+			response.on('data', function (stuff){
+				console.log(stuff.toString('utf8', 0, stuff.length))
+			})
+		})
+};
+
 app.get('/new/:channel/', function(req, res){
-	res.writeHead('200');
-	res.redirect('/');
-	res.end();
-	var spfdr = http.createClient(80, 'superfeedr.com');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	unfurl = decodeURIComponent(query.furl);
+	unfurl = query.furl;
 	channel = req.params.channel;
 	console.log(query);
 	client.zadd(unfurl, -1, unfurl);	
-	client.rpush(channel, unfurl);
-	var datum = 'hub.mode=subscribe&hub.verify=sync&hub.topic='+query.furl+'&hub.callback=http://64.30.138.240/feed/?channel='+channel+'&furl='+encodeURIComponent(query.furl)+"'";
-	var request = spfdr.request('POST', '/hubbub', {
-		'Host':'superfeedr.com',
-		"Authorization":"basic TkhROmxvb3Bob2xl",
-		'Accept':'application/json',
-		'Content-Length': datum.length
-	});
-	request.write(datum, 'utf8');
-	request.end();
-	request.on('response', function (response){
-		response.on('data', function (stuff){
-			console.log(stuff.toString('utf8', 0, stuff.length))
-		})
-	})
+	client.rpush(channel, unfurl, function(
+		res.redirect('/');
+		res.end();
+	));
+	subscribe(channel, unfurl);
 });
 
 app.get('/feed/', function(req, res){
