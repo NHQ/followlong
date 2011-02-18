@@ -198,6 +198,7 @@ function subscribe (channel, feed){
 
 function retrieve (channel, feed){
 	var spfdr = http.createClient(80, 'superfeedr.com');
+	var ditto = new String();
 	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+encodeURIComponent(feed);
 	var request = spfdr.request('GET', '/hubbub', {
 		'Host':'superfeedr.com',
@@ -208,14 +209,12 @@ function retrieve (channel, feed){
 	request.write(data, encoding='utf8');
 	request.end();
 	request.on('response', function (response){
-		var ditto = new String();
 		response.on('data', function(chunk){
 			ditto += chunk;
-			console.log(chunk.toString('utf8', 0, chunk.length))
 		});
-
 		response.on('end', function (){
 			var d = JSON.parse(ditto);
+			console.log(d);
 			var dl = d.entries.length;
 			for (x = 0; x < dl; ++x){
 				picture = ""; // do what the green line says!
@@ -239,8 +238,8 @@ function retrieve (channel, feed){
 			};
 		//res.end()
 		});
-	})
-}
+	});
+};
 
 app.get('/new/:channel/', function(req, res){
 	var path = url.parse(req.url).query;
