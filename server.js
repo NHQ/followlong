@@ -94,7 +94,6 @@ app.get('/', function(req, res){
 		}
 		multi.exec(function(err, reply){
 			if(err){console.log(err)}
-			console.log(reply)
 			articles = reply;
 			res.render('index', {
 				locals: {title: "Redis", articles: articles}
@@ -216,7 +215,7 @@ app.get('/feed/', function(req, res){
 	res.write(challenge);
 	res.end();
 	console.log(req.headers);
-	request.setBodyEncoding('utf8');
+	req.setEncoding('utf8');
 	req.on('data', function(signal)	
 	{console.log(signal+' \n ' + signal.toString)})
 });
