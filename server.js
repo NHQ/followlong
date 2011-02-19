@@ -179,7 +179,7 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel+"/;
+		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel+"/";
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -239,8 +239,9 @@ function retrieve (channel, feed){
 
 app.get('/new/:channel/', function(req, res){
 	var path = url.parse(req.url).query;
+	console.log(path);
 	query = querystring.parse(path, sep='&', eq='=');
-	unfurl = query.furl;
+	unfurl = query.hub.topic;
 	channel = req.params.channel;
 	console.log(query);
 	client.zadd(unfurl, -1, unfurl);	
