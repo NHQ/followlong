@@ -179,7 +179,7 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel+"/?furl="+feed;
+		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel+"/;
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -274,8 +274,8 @@ app.post('/feed/:channel/', function(req, res){
 	console.log('a very palpable hit!')
 	res.writeHead('200');
 	req.setEncoding('utf8');
-	var query = url.parse(req.url).query;
-	unfurl = query.furl;
+	//var query = url.parse(req.url).query;
+	//unfurl = query.furl;
 	channel = req.params.channel;
 	var data = new String();
 	req.on('data', function(chunk){
@@ -287,6 +287,7 @@ app.post('/feed/:channel/', function(req, res){
 		var d = JSON.parse(data);
 				console.log(d);
 		var dl = d.items.length;
+		unfurl = d.status.feed
 		for (x = 0; x < dl; ++x){
 			picture = ""; // do what the green line says!	
 			if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
