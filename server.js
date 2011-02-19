@@ -241,11 +241,10 @@ app.get('/new/:channel/', function(req, res){
 	var path = url.parse(req.url).query;
 	console.log(path);
 	query = querystring.parse(path, sep='&', eq='=');
-	//unfurl = query.hub.topic;
+	unfurl = query.furl;
 	channel = req.params.channel;
-	//console.log(query);
-	//client.zadd(unfurl, -1, unfurl);	
-	//client.rpush(channel, unfurl);
+	client.zadd(unfurl, -1, unfurl);	
+	client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
 	var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 	res.redirect('/');
@@ -258,9 +257,10 @@ app.get('/feed/:channel/', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
+	console.log(query);
 	channel = req.params.channel;
-	feed = query.furl;
-	console.log(feed+"   "+channel)
+	//feed = query.furl;
+	//console.log(feed+"   "+channel)
 	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
