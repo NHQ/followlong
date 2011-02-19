@@ -216,8 +216,7 @@ function retrieve (channel, feed){
 			var dl = d.items.length;
 			for (x = 0; x < dl; ++x){
 				picture = ""; // do what the green line says!
-				var content;	
-				if (d.items[x].standardLinks.picture){
+				if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
 					picture = d.items[x].standardLinks.picture[0].href
 				};
 				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
@@ -288,9 +287,8 @@ app.post('/feed/:channel/', function(req, res){
 				console.log(d);
 		var dl = d.items.length;
 		for (x = 0; x < dl; ++x){
-			picture = ""; // do what the green line says!
-			var content;	
-			if (d.items[x].standardLinks.picture){
+			picture = ""; // do what the green line says!	
+			if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
 				picture = d.items[x].standardLinks.picture[0].href
 			};
 			sys.puts(d.title);
