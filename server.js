@@ -284,8 +284,8 @@ app.post('/feed/:channel/', function(req, res){
 	});
 	
 	req.on('end', function (){
-		console.log(data);
 		var d = JSON.parse(data);
+				console.log(d);
 		var dl = d.items.length;
 		for (x = 0; x < dl; ++x){
 			picture = ""; // do what the green line says!
