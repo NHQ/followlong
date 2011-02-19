@@ -247,7 +247,7 @@ app.get('/new/:channel/', function(req, res){
 	client.zadd(unfurl, -1, unfurl);	
 	client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
-	var retr = setTimeout(function(){retrieve(channel,feed)}, 30000);
+	var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 	res.redirect('/');
 	res.end();
 });
