@@ -271,10 +271,10 @@ app.post('/feed', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
 	path = url.parse(req.url).query;
-	//query = querystring.parse(path, sep='&', eq='=');
+	query = querystring.parse(path, sep='&', eq='=');
 	console.log(path);
-	unfurl = req.headers.x-pubsubhubbub-topic;
-	channel = req.params.channel;
+	//unfurl = req.headers.x-pubsubhubbub-topic;
+	channel = query.channel;
 	var data = new String();
 	req.on('data', function(chunk){
 		console.log('a very palpable data!');
