@@ -179,7 +179,7 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel;
+		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?"+channel;
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -246,17 +246,17 @@ app.get('/new/:channel/', function(req, res){
 	client.zadd(unfurl, -1, unfurl);	
 	client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
-	var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
+	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 	res.redirect('/');
 	res.end();
 });
 
-app.get('/feed/:channel', function(req, res){
+app.get('/feed', function(req, res){
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
 	console.log(query);
-	channel = req.params.channel;
+	channel = query.channel;
 	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
@@ -267,7 +267,7 @@ app.get('/feed/:channel', function(req, res){
 	res.end();
 });
 
-app.post('/feed/:channel', function(req, res){
+app.post('/feed', function(req, res){
 	console.log('a very palpable hit!');
 	//res.writeHead('200');
 	//req.setEncoding('utf8');
