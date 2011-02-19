@@ -298,7 +298,7 @@ app.post('/feed', function(req, res){
 	
 	if(req.body){
 		res.writeHead('200');
-		req.end();}
+		res.end();}
 	//path = url.parse(req.url).query;
 	//query = querystring.parse(path, sep='&', eq='=');
 	//unfurl = req.headers.x-pubsubhubbub-topic;
