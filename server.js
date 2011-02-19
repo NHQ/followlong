@@ -179,7 +179,7 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+feed;
+		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel+"/?furl="+feed;
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -198,7 +198,7 @@ function subscribe (channel, feed){
 function retrieve (channel, feed){
 	var spfdr = http.createClient(80, 'superfeedr.com');
 	var ditto = new String();
-	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+feed;
+	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel+"/?furl="+feed;
 	var request = spfdr.request('GET', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -223,7 +223,7 @@ function retrieve (channel, feed){
 				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 				client.hmset(d.items[x].title, 
 					{
-						"content": d.items[x].summary,
+						"content": d.items[x].content,
 						"link": d.items[x].permalinkUrl,
 						"title": d.items[x].title,
 						"pic": picture,
@@ -252,13 +252,13 @@ app.get('/new/:channel/', function(req, res){
 	res.end();
 });
 
-app.get('/feed/', function(req, res){
+app.get('/feed/:channel/', function(req, res){
 	heads = req.headers;
 	console.log(heads);
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	channel = query.channel;
+	channel = req.params.channel;
 	feed = query.furl;
 	console.log(feed+"   "+channel)
 	challenge = query.hub.challenge;
@@ -271,12 +271,12 @@ app.get('/feed/', function(req, res){
 	res.end();
 });
 
-app.post('/feed/', function(req, res){
+app.post('/feed/:channel/', function(req, res){
 	res.writeHead('200');
 	req.setEncoding('utf8');
 	var query = url.parse(req.url).query;
 	unfurl = query.furl;
-	channel = query.channel;
+	channel = req.params.channel;
 	var data = new String();
 	req.on('data', function(chunk){
 		data += chunk;
@@ -297,7 +297,7 @@ app.post('/feed/', function(req, res){
 			client.zadd(unfurl, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 			client.hmset(d.items[x].title, 
 				{
-					"content": d.items[x].summary,
+					"content": d.items[x].content,
 					"link": d.items[x].permalinkUrl,
 					"title": d.items[x].title,
 					"pic": picture,
