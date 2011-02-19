@@ -247,6 +247,7 @@ app.get('/new/:channel/', function(req, res){
 	client.zadd(unfurl, -1, unfurl);	
 	client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
+	var retr = setTimeout(function(){retrieve(channel,feed)}, 30000);
 	res.redirect('/');
 	res.end();
 });
@@ -266,7 +267,6 @@ app.get('/feed/', function(req, res){
 	req.setEncoding('utf8');
 	req.on('data', function	(stuff){
 			console.log(stuff.toString('utf8', 0, stuff.length));
-			retrieve(channel,feed);
 	});
 	res.end();
 });
