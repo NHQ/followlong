@@ -269,12 +269,13 @@ app.get('/feed', function(req, res){
 
 app.post('/feed', function(req, res){
 	console.log(req.headers);
-	//res.writeHead('200');
-	//req.setEncoding('utf8');
+	res.writeHead('200');
+	req.setEncoding('utf8');
+	req.is()
 	path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
 	console.log(query);
-	unfurl = query.topic;
+	unfurl = query.x-pubsubhubbub-topic;
 	channel = query.channel;
 	var data = new String();
 	req.on('data', function(chunk){
