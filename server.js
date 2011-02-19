@@ -179,7 +179,7 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed/?channel="+channel;
+		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -198,7 +198,7 @@ function subscribe (channel, feed){
 function retrieve (channel, feed){
 	var spfdr = http.createClient(80, 'superfeedr.com');
 	var ditto = new String();
-	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed/"+channel+"/?furl="+feed;
+	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
 	var request = spfdr.request('GET', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -268,16 +268,42 @@ app.get('/feed', function(req, res){
 });
 
 app.post('/feed', function(req, res){
-	body = req.body;
-	console.log(body+"\n"+body.status.feed);
 	console.log(req.headers);
-	res.writeHead('200');
-	rew.end();
 	path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	//unfurl = req.headers.x-pubsubhubbub-topic;
 	channel = query.channel;
-	var data = new String();
+	
+	d = req.body;
+	var dl = d.items.length;
+	unfurl = d.status.feed
+	for (x = 0; x < dl; ++x){
+		picture = ""; // do what the green line says!	
+		if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
+			picture = d.items[x].standardLinks.picture[0].href
+		};
+		console.log(d.title);
+		client.zadd(unfurl, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
+		client.hmset(d.items[x].title, 
+			{
+				"content": d.items[x].content,
+				"link": d.items[x].permalinkUrl,
+				"title": d.items[x].title,
+				"pic": picture,
+				"channel": channel,
+				"furl": unfurl,
+				"score": d.items[x].postedTime,
+				"created": d.items[x].postedTime
+			}, function(err, reply){if (err){console.log("error: " + err)}});
+	};
+	
+	if(req.body){
+		res.writeHead('200');
+		req.end();}
+	//path = url.parse(req.url).query;
+	//query = querystring.parse(path, sep='&', eq='=');
+	//unfurl = req.headers.x-pubsubhubbub-topic;
+	//channel = query.channel;
+	//var data = new String();
 /*	req.on('data', function(chunk){
 		console.log('a very palpable data!');
 		data += chunk;
