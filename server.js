@@ -84,7 +84,7 @@ function frontis(){
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "30", function(err, data){
+	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "50", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{
@@ -179,7 +179,7 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+encodeURIComponent(feed);
+		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel+"&furl="+feed;
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
