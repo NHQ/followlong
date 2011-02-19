@@ -252,16 +252,12 @@ app.get('/new/:channel/', function(req, res){
 });
 
 app.get('/feed/:channel', function(req, res){
-	heads = req.headers;
-	console.log(heads);
 	res.writeHead('200');
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
 	console.log(query);
 	channel = req.params.channel;
-	feed = query.furl;
-	console.log(feed+"   "+channel)
-	challenge = query[hub.challenge];
+	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
 	req.setEncoding('utf8');
