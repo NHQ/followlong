@@ -239,7 +239,6 @@ function retrieve (channel, feed){
 
 app.get('/new/:channel/', function(req, res){
 	var path = url.parse(req.url).query;
-	console.log(path);
 	query = querystring.parse(path, sep='&', eq='=');
 	unfurl = query.furl;
 	channel = req.params.channel;
@@ -271,12 +270,11 @@ app.post('/feed', function(req, res){
 	console.log(req.headers);
 	res.writeHead('200');
 	req.setEncoding('utf8');
-	req.is()
 	path = url.parse(req.url).query;
-	query = querystring.parse(path, sep='&', eq='=');
-	console.log(query);
-	unfurl = query.x-pubsubhubbub-topic;
-	channel = query.channel;
+	//query = querystring.parse(path, sep='&', eq='=');
+	console.log(path);
+	unfurl = req.headers.x-pubsubhubbub-topic;
+	channel = req.params.channel;
 	var data = new String();
 	req.on('data', function(chunk){
 		console.log('a very palpable data!');
