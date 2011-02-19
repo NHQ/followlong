@@ -241,11 +241,11 @@ app.get('/new/:channel/', function(req, res){
 	var path = url.parse(req.url).query;
 	console.log(path);
 	query = querystring.parse(path, sep='&', eq='=');
-	unfurl = query.hub.topic;
+	//unfurl = query.hub.topic;
 	channel = req.params.channel;
-	console.log(query);
-	client.zadd(unfurl, -1, unfurl);	
-	client.rpush(channel, unfurl);
+	//console.log(query);
+	//client.zadd(unfurl, -1, unfurl);	
+	//client.rpush(channel, unfurl);
 	subscribe(channel, unfurl);
 	var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 	res.redirect('/');
@@ -272,7 +272,6 @@ app.get('/feed/:channel/', function(req, res){
 });
 
 app.post('/feed/:channel/', function(req, res){
-	console.log('a very palpable hit!')
 	res.writeHead('200');
 	req.setEncoding('utf8');
 	//var query = url.parse(req.url).query;
@@ -280,6 +279,7 @@ app.post('/feed/:channel/', function(req, res){
 	channel = req.params.channel;
 	var data = new String();
 	req.on('data', function(chunk){
+		console.log('a very palpable hit!');
 		data += chunk;
 		console.log(chunk.toString('utf8', 0, chunk.length))
 	});
