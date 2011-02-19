@@ -260,10 +260,7 @@ app.get('/feed', function(req, res){
 	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
-	req.setEncoding('utf8');
-	req.on('data', function	(stuff){
-			console.log(stuff.toString('utf8', 0, stuff.length));
-	});
+	console.log(req.body);
 	res.end();
 });
 
