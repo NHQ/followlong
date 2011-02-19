@@ -268,17 +268,18 @@ app.get('/feed', function(req, res){
 });
 
 app.post('/feed', function(req, res){
+	body = req.body;
+	pbody = JSON.parse(body);
+	console.log(pbody);
 	console.log(req.headers);
 	res.writeHead('200');
-	req.setEncoding('utf8');
+	rew.end();
 	path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	console.log(path);
 	//unfurl = req.headers.x-pubsubhubbub-topic;
 	channel = query.channel;
 	var data = new String();
-	console.log(req.body);
-	req.on('data', function(chunk){
+/*	req.on('data', function(chunk){
 		console.log('a very palpable data!');
 		data += chunk;
 		console.log(chunk.toString('utf8', 0, chunk.length))
@@ -309,7 +310,7 @@ app.post('/feed', function(req, res){
 				}, function(err, reply){if (err){console.log("error: " + err)}})
 		};
 	//res.end()
-	});
+	}); */
 });
 // Only listen on $ node app.js
 
