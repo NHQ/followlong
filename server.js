@@ -271,6 +271,7 @@ app.get('/feed/:channel/', function(req, res){
 });
 
 app.post('/feed/:channel/', function(req, res){
+	console.log('a very palpable hit!')
 	res.writeHead('200');
 	req.setEncoding('utf8');
 	var query = url.parse(req.url).query;
