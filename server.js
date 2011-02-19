@@ -259,9 +259,9 @@ app.get('/feed/:channel', function(req, res){
 	query = querystring.parse(path, sep='&', eq='=');
 	console.log(query);
 	channel = req.params.channel;
-	//feed = query.furl;
-	//console.log(feed+"   "+channel)
-	//challenge = query[hub.challenge];
+	feed = query.furl;
+	console.log(feed+"   "+channel)
+	challenge = query[hub.challenge];
 	client.set('path', challenge);
 	res.write(challenge);
 	req.setEncoding('utf8');
