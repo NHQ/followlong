@@ -252,6 +252,7 @@ app.get('/new/:channel/', function(req, res){
 
 app.get('/feed', function(req, res){
 	res.writeHead('200');
+	console.log(req.headers);
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
 	console.log(query);
@@ -276,6 +277,7 @@ app.post('/feed', function(req, res){
 	//unfurl = req.headers.x-pubsubhubbub-topic;
 	channel = query.channel;
 	var data = new String();
+	console.log(req.body);
 	req.on('data', function(chunk){
 		console.log('a very palpable data!');
 		data += chunk;
