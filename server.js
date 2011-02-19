@@ -19,7 +19,7 @@ var app = module.exports = express.createServer(),
 	, newfeed = require('./models/newfeed')
 	, newuser = require('./models/user')
 	, RedisStore = require('connect-redis'), multi
-	, local = http.createClient(80, '64.30.138.240');
+	, local = http.createClient(80, 'mostmodernist.no.de');
 
 function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
@@ -170,7 +170,7 @@ app.get('/test', function(req, res){
 	datum = JSON.stringify(d);
 	data = JSON.parse(d);
 	var request = local.request('POST', '/feed/vimeo/Angeline_Likes', {
-		'host': '64.30.138.240',
+		'host': 'mostmodernist.no.de',
 		'Application-type': 'application/json'
 	});
 	request.end(d, encoding='utf8');
@@ -179,7 +179,7 @@ app.get('/test', function(req, res){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/?channel="+channel;
+		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed/?channel="+channel;
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -198,7 +198,7 @@ function subscribe (channel, feed){
 function retrieve (channel, feed){
 	var spfdr = http.createClient(80, 'superfeedr.com');
 	var ditto = new String();
-	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://64.30.138.240/feed/"+channel+"/?furl="+feed;
+	data = "hub.mode=retrieve&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed/"+channel+"/?furl="+feed;
 	var request = spfdr.request('GET', '/hubbub', {
 		'Host':'superfeedr.com',
 		"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -269,8 +269,7 @@ app.get('/feed', function(req, res){
 
 app.post('/feed', function(req, res){
 	body = req.body;
-	pbody = JSON.parse(body);
-	console.log(pbody);
+	console.log(body+"\n"+body.status.feed);
 	console.log(req.headers);
 	res.writeHead('200');
 	rew.end();
