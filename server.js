@@ -281,7 +281,7 @@ app.post('/feed', function(req, res){
 		if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
 			picture = d.items[x].standardLinks.picture[0].href
 		};
-		console.log(d.title);
+		console.log(d.items.title);
 		client.zadd(unfurl, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 		client.hmset(d.items[x].title, 
 			{
