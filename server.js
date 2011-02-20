@@ -102,30 +102,29 @@ app.get('/', function(req, res){
 });
 
 app.get('/admin', function(req, res){
-	
 	var channels = new Array();
+	var obj = new Object();
+	var cats = [];
 	multi = client.multi();
 	client.lrange('channels', 0, -1, function (err, repo){
-		for (r in repo)
+		repo = repo;
+		for (x in repo)
 		{
-			x = 0;
-			channels[x] = {repo[r]:""};
-			x += 1;
-			multi.lrange(repo[r], 0, -1, function (err, reply){
+			cats.push(repo[x]);
+			multi.lrange(repo[x], 0, -1, function (err, reply){
 			})		
 		}
-		multi.exec(function(err, echo){
-			for (e in echo)
-			{	
-				x = 0; 
-				channels[x] = echo[e];
-				x += 1
+		multi.exec(function(err, list){
+			for (x = 0; x < list.length; ++x)
+			{
+				obj[cats[x]] = list[x]
+				channels.push(obj);
 			}
-			console.log(channels);
-			res.render('admin', {
-				locals: {title: "Admin", channels: channels}
+			console.log(obj);
+		res.render('admin', {
+				locals: {title: "admin", channels: obj }
 			})
-		});	
+		})
 	});
 });
 
@@ -376,7 +375,7 @@ app.post('/feed', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(80);
+  app.listen(8080);
   sys.puts("Express server listening on port %d", app.address().port);
 	frontis();
 }

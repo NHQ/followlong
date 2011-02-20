@@ -1,10 +1,9 @@
 h1= title
 .content
-  ul#channels(style:'list-style-type:none')
-    - each x in channels
-      li
-        #{channels[x]}
-          #{x}
+  - each x, y in channels
+    ul #{y}
+      - each d in x  
+        li #{d}
   h1 Add Channel
     form(method: 'post', action: '/admin')
       input(type: 'text', name: 'channel')
