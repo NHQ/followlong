@@ -113,9 +113,10 @@ app.get('/admin', function(req, res){
 			})		
 		}
 		multi.exec(function(err, echo){
-			for (x = 0; e in echo)
+			for (e in echo)
 			{	
-				channels[repo[x]] = echo[e]
+				x = 0; 
+				channels[repo[x]] = echo[e];
 				x += 1
 			}
 			console.log(channels);
