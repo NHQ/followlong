@@ -116,7 +116,7 @@ app.get('/admin', function(req, res){
 			for (e in echo)
 			{	
 				x = 0; 
-				channels[repo[x]] = echo[e];
+				channels[x] = echo[e];
 				x += 1
 			}
 			console.log(channels);
