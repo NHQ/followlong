@@ -109,7 +109,7 @@ app.get('/admin', function(req, res){
 		for (r in repo)
 		{
 			x = 0;
-			channels[x] = {repo[r]:[]};
+			channels[x] = {repo[r]:""};
 			x += 1;
 			multi.lrange(repo[r], 0, -1, function (err, reply){
 			})		
