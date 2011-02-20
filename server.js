@@ -314,7 +314,7 @@ app.post('/feed', function(req, res){
 		client.hmset(d.items[x].title, 
 			{
 				"content": content,
-				"summary": summary;
+				"summary": summary,
 				"link": d.items[x].permalinkUrl,
 				"title": d.items[x].title,
 				"pic": picture,
