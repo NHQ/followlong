@@ -103,13 +103,15 @@ app.get('/', function(req, res){
 
 app.get('/admin', function(req, res){
 	
-	var channels = new Object();
+	var channels = new Array();
 	multi = client.multi();
 	client.lrange('channels', 0, -1, function (err, repo){
 		for (r in repo)
 		{
-			channels[repo[r]] = []
-			multi.lrange(repo[r], 0, -1, function (err, reply){				
+			x = 0;
+			channels[x] = {repo[r]:[]};
+			x += 1;
+			multi.lrange(repo[r], 0, -1, function (err, reply){
 			})		
 		}
 		multi.exec(function(err, echo){
