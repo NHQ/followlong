@@ -109,11 +109,15 @@ app.get('/admin', function(req, res){
 		for (r in repo)
 		{
 			multi.lrange(repo[r], 0, -1, function (err, reply){
-				channels[repo[r]] = [];
-				channels[repo[r]] = reply
+				
 			})		
 		}
 		multi.exec(function(err, echo){
+			for (x = 0; e in echo)
+			{	
+				channels[repo[x]] = echo[e]
+				x += 1
+			}
 			console.log(channels);
 			res.render('admin', {
 				locals: {title: "Admin", channels: channels}
