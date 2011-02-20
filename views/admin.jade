@@ -3,10 +3,8 @@ h1= title
   ul#channels(style:'list-style-type:none')
     - each x in channels
       li
-        #{x}
-        form(method: 'post', action: '/delete')
-          input(type: 'hidden', name: 'channel', value: x)
-          input(type: 'submit', value: 'delete')
+        #{channels[x]}
+          #{x}
   h1 Add Channel
     form(method: 'post', action: '/admin')
       input(type: 'text', name: 'channel')

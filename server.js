@@ -102,10 +102,29 @@ app.get('/', function(req, res){
 });
 
 app.get('/admin', function(req, res){
+	
+	var channels = new Object();
+	multi = client.multi();
+	client.lrange('channels', 0, -1, function (err, repo){
+		for (r in repo)
+		{
+			channels[repo[r]] = [];
+			multi.lrange(repo[r], 0, -1, function (err, reply){
+				channels[repo[r]] = reply
+			})		
+		}
+		multi.exec(function(err, echo){
+			console.log(channels);
+			res.render('admin', {
+				locals: {title: "Admin", channels: channels}
+			})
+		});	
+	});
+});
+
+app.get('/admin/channels', function(req, res){
 	client.lrange('channels', 0, -1, function(err, data){
-		res.render('admin', {
-			locals: {title: "Admin", channels: data}
-		})
+		res.body = data;
 	})
 });
 
@@ -216,13 +235,17 @@ function retrieve (channel, feed){
 			var dl = d.items.length;
 			for (x = 0; x < dl; ++x){
 				picture = ""; // do what the green line says!
+				content = "";
 				if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
 					picture = d.items[x].standardLinks.picture[0].href
+				};
+				if (d.items[x].content){
+					content = d.items[x].content
 				};
 				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 				client.hmset(d.items[x].title, 
 					{
-						"content": d.items[x].content,
+						"content": content,
 						"link": d.items[x].permalinkUrl,
 						"title": d.items[x].title,
 						"pic": picture,
@@ -260,7 +283,7 @@ app.get('/feed', function(req, res){
 	challenge = query.hub.challenge;
 	client.set('path', challenge);
 	res.write(challenge);
-	console.log(req.body);
+	console.log(req.body.toString('utf8', 0, req.body.length));
 	res.end();
 });
 
@@ -274,15 +297,24 @@ app.post('/feed', function(req, res){
 	var dl = d.items.length;
 	unfurl = d.status.feed
 	for (x = 0; x < dl; ++x){
-		picture = ""; // do what the green line says!	
+		picture = ""; // do what the green line says!
+		content = "";	
+		summary = "";
 		if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
 			picture = d.items[x].standardLinks.picture[0].href
+		};
+		if (d.items[x].content){
+			content = d.items[x].content
+		};
+		if (d.items[x].summary){
+			summary = d.items[x].summary
 		};
 		console.log(d.items.title);
 		client.zadd(unfurl, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 		client.hmset(d.items[x].title, 
 			{
-				"content": d.items[x].content,
+				"content": content,
+				"summary": summary;
 				"link": d.items[x].permalinkUrl,
 				"title": d.items[x].title,
 				"pic": picture,
