@@ -102,7 +102,6 @@ app.get('/', function(req, res){
 });
 
 app.get('/admin', function(req, res){
-	var channels = new Array();
 	var obj = new Object();
 	var cats = [];
 	multi = client.multi();
@@ -118,9 +117,7 @@ app.get('/admin', function(req, res){
 			for (x = 0; x < list.length; ++x)
 			{
 				obj[cats[x]] = list[x]
-				channels.push(obj);
 			}
-			console.log(obj);
 		res.render('admin', {
 				locals: {title: "admin", channels: obj }
 			})
@@ -375,7 +372,7 @@ app.post('/feed', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(8080);
+  app.listen(80);
   sys.puts("Express server listening on port %d", app.address().port);
 	frontis();
 }
