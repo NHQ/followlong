@@ -62,12 +62,12 @@ function frontis(){
 	var repo = new Array();
 	var allem = new Array();
 	multi = client.multi();
-	client.lrange('channels', 0, -1, function (err, repo){
+	client.smembers('channels', function (err, repo){
 		repo = repo;
 		sys.puts(repo);
 		for (r in repo)
 		{
-			multi.lrange(repo[r], 0, -1, function (err, reply){})		
+			multi.smembers(repo[r], function (err, reply){})		
 		}
 		multi.exec(function(err, echo){
 			allem = allem.concat.apply(allem, echo);
@@ -105,12 +105,12 @@ app.get('/admin', function(req, res){
 	var obj = new Object();
 	var cats = [];
 	multi = client.multi();
-	client.lrange('channels', 0, -1, function (err, repo){
+	client.smembers('channels', function (err, repo){
 		repo = repo;
 		for (x in repo)
 		{
 			cats.push(repo[x]);
-			multi.lrange(repo[x], 0, -1, function (err, reply){
+			multi.smembers(repo[x], function (err, reply){
 			})		
 		}
 		multi.exec(function(err, list){
@@ -134,7 +134,7 @@ app.post('/delete/feed', function (req, res){
 
 function delFeed (channel, feed){
 	multi = client.multi();
-	client.lrange(feed, 0, -1, function (err, range){
+	client.zrange(feed, 0, -1, function (err, range){
 		for (r in range)
 		{
 			multi.del(range[r])
@@ -142,7 +142,8 @@ function delFeed (channel, feed){
 		multi.exec()
 	});
 	client.del(feed);
-	client.lrem(channel, 0, feed);
+	client.srem(channel, feed);
+	unsubscribe(channel, feed)
 	// after you change "channels" to sets, rather than lists, add srem function to this to delete feed from channel set
 };
 
@@ -154,7 +155,7 @@ app.get('/admin/channels', function(req, res){
 
 app.post('/admin', function(req, res){
 	channel = req.body.channel;
-	client.lpush('channels', channel, function(err, body){
+	client.sadd('channels', channel, function(err, body){
 		if (err){sys.puts(err)};
 		res.redirect('/admin');
 	})
@@ -163,7 +164,7 @@ app.post('/admin', function(req, res){
 app.post('/delete', function(req, res){
 	channel = req.body.channel;
 	sys.puts(channel);
-	client.lrem('channels', 0, channel, function(err, body){
+	client.srem('channels', function(err, body){
 		if (err){sys.puts(err)};
 		res.redirect('/admin');
 	})
@@ -219,6 +220,24 @@ app.get('/test', function(req, res){
 	request.end(d, encoding='utf8');
 	res.redirect('/');
 });
+
+function unsubscribe (channel, feed){
+		var spfdr = http.createClient(80, 'superfeedr.com');
+		data = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
+		var request = spfdr.request('POST', '/hubbub', {
+			'Host':'superfeedr.com',
+			"Authorization":"basic TkhROmxvb3Bob2xl",
+			'Accept':'application/json',
+			'Content-Length': data.length
+		});
+		request.write(data, encoding='utf8');
+		request.on('response', function (response){
+			response.on('data', function (stuff){
+				console.log(stuff.toString('utf8', 0, stuff.length))
+			})
+		})
+		request.end();
+};
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
@@ -290,7 +309,7 @@ app.get('/new/:channel/', function(req, res){
 	unfurl = query.furl;
 	channel = req.params.channel;
 	client.zadd(unfurl, -1, unfurl);	
-	client.rpush(channel, unfurl);
+	client.sadd(channel, unfurl);
 	subscribe(channel, unfurl);
 	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 	res.redirect('/');
@@ -302,12 +321,9 @@ app.get('/feed', function(req, res){
 	console.log(req.headers);
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	console.log(query);
 	channel = query.channel;
 	challenge = query.hub.challenge;
-	client.set('path', challenge);
 	res.write(challenge);
-	console.log(req.body.toString('utf8', 0, req.body.length));
 	res.end();
 });
 
