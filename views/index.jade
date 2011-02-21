@@ -6,5 +6,8 @@ h1= title
         a(href=article.link, id: article.id) #{article.title}
       .picture
         a(href=article.link, id: article.id)
-          img(src=article.pic)  
-      content!=article.content
+          img(src=article.pic)
+      - if article.summary  
+        content!=article.summary
+      - else
+        content!=article.content

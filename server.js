@@ -143,7 +143,9 @@ function delFeed (channel, feed){
 	});
 	client.del(feed);
 	client.srem(channel, feed);
+	client.srem('allFeeds', feed);
 	unsubscribe(channel, feed)
+	//perhaps only unsubscribe rather than delete all old ones? Move them out of their parent channel and into the "archives"
 	// after you change "channels" to sets, rather than lists, add srem function to this to delete feed from channel set
 };
 
@@ -310,6 +312,7 @@ app.get('/new/:channel/', function(req, res){
 	channel = req.params.channel;
 	client.zadd(unfurl, -1, unfurl);	
 	client.sadd(channel, unfurl);
+	client.sadd('allFeeds', unfurl);
 	subscribe(channel, unfurl);
 	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 	res.redirect('/');
