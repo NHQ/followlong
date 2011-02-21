@@ -7,7 +7,7 @@ h1= title
       .picture
         a(href=article.link, id: article.id)
           img(src=article.pic)
-      - if article.summary  
+      - if #{article.summary}  
         content!=article.summary
       - else
         content!=article.content
