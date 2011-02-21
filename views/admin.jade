@@ -2,8 +2,12 @@ h1= title
 .content
   - each x, y in channels
     ul #{y}
-      - each d in x  
-        li #{d}
+      - each d in x
+        li #{d} 
+        form(method: 'post', action: '/delete/feed')
+          input(type: 'hidden', name: 'feed', value: d)
+          input(type: 'hidden', name: 'channel', value: y)
+          input(type: 'submit', value: 'delete feed') 
   h1 Add Channel
     form(method: 'post', action: '/admin')
       input(type: 'text', name: 'channel')

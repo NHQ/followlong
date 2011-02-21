@@ -125,6 +125,27 @@ app.get('/admin', function(req, res){
 	});
 });
 
+app.post('/delete/feed', function (req, res){
+	channel = req.body.channel;
+	feed = req.body.feed;
+	delFeed(channel, feed);
+	res.redirect('/admin')
+})
+
+function delFeed (channel, feed){
+	multi = client.multi();
+	client.lrange(feed, 0, -1, function (err, range){
+		for (r in range)
+		{
+			multi.del(range[r])
+		}
+		multi.exec()
+	});
+	client.del(feed);
+	client.lrem(channel, 0, feed);
+	// after you change "channels" to sets, rather than lists, add srem function to this to delete feed from channel set
+};
+
 app.get('/admin/channels', function(req, res){
 	client.lrange('channels', 0, -1, function(err, data){
 		res.body = data;
