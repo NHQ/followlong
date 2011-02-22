@@ -3,10 +3,14 @@ background:#1c1c1c;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 color:#c9c9c9;
+font-size:16px;
 }
+h1 {font-size:200%;}
+h2 {font-size:150%;}
 .main{
 	width:960px;
 }
+a, a:visited {color:#88dd00;text-decoration:none;}
 ul {display:inline-block;}
 li {width:300px; height:450px;border:1px solid #999;-webkit-border-radius: 9px;}
 .articles{
