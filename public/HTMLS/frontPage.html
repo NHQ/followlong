@@ -45,7 +45,7 @@
   
   if (window.location.pathname === '/newFeed/')
     {
-      $.post('./followFeed?feed='+window.location.hash.slice(1), function(answer){
+      $.post('../followFeed?feed='+window.location.hash.slice(1), function(answer){
         if (answer === "1")
         {
           followFeed(window.location.hash.slice(1))
