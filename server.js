@@ -130,7 +130,6 @@ app.post('/delete/feed', function (req, res){
 	feed = req.body.feed;
 	delFeed(channel, feed);
 	res.redirect('/admin');
-	frontis();
 })
 
 app.post('/delete/item', function (req, res){
@@ -138,8 +137,8 @@ app.post('/delete/item', function (req, res){
 	feed = req.body.feed;
 	client.del(feed);
 	client.zrem(channel, feed, function(err, res){
+		frontis();
 	});
-	frontis();
 	res.redirect('/edit?feed='+encodeURIComponent(channel))
 })
 
