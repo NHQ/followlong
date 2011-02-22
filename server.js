@@ -107,6 +107,15 @@ app.get('/2', getSesh, function (req, res){
     });
 });
 
+app.get('/newFeed', getSesh, function (req, res){
+	fs.readFile(__dirname + '/public/HTMLS/frontPage.html', function(err, data){
+      if (err) return send404(res);
+      res.writeHead(200, {'Content-Type': 'text/html'})
+      res.write(data, 'utf8');
+		res.end();
+    });
+});
+
 app.get('/link', function (req, res ){
 	res.writeHead('200');
 	title = decodeURIComponent(req.query.title);
