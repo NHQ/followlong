@@ -95,7 +95,7 @@ app.get('/', function(req, res){
 			if(err){console.log(err)}
 			articles = reply;
 			res.render('index', {
-				locals: {title: "Redis", articles: articles}
+				locals: {title: "MOSTMODERNIST", articles: articles}
 			})
 		})
 	})
