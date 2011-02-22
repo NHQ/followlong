@@ -6,7 +6,7 @@ h1= title
         li 
         a(href='/edit?feed='+encodeURIComponent(d)) #{d} 
         form(method: 'post', action: go)
-          input(type: 'hidden', name: 'feed', value: d)
+          input(type: 'hidden', name: 'feed', value: escape(d))
           input(type: 'hidden', name: 'channel', value: y)
           input(type: 'submit', value: 'delete') 
   h1 Add Channel
