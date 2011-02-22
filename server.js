@@ -279,7 +279,7 @@ function follow(feed){
 		if (answer === 0)
 		client.sadd('allfeeds1123848451', unfurl);
 	});
-}
+};
 function followNot (furl){
 	var unfurl = decodeURIComponent(furl);
 	client.decr('subs@'+unfurl, function(err, score){
@@ -287,7 +287,7 @@ function followNot (furl){
 		client.del(unfurl);
 		unsubscribe(unfurl)
 	}});
-}
+};
 function unsubscribe (feed){
 		spfdr = http.createClient(80, 'superfeedr.com');
 		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
