@@ -88,7 +88,7 @@
      	    }
     }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
 
-  var feedMe = $.getJSON('/init', function (feeds){
+/*  var feedMe = $.getJSON('/init', function (feeds){
     console.log(feeds);
     $.each(feeds, function (k, v){
       var obj = new Object();
@@ -102,7 +102,7 @@
       }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
     })
   }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
-
+*/
   function admin(){
     $('#container').empty();
     	    $('ul#channels li').css({'cursor':'pointer'});
