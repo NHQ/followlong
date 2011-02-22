@@ -2,9 +2,8 @@ h1= title
 .main
   - each article in articles
     div(class="articles", id: article.channel)
-      .Container
-        .title 
-          a(href=article.link, id: article.id) #{article.title}
+      .container
+        a(href=article.link, class="title", id: article.id) #{article.title}
         .picture
           a(href=article.link, id: article.id)
             img(src=article.pic)
