@@ -137,7 +137,7 @@ app.post('/delete/item', function (req, res){
 	feed = req.body.feed;
 	client.del(feed);
 	client.zrem(channel, feed)
-	res.redirect('/')
+	res.redirect('/edit?feed='+encodeURIComponent(feed))
 })
 
 app.get('/edit', function(req, res){
