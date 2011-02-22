@@ -119,7 +119,7 @@ app.get('/admin', function(req, res){
 				obj[cats[x]] = list[x]
 			}
 		res.render('admin', {
-				locals: {title: "admin", go: '/delete/feed', channels: obj }
+				locals: {title: "admin", channels: obj }
 			})
 		})
 	});
@@ -133,13 +133,13 @@ app.post('/delete/feed', function (req, res){
 })
 
 app.get('/edit', function(req, res){
-	feed = req.query.feed;
-	channels = {};
+	var feed = req.query.feed;
+	var channels = {};
 	client.zrevrangebyscore(feed, epoch(), 0, function(err, items){
 		channels[feed] = items;
 		res.render('admin', 
 		{
-			locals: {title: feed, go: '/delete/item', channels: channels }
+			locals: {title: feed, channels: channels }
 		})
 	})
 })
