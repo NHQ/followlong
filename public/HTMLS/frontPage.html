@@ -43,7 +43,7 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>  
   
-  if (window.location.hash.pathname === '/newFeed')
+  if (window.location.pathname === '/newFeed')
     {
       $.post('./followFeed?feed='+window.location.hash.slice(1), function(answer){
         if (answer === "1")

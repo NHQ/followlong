@@ -160,6 +160,7 @@ app.post('/deleteChannel', getSesh, function (req, res){
 
 app.post('/followFeed', getSesh, function (req, res){
 	res.writeHead('200');
+	console.log(req.query.feed);
 	client.hset(req.facts+'@feeds', decodeURIComponent(req.query.feed), "[]", function (err, result){
 		if (err){res.write('error');res.end()}
 		res.write('result');
