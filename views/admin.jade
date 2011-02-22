@@ -4,7 +4,7 @@ h1= title
     ul #{y}
       - each d in x
         li 
-        a(href=d) #{d} 
+        a(href='/'+encodeURIComponent(d)) #{d} 
         form(method: 'post', action: '/delete/feed')
           input(type: 'hidden', name: 'feed', value: d)
           input(type: 'hidden', name: 'channel', value: y)
