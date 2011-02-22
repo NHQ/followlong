@@ -130,7 +130,7 @@ app.post('/delete/feed', function (req, res){
 	feed = req.body.feed;
 	delFeed(channel, feed);
 	res.redirect('/admin');
-	fontis();
+	frontis();
 })
 
 app.post('/delete/item', function (req, res){
@@ -139,7 +139,7 @@ app.post('/delete/item', function (req, res){
 	client.del(feed);
 	client.zrem(channel, feed, function(err, res){
 	});
-	fontis();
+	frontis();
 	res.redirect('/edit?feed='+encodeURIComponent(channel))
 })
 
@@ -168,7 +168,7 @@ function delFeed (channel, feed){
 	client.srem(channel, feed);
 	client.srem('allFeeds', feed);
 	unsubscribe(channel, feed);
-	fontis();
+	frontis();
 	//perhaps only unsubscribe rather than delete all old ones? Move them out of their parent channel and into the "archives"
 	// after you change "channels" to sets, rather than lists, add srem function to this to delete feed from channel set
 };
