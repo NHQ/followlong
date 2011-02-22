@@ -3,8 +3,8 @@ h1= title
   - each x, y in channels
     ul #{y}
       - each d in x
-        li a(href='/'+#{d}) 
-        #{d} 
+        li 
+        a(href='/edit') #{d} 
         form(method: 'post', action: '/delete/feed')
           input(type: 'hidden', name: 'feed', value: d)
           input(type: 'hidden', name: 'channel', value: y)
