@@ -6,14 +6,13 @@ color:#c9c9c9;
 }
 .main{
 	width:960px;
-	border:3px solid #999;
-	-webkit-border-radius: 9px;
 }
 ul {display:inline-block;}
 li {width:300px; height:450px;border:1px solid #999;-webkit-border-radius: 9px;}
 .articles{
 	background:#111;
-	padding:10px;
+	margin:5px;
 	display:inline-block;
-	width:300px; height:450px;border:1px solid #999;-webkit-border-radius: 9px;
+	float:left;
+	width:300px; min-height:200px;max-height:500px;border:1px solid #999;-webkit-border-radius: 9px;
 }
