@@ -129,7 +129,8 @@ app.post('/delete/feed', function (req, res){
 	channel = req.body.channel;
 	feed = req.body.feed;
 	delFeed(channel, feed);
-	res.redirect('/admin')
+	res.redirect('/admin');
+	fontis();
 })
 
 app.post('/delete/item', function (req, res){
@@ -137,8 +138,8 @@ app.post('/delete/item', function (req, res){
 	feed = req.body.feed;
 	client.del(feed);
 	client.zrem(channel, feed, function(err, res){
-		fontis();
-	})
+	});
+	fontis();
 	res.redirect('/edit?feed='+encodeURIComponent(channel))
 })
 
