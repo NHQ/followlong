@@ -119,7 +119,7 @@ app.get('/admin', function(req, res){
 				obj[cats[x]] = list[x]
 			}
 		res.render('admin', {
-				locals: {title: "admin", channels: obj }
+				locals: {title: "admin", action: '/delete/feed', channels: obj }
 			})
 		})
 	});
@@ -139,7 +139,7 @@ app.get('/edit', function(req, res){
 		channels[feed] = items;
 		res.render('admin', 
 		{
-			locals: {title: feed, channels: channels }
+			locals: {title: feed, action: 'delete/item', channels: channels }
 		})
 	})
 })

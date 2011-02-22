@@ -5,10 +5,10 @@ h1= title
       - each d in x
         li 
         a(href='/edit?feed='+encodeURIComponent(d)) #{d} 
-        form(method: 'post', action: '/delete/feed')
+        form(method: 'post', action: action)
           input(type: 'hidden', name: 'feed', value: d)
           input(type: 'hidden', name: 'channel', value: y)
-          input(type: 'submit', value: 'delete feed') 
+          input(type: 'submit', value: 'delete') 
   h1 Add Channel
     form(method: 'post', action: '/admin')
       input(type: 'text', name: 'channel')
