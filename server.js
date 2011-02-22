@@ -134,7 +134,7 @@ app.post('/delete/feed', function (req, res){
 
 app.get('/edit', function(req, res){
 	feed = req.query.feed;
-	var channels = [];
+	channels = {};
 	client.zrevrangebyscore(feed, epoch(), 0, function(err, items){
 		channels[feed] = items;
 		res.render('admin', 
