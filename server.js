@@ -132,6 +132,14 @@ app.post('/delete/feed', function (req, res){
 	res.redirect('/admin')
 })
 
+app.post('/delete/item', function (req, res){
+	channel = req.body.channel;
+	feed = req.body.feed;
+	client.del(feed);
+	client.zrem(channel, feed)
+	res.redirect('/admin')
+})
+
 app.get('/edit', function(req, res){
 	var feed = req.query.feed;
 	var channels = {};
@@ -139,7 +147,7 @@ app.get('/edit', function(req, res){
 		channels[feed] = items;
 		res.render('admin', 
 		{
-			locals: {title: feed, go: '/delete/item' channels: channels }
+			locals: {title: feed, go: '/delete/item', channels: channels }
 		})
 	})
 })
