@@ -43,6 +43,21 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>  
   
+  if (window.location.hash.pathname === '/newFeed')
+    {
+      $.post('./followFeed?feed='+window.location.hash.slice(1), function(answer){
+        if (answer === "1")
+        {
+          followFeed(window.location.hash.slice(1))
+        }
+      })
+    }
+    
+    function followfeed(feed){
+       $('#container').empty();
+        $('#container').load('./public/HTMLS/form.html');
+    }
+    
    var $container = $('ul#container');
    $container.isotope({
        itemSelector : 'li.articles',
@@ -72,6 +87,7 @@
      	      var channel = '<li class="channel data-filter="'+channels[c]+'"><h1>'+channels[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
      	    }
     }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
+
   var feedMe = $.getJSON('/init', function (feeds){
     console.log(feeds);
     $.each(feeds, function (k, v){

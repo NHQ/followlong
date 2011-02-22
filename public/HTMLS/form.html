@@ -1,0 +1,18 @@
+<form id="followFeed" action="./followFeed" method="post">
+  <input type="hidden" id="furl" name="feed" value=""></input>
+  <input type="text" id="channelName" name="channel" value="Channel Name"></input>
+  <a class="button">ⒸⓁⒾⒸⓀ TO ADD CHANNEL</a>
+</form>
+<script type="text/javascript"]>
+$('input#furl').attr('value',window.location.hash.slice(1));
+$('form.followFeed').submit(function(event){
+  var str = $(this).serialize();
+  $.post('./addChannel?'+str, function(json){
+    if(json = "1")
+    {
+      $('input#channelName').val('Channel Name');
+    }
+  })
+});
+$('a.button').click(function(){$('form.followFeed').submit()});
+</script>
