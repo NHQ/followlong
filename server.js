@@ -321,7 +321,7 @@ function retrieve (channel, feed){
 					{
 						"content": content,
 						"link": d.items[x].permalinkUrl,
-						"title": d.items[x].title,
+						"title": unescape(d.items[x].title),
 						"pic": picture,
 						"channel": channel,
 						"furl": feed,
