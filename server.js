@@ -132,6 +132,18 @@ app.post('/delete/feed', function (req, res){
 	res.redirect('/admin')
 })
 
+app.get('/edit/:feed', function(req, res){
+	feed = req.params.feed;
+	channels = [];
+	client.zrevrangebyscore(feed, epoch(), 0, function(err, items){
+		channels[feed] = items;
+		res.render('admin', 
+		{
+			locals: {title: feed, channels: channels }
+		})
+	})
+})
+
 function delFeed (channel, feed){
 	multi = client.multi();
 	client.zrange(feed, 0, -1, function (err, range){
@@ -147,6 +159,11 @@ function delFeed (channel, feed){
 	unsubscribe(channel, feed)
 	//perhaps only unsubscribe rather than delete all old ones? Move them out of their parent channel and into the "archives"
 	// after you change "channels" to sets, rather than lists, add srem function to this to delete feed from channel set
+};
+
+function delItem (feed, item) {
+	client.zrem(feed, item);
+	client.del(item);
 };
 
 app.get('/admin/channels', function(req, res){
