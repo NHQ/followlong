@@ -1,5 +1,5 @@
 h1= title
-.content
+.main
   - each article in articles
     div(class="articles", id: article.channel)
       .title 
@@ -8,6 +8,6 @@ h1= title
         a(href=article.link, id: article.id)
           img(src=article.pic)
       - if (article.summary.length > 0)  
-        content!=article.summary
+        #content!=article.summary
       - else
-        content!=article.content
+        #content!=article.content

@@ -2,8 +2,9 @@ body {
 background:#333;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+color:#c9c9c9;
 }
-.content{
+.main{
 	width:960px;
 	border:3px solid #999;
 	-webkit-border-radius: 9px;
@@ -12,4 +13,5 @@ ul {display:inline-block;}
 li {width:300px; height:450px;border:1px solid #999;-webkit-border-radius: 9px;}
 .articles{
 	padding:10px;
+	width:300px; height:450px;border:1px solid #999;-webkit-border-radius: 9px;
 }
