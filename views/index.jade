@@ -1,7 +1,7 @@
 h1= title
-#articles
+#content
   - each article in articles
-    div(class: article.channel)
+    div(class="articles", id: article.channel)
       .title 
         a(href=article.link, id: article.id) #{article.title}
       .picture
