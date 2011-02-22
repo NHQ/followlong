@@ -139,7 +139,7 @@ app.get('/edit', function(req, res){
 		channels[feed] = items;
 		res.render('admin', 
 		{
-			locals: {title: feed, channels: channels }
+			locals: {title: feed, go: '/delete/item' channels: channels }
 		})
 	})
 })
