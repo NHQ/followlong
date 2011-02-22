@@ -119,7 +119,7 @@ app.get('/admin', function(req, res){
 				obj[cats[x]] = list[x]
 			}
 		res.render('admin', {
-				locals: {title: "admin", channels: obj }
+				locals: {title: "admin", go: '/delete/feed', channels: obj }
 			})
 		})
 	});
@@ -137,7 +137,7 @@ app.post('/delete/item', function (req, res){
 	feed = req.body.feed;
 	client.del(feed);
 	client.zrem(channel, feed)
-	res.redirect('/admin')
+	res.redirect('/')
 })
 
 app.get('/edit', function(req, res){
