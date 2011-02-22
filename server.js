@@ -132,7 +132,7 @@ app.post('/delete/feed', function (req, res){
 	res.redirect('/admin')
 })
 
-app.get('/edit/:feed', function(req, res){
+app.get('/edit', function(req, res){
 	feed = req.params.feed;
 	channels = [];
 	client.zrevrangebyscore(feed, epoch(), 0, function(err, items){
