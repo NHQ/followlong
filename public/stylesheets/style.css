@@ -26,34 +26,34 @@ a, a:visited {color:#88dd00;text-decoration:none;}
 .fit {	padding:13px;}
 #content img {width:290px;}
 .video{
-	border:1px solid #0099ff;
+	border:7px solid #0099ff;
 	-webkit-border-radius: 9px;
 }
 .POLITICS{
-	border:1px solid #880077;
+	border:7px solid #880077;
 	-webkit-border-radius: 9px;
 }
 .comics{
-	border:1px solid #ffff33;
+	border:7px solid #ffff33;
 	-webkit-border-radius: 9px;
 }
 .relevision{
-	border:1px solid #cc0011;
+	border:7px solid #cc0011;
 	-webkit-border-radius: 9px;
 }
 .music{
-	border:1px solid #ee00cc;
+	border:7px solid #ee00cc;
 	-webkit-border-radius: 9px;
 }
 .science{
-	border:1px solid #00cc55;
+	border:7px solid #00cc55;
 	-webkit-border-radius: 9px;
 }
 .culture{
-	border:1px solid #dd1111;
+	border:7px solid #dd1111;
 	-webkit-border-radius: 9px;
 }
 .reading{
-	border:1px solid #fff;
+	border:7px solid #fff;
 	-webkit-border-radius: 9px;
 }
