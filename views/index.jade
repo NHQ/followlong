@@ -5,28 +5,28 @@ ul#filter
       a(href="#", data-filter="*") Newest
   li.video 
     h2 
-      a(href="#", data-filter="video") Video
+      a(href="#", data-filter=".video") Video
   li.comics
     h2
-      a(href="#", data-filter="comics") Comics
+      a(href="#", data-filter=".comics") Comics
   li.culture 
     h2
-      a(href="#", data-filter="culture") Culture
+      a(href="#", data-filter=".culture") Culture
   li.music 
     h2
-      a(href="#", data-filter="music") Music
+      a(href="#", data-filter=".music") Music
   li.relevision 
     h2
-      a(href="#", data-filter="relevision") Relevision
+      a(href="#", data-filter=".relevision") Relevision
   li.POLITICS 
     h2
-      a(href="#", data-filter="POLITICS") Politics
+      a(href="#", data-filter=".POLITICS") Politics
   li.science
     h2
-      a(href="#", data-filter="science") Science
+      a(href="#", data-filter=".science") Science
   li.reading
     h2
-      a(href="#", data-filter="readings") Reading
+      a(href="#", data-filter=".readings") Reading
 #container
   - each article in articles
     div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
