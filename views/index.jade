@@ -1,13 +1,21 @@
 h1= title
 ul.sort
-  li a(href:"#video") h2(class="video") Video
-  li a(href:"#comics") h2(class="comics") Comics
-  li a(href:"#culture") h2(class=culture) Culture
-  li a(href:"#music") h2(class="music") Music
-  li a(href:"#relevision") h2(class="relevision") Relevision
-  li a(href:"#POLITICS") h2(class="POLITICS") Politics
-  li a(href:"#science") h2(class="science") Science
-  li a(href:"#reading") h2(class="reading") Reading
+  li.video 
+    a(href="#video") h2 Video
+  li.comics
+    a(href="#comics") h2 Comics
+  li.culture 
+    a(href="#culture") h2 Culture
+  li.music 
+    a(href="#music") h2 Music
+  li.relevision 
+    a(href="#relevision") h2 Relevision
+  li.POLITICS 
+    a(href="#POLITICS") h2 Politics
+  li.science
+    a(href="#science") h2 Science
+  li.reading
+    a(href="#reading") h2 Reading
 .container
   - each article in articles
     div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
