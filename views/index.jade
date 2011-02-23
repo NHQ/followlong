@@ -1,7 +1,16 @@
 h1= title
+ul.sort
+  li a(href:"#video") h2(class="video") Video
+  li a(href:"#comics") h2(class="comics") Comics
+  li a(href:"#culture") h2(class=culture) Culture
+  li a(href:"#music") h2(class="music") Music
+  li a(href:"#relevision") h2(class="relevision") Relevision
+  li a(href:"#POLITICS") h2(class="POLITICS") Politics
+  li a(href:"#science") h2(class="science") Science
+  li a(href:"#reading") h2(class="reading") Reading
 .container
   - each article in articles
-    div(class="articles "+article.channel, id: article.furl)
+    div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
       .fit
         h2
           a(href=article.link, class="title", id: article.id) #{article.title}
