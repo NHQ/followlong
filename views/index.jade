@@ -4,19 +4,26 @@ ul.sort
     h2 
       a(href="#video") Video
   li.comics
-    a(href="#comics") h2 Comics
+    h2
+      a(href="#comics") Comics
   li.culture 
-    a(href="#culture") h2 Culture
+    h2
+      a(href="#culture") Culture
   li.music 
-    a(href="#music") h2 Music
+    h2
+      a(href="#music") Music
   li.relevision 
-    a(href="#relevision") h2 Relevision
+    h2
+      a(href="#relevision") Relevision
   li.POLITICS 
-    a(href="#POLITICS") h2 Politics
+    h2
+      a(href="#POLITICS") Politics
   li.science
-    a(href="#science") h2 Science
+    h2
+      a(href="#science") Science
   li.reading
-    a(href="#reading") h2 Reading
+    h2
+      a(href="#reading") Reading
 .container
   - each article in articles
     div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
