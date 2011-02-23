@@ -25,8 +25,9 @@ ul.sort{
 }
 ul.sort li{
 	display:inline-block;
-	width:107px;
+	width:113px;
 }
+ul.sort li.relevision {width:127px;}
 ul.sort li h2 {
 	text-align:center;
 }
