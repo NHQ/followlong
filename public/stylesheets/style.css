@@ -20,7 +20,7 @@ a, a:visited {color:#88dd00;text-decoration:none;}
 	overflow:hidden;
 }
 ul.sort{
-	height:100px;
+	height:66px;
 	display:inline-block;
 }
 ul.sort li{
@@ -33,6 +33,7 @@ ul.sort li.video{width:99px;}
 ul.sort li.music{width:99px;}
 ul.sort li h2 {
 	text-align:center;
+	color:#f9f9f9;
 }
 .container{
 	padding:13px;
