@@ -20,10 +20,11 @@ a, a:visited {color:#88dd00;text-decoration:none;}
 	overflow:hidden;
 }
 ul.sort{
-	display:inline;
+	height:100px;
+	display:inline-block;
 }
 ul.sort li{
-	display:inline;
+	display:inline-block;
 	width:107px;
 }
 ul.sort li h2 {
