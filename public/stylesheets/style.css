@@ -31,8 +31,11 @@ ul.sort li{
 ul.sort li.relevision {width:139px;}
 ul.sort li.video{width:99px;}
 ul.sort li.music{width:99px;}
-ul.sort li h2 a {
+ul.sort li h2 {
 	text-align:center;
+	color:#f9f9f9;
+}
+ul.sort li a{
 	color:#f9f9f9;
 }
 .container{
