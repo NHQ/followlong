@@ -26,7 +26,7 @@ ul#filter
       a(href="#", data-filter=".science") Science
   li.reading
     h2
-      a(href="#", data-filter=".readings") Reading
+      a(href="#", data-filter=".reading") Reading
 #container
   - each article in articles
     div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
