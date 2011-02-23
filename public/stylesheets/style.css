@@ -23,6 +23,11 @@ ul.sort{
 	display:inline;
 }
 ul.sort li{
+	display:inline;
+	width:107px;
+}
+ul.sort li h2 {
+	text-align:center;
 }
 .container{
 	padding:13px;
