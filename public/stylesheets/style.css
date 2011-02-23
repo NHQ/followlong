@@ -19,23 +19,24 @@ a, a:visited {color:#88dd00;text-decoration:none;}
 	width:300px; height:493px;
 	overflow:hidden;
 }
-ul.sort{
-	height:66px;
+ul#sort{
+	height:100px;
+	width:600px;
 	display:inline-block;
 }
-ul.sort li{
+ul#sort li{
 	display:inline-block;
 	width:113px;
 	margin-right:3px;
 }
-ul.sort li.relevision {width:139px;}
-ul.sort li.video{width:99px;}
-ul.sort li.music{width:99px;}
-ul.sort li h2 {
+ul#sort li.relevision {width:139px;}
+ul#sort li.video{width:99px;}
+ul#sort li.music{width:99px;}
+ul#sort li h2 {
 	text-align:center;
 	color:#f9f9f9;
 }
-ul.sort li a{
+ul#sort li a{
 	color:#e6e6e6;
 }
 .container{
@@ -69,7 +70,7 @@ ul.sort li a{
 	-webkit-border-radius: 9px;
 }
 .culture{
-	border:3px solid #dd1111;
+	border:3px solid #ff4400;
 	-webkit-border-radius: 9px;
 }
 .reading{
