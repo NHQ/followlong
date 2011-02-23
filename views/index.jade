@@ -1,8 +1,8 @@
 h1= title
-.main
+.container
   - each article in articles
-    div(class="articles", id: article.channel)
-      .container
+    div(class="articles"+article.channel, id: article.furl)
+      .fit
         h2
           a(href=article.link, class="title", id: article.id) #{article.title}
         .picture
