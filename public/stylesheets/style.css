@@ -26,8 +26,9 @@ ul.sort{
 ul.sort li{
 	display:inline-block;
 	width:113px;
+	margin-right:3px;
 }
-ul.sort li.relevision {width:133px;}
+ul.sort li.relevision {width:139px;}
 ul.sort li.video{width:99px;}
 ul.sort li.music{width:99px;}
 ul.sort li h2 {
