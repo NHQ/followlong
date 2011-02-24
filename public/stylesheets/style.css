@@ -49,38 +49,39 @@ ul#filter li a{
 #content p{font-size:18px;}
 .all{
 	border:3px solid #fff;
+	border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .video{
-	border:3px solid #0099ff;
+	border:3px solid #0099ff;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .POLITICS{
-	border:3px solid #880077;
+	border:3px solid #880077;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .comics{
-	border:3px solid #ffff33;
+	border:3px solid #ffff33;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .relevision{
-	border:3px solid #cc0011;
+	border:3px solid #cc0011;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .music{
-	border:3px solid #ee00cc;
+	border:3px solid #ee00cc;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .science{
-	border:3px solid #00cc55;
+	border:3px solid #00cc55;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .culture{
-	border:3px solid #ff4400;
+	border:3px solid #ff4400;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .reading{
-	border:3px solid #fff;
+	border:3px solid #fff;border-bottom: 11px;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 
