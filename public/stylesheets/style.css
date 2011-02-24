@@ -10,10 +10,10 @@ h2 {font-size:115%;}
 .main{
 	width:970px;
 }
-a, a:visited {color:#55ddff;text-decoration:none;}
+a, a:visited {color:#ccffcc;text-decoration:none;}
 .articles{
 	background:#111;
-	margin:5px;
+	margin: 0 5px 5px 0;
 	display:inline-block;
 	float:left;
 	width:300px; max-height:667px;
@@ -37,32 +37,39 @@ a, a:visited {color:#55ddff;text-decoration:none;}
 	-webkit-box-shadow: 0 -11px 0 #0099ff;
 }
 .POLITICS{
-	border:3px solid #880077;border-top: 11px solid #880077;
+	border:3px solid #880077;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+	-webkit-box-shadow: 0 -11px 0 #880077;
 }
 .comics{
-	border:3px solid #ffff33;border-top: 11px solid #ffff33;
+	border:3px solid #ffff33;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+	-webkit-box-shadow: 0 -11px 0 #ffff33;
 }
 .relevision{
-	border:3px solid #cc0011;border-top: 11px solid #cc0011;
+	border:3px solid #cc0011;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+	-webkit-box-shadow: 0 -11px 0 #cc0011;
 }
 .music{
-	border:3px solid #ee00cc;border-top: 11px solid #ee00cc;
+	border:3px solid #ee00cc;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+	-webkit-box-shadow: 0 -11px 0 #ee00cc;
 }
 .science{
-	border:3px solid #00cc55;border-top: 11px solid #00cc55;
+	border:3px solid #00cc55;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+	-webkit-box-shadow: 0 -11px 0 #00cc55;
 }
 .culture{
-	border:3px solid #ff4400;border-top: 11px solid #ff4400;
+	border:3px solid #ff4400;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+	-webkit-box-shadow: 0 -11px 0 #ff4400;
 }
 .reading{
-	border:3px solid #fff;border-top: 11px solid #fff;
+	border:3px solid #fff;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+	-webkit-box-shadow: 0 -11px 0 #fff;
 }
 
 /* Menus Nav */
@@ -77,6 +84,7 @@ ul#filter li{
 	width:113px;
 	margin-right:3px;
 	margin-bottom:3px;
+		-webkit-box-shadow: 0 0 0 transparent;
 }
 ul#filter li.relevision {width:139px;}
 ul#filter li.video{width:99px;}
