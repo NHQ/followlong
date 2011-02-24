@@ -19,6 +19,53 @@ a, a:visited {color:#55ddff;text-decoration:none;}
 	width:300px; max-height:667px;
 	overflow:hidden;
 }
+#container{
+	padding:13px;
+		width:970px;
+}
+.fit {	padding:13px;}
+#content img {width:290px;}
+#content p{font-size:18px;}
+.all{
+	border:3px solid #fff;
+	border-top: 11px solid #fff;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.video{
+	border:3px solid #0099ff;border-top: 11px solid #0099ff;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.POLITICS{
+	border:3px solid #880077;border-top: 11px solid #880077;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.comics{
+	border:3px solid #ffff33;border-top: 11px solid #ffff33;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.relevision{
+	border:3px solid #cc0011;border-top: 11px solid #cc0011;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.music{
+	border:3px solid #ee00cc;border-top: 11px solid #ee00cc;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.science{
+	border:3px solid #00cc55;border-top: 11px solid #00cc55;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.culture{
+	border:3px solid #ff4400;border-top: 11px solid #ff4400;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+.reading{
+	border:3px solid #fff;border-top: 11px solid #fff;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
+
+/* Menus Nav */
+
 ul#filter{
 	width:600px;
 	display:inline-block;
@@ -29,6 +76,7 @@ ul#filter li{
 	width:113px;
 	margin-right:3px;
 	margin-bottom:3px;
+	border-bottom: 3px solid;
 }
 ul#filter li.relevision {width:139px;}
 ul#filter li.video{width:99px;}
@@ -39,50 +87,6 @@ ul#filter li h2 {
 }
 ul#filter li a{
 	color:#e6e6e6;
-}
-#container{
-	padding:13px;
-		width:970px;
-}
-.fit {	padding:13px;}
-#content img {width:290px;}
-#content p{font-size:18px;}
-.all{
-	border:3px solid #fff;
-	border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.video{
-	border:3px solid #0099ff;border-bottom: 11px solid #0099ff;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.POLITICS{
-	border:3px solid #880077;border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.comics{
-	border:3px solid #ffff33;border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.relevision{
-	border:3px solid #cc0011;border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.music{
-	border:3px solid #ee00cc;border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.science{
-	border:3px solid #00cc55;border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.culture{
-	border:3px solid #ff4400;border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-}
-.reading{
-	border:3px solid #fff;border-bottom: 11px;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 
 /**** Isotope filtering ****/
