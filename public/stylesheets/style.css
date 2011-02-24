@@ -13,7 +13,7 @@ h2 {font-size:115%;}
 a, a:visited {color:#ccffcc;text-decoration:none;}
 .articles{
 	background:#111;
-	margin: 0 0 15px 0;
+	margin: 0 10px 15px 0;
 	display:inline-block;
 	float:left;
 	width:300px; max-height:667px;
@@ -28,7 +28,7 @@ a, a:visited {color:#ccffcc;text-decoration:none;}
 #content p{font-size:18px;}
 .all{
 	border:3px solid #fff;
-	border-top: 11px solid #fff;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .video{
 	border:3px solid #0099ff;
