@@ -53,7 +53,7 @@ ul#filter li a{
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .video{
-	border:3px solid #0099ff;border-bottom: 11px;
+	border:3px solid #0099ff;border-bottom: 11px solid #0099ff;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .POLITICS{
