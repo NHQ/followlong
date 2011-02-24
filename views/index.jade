@@ -29,16 +29,11 @@ ul#filter
       a(href="#", data-filter=".reading") Reading
 #container
   - each article in articles
+    article.channel
     div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
       .fit
         h2
           a(href=article.link, class="title", id: article.id) #{article.title}
-        .picture
-          img(src=article.pic)
-        - if (article.summary.length > 0)  
-          #content!=article.summary
-        - else
-          #content!=article.content
 script(type='text/javascript', src='/javascripts/jquery-1.4.4.min.js')
 script(type='text/javascript', src='/javascripts/jquery.isotope.min.js')
 script(type='text/javascript', src='/javascripts/front.js')
