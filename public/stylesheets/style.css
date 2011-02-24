@@ -34,7 +34,7 @@ a, a:visited {color:#55ddff;text-decoration:none;}
 .video{
 	border:3px solid #0099ff;border-top: 11px solid #0099ff;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -11px 0 0 0099ff;
+	-webkit-box-shadow: -11px 0 0 #0099ff;
 }
 .POLITICS{
 	border:3px solid #880077;border-top: 11px solid #880077;
