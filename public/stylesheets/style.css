@@ -20,14 +20,15 @@ a, a:visited {color:#88dd00;text-decoration:none;}
 	overflow:hidden;
 }
 ul#filter{
-	height:100px;
 	width:600px;
 	display:inline-block;
+	margin-bottom: 10px;
 }
 ul#filter li{
 	display:inline-block;
 	width:113px;
 	margin-right:3px;
+	margin-bottom:3px;
 }
 ul#filter li.relevision {width:139px;}
 ul#filter li.video{width:99px;}
