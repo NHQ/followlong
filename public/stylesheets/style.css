@@ -11,6 +11,7 @@ h2 {font-size:115%;}
 	width:970px;
 }
 a, a:visited {color:#ccffcc;text-decoration:none;}
+.title{text-decoration:underline;}
 .articles{
 	background:#111;
 	margin: 0 10px 15px 0;
