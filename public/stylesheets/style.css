@@ -25,6 +25,7 @@ a, a:visited {color:#ccffcc;text-decoration:none;}
 		width:970px;
 }
 .fit {	padding:13px;}
+#content{font-size:22px}
 #content img {max-width:280px;max-height:310px;overflow:hidden;}
 #content p{font-size:18px;}
 .all{
