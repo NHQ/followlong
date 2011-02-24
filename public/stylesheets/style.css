@@ -16,7 +16,7 @@ a, a:visited {color:#88dd00;text-decoration:none;}
 	margin:5px;
 	display:inline-block;
 	float:left;
-	width:300px; height:493px;
+	width:300px; max-height:667px;
 	overflow:hidden;
 }
 ul#filter{
@@ -45,6 +45,7 @@ ul#filter li a{
 }
 .fit {	padding:13px;}
 #content img {width:290px;}
+#content p{font-size:18px;}
 .all{
 	border:3px solid #fff;
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
