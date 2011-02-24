@@ -83,6 +83,7 @@ ul#filter{
 	margin-bottom: 10px;
 }
 ul#filter li{
+	background:#111;
 	display:inline-block;
 	width:113px;
 	margin-right:3px;
