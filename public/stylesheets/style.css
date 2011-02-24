@@ -11,7 +11,7 @@ h2 {font-size:100%;}
 	width:970px;
 }
 a, a:visited {color:#d9d9d9;text-decoration:none;}
-.title{text-decoration:underline;}
+.title{text-decoration:none;}
 .articles{
 	background:#111;
 	margin-bottom:5px;
