@@ -6,12 +6,12 @@ color:#c9c9c9;
 font-size:18px;
 }
 h1 {font-size:190%;}
-h2 {font-size:100%;}
+h2 {font-size:100%;font-weight:300;}
 .main{
 	width:970px;
 }
 a, a:visited {color:#d9d9d9;text-decoration:none;}
-.title{text-decoration:none;}
+.title{padding-left:3ex;text-decoration:none;}
 .articles{
 	background:#111;
 	margin-bottom:5px;
