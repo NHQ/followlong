@@ -4,6 +4,11 @@ $(function(){
 
   $container.isotope({
     itemSelector : '.articles',
+  animationOptions: {
+     duration: 750,
+     easing: 'linear',
+     queue: false
+   }
   });
 
   // filter
