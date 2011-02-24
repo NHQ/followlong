@@ -29,7 +29,7 @@ ul#filter
       a(href="#", data-filter=".reading") Reading
 #container
   - each article in articles
-    article.channel
+    .channel #{article.channel}
     div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
       .fit
         h2

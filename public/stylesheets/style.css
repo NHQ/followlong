@@ -6,7 +6,7 @@ color:#c9c9c9;
 font-size:18px;
 }
 h1 {font-size:190%;}
-h2 {font-size:115%;}
+h2 {font-size:100%;}
 .main{
 	width:970px;
 }
@@ -17,14 +17,14 @@ a, a:visited {color:#ccffcc;text-decoration:none;}
 	margin-bottom:5px;
 	display:block;
 	float:left;
-	width:800px;
+	width:940px;
 	overflow:hidden;
 }
 #container{
 	padding:13px;
 		width:970px;
 }
-.fit {	padding:13px;}
+.fit {	padding:3px;}
 #content{font-size:22px}
 #content img {max-width:280px;max-height:310px;overflow:hidden;}
 #content p{font-size:18px;}
@@ -72,7 +72,7 @@ a, a:visited {color:#ccffcc;text-decoration:none;}
 	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 	-webkit-box-shadow: -11px 0 0 #fff;
 }
-
+.channel {color:#fff;}
 /* Menus Nav */
 
 ul#filter{
