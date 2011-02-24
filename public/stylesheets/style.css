@@ -45,37 +45,41 @@ ul#filter li a{
 }
 .fit {	padding:13px;}
 #content img {width:290px;}
+.all{
+	border:3px solid #fff;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
+}
 .video{
 	border:3px solid #0099ff;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .POLITICS{
 	border:3px solid #880077;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .comics{
 	border:3px solid #ffff33;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .relevision{
 	border:3px solid #cc0011;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .music{
 	border:3px solid #ee00cc;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .science{
 	border:3px solid #00cc55;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .culture{
 	border:3px solid #ff4400;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 .reading{
 	border:3px solid #fff;
-	-webkit-border-radius: 9px;
+	-webkit-border-radius: 9px;-moz-border-radius: 9px;
 }
 
 /**** Isotope filtering ****/
