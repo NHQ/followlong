@@ -29,7 +29,7 @@ exports.fUSR = function(email, password, id){
 			
 			mak = function(){
 				doit()
-				newU.hset(id, 'email', email, 'password', hashed_password,'salt', salt, 'isAdmin', 1, 'id', id);
+				newU.hmset(id, 'email', email, 'password', hashed_password,'salt', salt, 'isAdmin', 1, 'id', id);
 			},
  mak()
 };
