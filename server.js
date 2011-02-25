@@ -246,7 +246,7 @@ app.post('/login', function(req, res){
 			return crypto.createHmac('sha1', user.salt).update(password).digest('hex') === user.password
 		})
 		res.writeHead('200');
-		//req.session.user_id = id;
+		req.session.user_id = id;
 		res.redirect('/')
 	})
 });
