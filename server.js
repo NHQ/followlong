@@ -99,11 +99,12 @@ app.get('/', function(req, res){
 			if (req.session.user_id)
 			admin = 1;
 			{res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles, admin = admin}
+				locals: {title: "MOSTMODERNIST", articles: articles}
 			})}
 			else
+			admin = 0;
 			{res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles, admin: 'none'}
+				locals: {title: "MOSTMODERNIST", articles: articles}
 			})}
 		})
 	})
