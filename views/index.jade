@@ -27,12 +27,20 @@ ul#filter
   li.reading
     h2
       a(href="#", data-filter=".reading") Reading
-#container
-  - each article in articles
-    div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
-      .fit
-        h2
-          a(href=article.link, class="title", id: admin) #{article.title}
+- if admin = 1
+  #container
+    - each article in articles
+      div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
+        .fit
+          h2
+            a(href=article.link, class="title", id=encodeURIComponent(article.title)) #{article.title}
+- else
+  #container
+    - each article in articles
+      div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
+        .fit
+          h2
+            a(href=article.link, class="title") #{article.title}
 script(type='text/javascript', src='/javascripts/jquery-1.4.4.min.js')
 script(type='text/javascript', src='/javascripts/jquery.isotope.min.js')
 script(type='text/javascript', src='/javascripts/front.js')
