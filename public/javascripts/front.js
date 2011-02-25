@@ -18,9 +18,4 @@ $('#filter a').click(function(){
   return false;
 });
 
-$('.articles a').click(function(){
-	 var selector = $(this);
-	$('#container').isotope({ filter: selector });
-})
-
 });
