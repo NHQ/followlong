@@ -59,6 +59,20 @@ function isAdmin(req, res, next) {
   }
 }
 */
+
+function getSesh (req, res){
+	var id = req.session.user_id;
+	var isAdmin = 0;
+	if(!id){return isAdmin}
+	if(id)
+	{
+	client.hget(id, 'isAmdin', function(err, facts){
+		if(facts = 1){isAdmin = 1}	
+		return isAdmin;
+	})
+	}
+};
+
 function frontis(){
 	var t = setTimeout(function(){frontis()}, 60000);
 	var repo = new Array();
@@ -84,7 +98,7 @@ function frontis(){
 }
 // Routes
 
-app.get('/', function(req, res){
+app.get('/', getSesh, function(req, res){
 	multi = client.multi();
 	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
 		if(err){console.log(err)}
@@ -94,15 +108,11 @@ app.get('/', function(req, res){
 			})
 		}
 		multi.exec(function(err, reply){
-			var admin;
 			if(err){console.log(err)}
 			articles = reply;
-			if (req.session.user_id)
-			{admin = 1}
-			else
-			{admin = 0};
 			res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles, admin: admin}
+				locals: {title: "MOSTMODERNIST", articles: articles, admin: isAdmin}
+				console.log(isAdmin)
 			})
 		})
 	})
