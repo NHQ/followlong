@@ -457,7 +457,7 @@ app.post('/feed', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(8080);
+  app.listen(80);
   sys.puts("Express server listening on port %d", app.address().port);
 	frontis();
 }
