@@ -104,6 +104,7 @@ app.get('/', function(req, res){
 	var isAdmin;
 	if(req.session.user_id)
 	{
+		console.log(req.session.user_id);
 		client.hgetall(req.session.user_id, function(err, facts){
 			if(facts.isAdmin = 1)
 			var isAdmin = 1;
