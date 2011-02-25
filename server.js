@@ -94,18 +94,16 @@ app.get('/', function(req, res){
 			})
 		}
 		multi.exec(function(err, reply){
+			var admin;
 			if(err){console.log(err)}
 			articles = reply;
 			if (req.session.user_id)
-			{admin = 1;
+			{admin = 1;}
+			else
+			{admin = 0;}
 			res.render('index', {
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: admin}
-			})}
-			else
-			{admin = 0;
-			{res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles, admin: admin}
-			})}}
+			})
 		})
 	})
 });
