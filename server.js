@@ -61,14 +61,14 @@ function isAdmin(req, res, next) {
 */
 
 function getSesh (req, res, next){
-	var isAdmin;
+	var isAdmin = 0;
 	if(!req.session.user_id)
 		next()
 	if(req.session.user_id)
 	{
 		client.hgetall(req.session.user_id, function(err, facts){
 			if(facts.isAdmin = 1)
-			var isAdmin = 1;
+			var req.isAdmin = 1;
 			next();
 		})
 	}
@@ -99,17 +99,8 @@ function frontis(){
 }
 // Routes
 
-app.get('/', function(req, res){
+app.get('/', getSesh, function(req, res){
 	multi = client.multi();
-	var isAdmin;
-	if(req.session.user_id)
-	{
-		console.log(req.session.user_id);
-		client.hgetall(req.session.user_id, function(err, facts){
-			if(facts.isAdmin = 1)
-			var isAdmin = 1;
-		})
-	};
 	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
@@ -121,9 +112,8 @@ app.get('/', function(req, res){
 			if(err){console.log(err)}
 			articles = reply;
 			res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles, admin: isAdmin}
+				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
 			})
-			console.log(isAdmin)
 		})
 	})
 });
