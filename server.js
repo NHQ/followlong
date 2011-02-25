@@ -338,7 +338,7 @@ function retrieve (channel, feed){
 					content = d.items[x].content
 				};
 				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
-				client.hmset(d.items[x].title, 
+				client.hmset(d.items[x].title.replace(/\s/g, "_"), 
 					{
 						"content": content,
 						"link": d.items[x].permalinkUrl,
