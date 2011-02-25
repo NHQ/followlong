@@ -96,16 +96,14 @@ app.get('/', function(req, res){
 		multi.exec(function(err, reply){
 			if(err){console.log(err)}
 			articles = reply;
-			res.render('index', {
-				if (req.session.user_id)
-				{
-					locals: {title: "MOSTMODERNIST", articles: articles, admin: 'encodeURIComponent(article.title)'}
-				}
-				else
-				{
-					locals: {title: "MOSTMODERNIST", articles: articles, admin: 'none'}
-				}
-			})
+			if (req.session.user_id)
+			{res.render('index', {
+				locals: {title: "MOSTMODERNIST", articles: articles, admin: 'encodeURIComponent(article.title)'}
+			})}
+			else
+			{res.render('index', {
+				locals: {title: "MOSTMODERNIST", articles: articles, admin: 'none'}
+			})}
 		})
 	})
 });
