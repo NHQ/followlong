@@ -7,10 +7,10 @@ var redis = require("../redis"),
 	salt,
 	_password;
 	
-exports.fUSR = function(email, password){
+exports.fUSR = function(email, password, id){
 	
 			authenticate = function(plaintext){
-				return encryptPassword(plaintext) = hashed_password;
+				return encryptPassword(plaintext) === hashed_password;
 			},
 			
 			makeSalt = function(){
@@ -29,8 +29,9 @@ exports.fUSR = function(email, password){
 			
 			mak = function(){
 				doit()
-				newU.lpush(email, hashed_password);
-				newU.rpush(email, salt);	
+				newU.hset(email, 'password', hashed_password);
+				newU.hset(email, 'salt', salt);
+				newU.hset(email, 'id', id)
 			},
  mak()
-};	
+};
