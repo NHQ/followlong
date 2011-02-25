@@ -337,12 +337,13 @@ function retrieve (channel, feed){
 				if (d.items[x].content){
 					content = d.items[x].content
 				};
+				title = d.items[x].title.replace(/&nbsp;/g," ");
 				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
-				client.hmset(d.items[x].title.replace(/\s/g, "_"), 
+				client.hmset(title.replace(/\s/g, "_"), 
 					{
 						"content": content,
 						"link": d.items[x].permalinkUrl,
-						"title": unescape(d.items[x].title),
+						"title": title,
 						"pic": picture,
 						"channel": channel,
 						"furl": feed,
