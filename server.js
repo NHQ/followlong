@@ -121,7 +121,8 @@ app.get('/', function(req, res){
 			if(err){console.log(err)}
 			articles = reply;
 			res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles, admin: isAdmin}
+				locals: {title: "MOSTMODERNIST", articles: articles, admin: isAdmin};
+				console.log(isAdmin)
 			})
 		})
 	})
