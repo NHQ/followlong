@@ -34,9 +34,11 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.bodyDecoder());
   app.use(express.cookieDecoder());
+  app.use(express.session({key: 'k33k33', secret: 'superSecret!', store: new RedisStore}));
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.staticProvider(__dirname + '/public'));
+
 });
 
 app.configure('development', function(){
@@ -48,7 +50,7 @@ app.configure('production', function(){
 });
 
 /*
-function loadUser(req, res, next) {
+function isAdmin(req, res, next) {
   if (req.session.user_id) {
 	next();
 	}
@@ -84,7 +86,7 @@ function frontis(){
 
 app.get('/', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "50", function(err, data){
+	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{
@@ -134,7 +136,7 @@ app.post('/delete/feed', function (req, res){
 
 app.post('/delete/item', function (req, res){
 	channel = req.body.channel;
-	feed = req.body.feed;
+	feed = decodeURLComponent(req.body.feed);
 	console.log(feed);
 	client.del(feed);
 	client.zrem(channel, feed, function(err, res){
@@ -215,31 +217,45 @@ var path = url.parse(req.url).pathname;
 
 send404 = function(res){
   res.writeHead(404);
-  res.write('404');
+	res.redirect('/');
   res.end();
 };
-/*
-app.post('/new', function(req, res){
-	newfeed.fURL(req.body.url, req.body.fname);
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('hello');
-});
-*/
-/* 
-app.get('/new-user', function(res, res){
+
+app.get('/new-user', function(req, res){
+	console.log(req.session.user_id);
 	res.render('new-user', {
-		locals: {title: "create user"}
+		locals: {title: "create user", action: "/new-user"}
+	})
+});
+
+app.get('/login', function(req, res){
+	res.render('new-user', {
+		locals: {title: "login", action: "/login"}
 	})
 })
 
+app.post('/login', function(req, res){
+	password = req.body.password
+	client.hgetall(req.body.email, function(err, user){
+		if (user && function(password){
+			return crypto.createHmac('sha1', user.salt).update(password).digest('hex') === user.password
+		})
+		res.writeHead('200');
+		//req.session.user_id = id;
+		res.redirect('/')
+	})
+});
+
 app.post('/new-user', function(req, res){
-	newuser.fUSR(req.body.email, req.body.password);
-    req.session.user_id = req.body.email;
+	id = (Math.round((new Date().valueOf() * Math.random())) + '');
+	console.log(id);
+	req.session.user_id = id;
+	newuser.fUSR(req.body.email, req.body.password, id);
     res.redirect('/');
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('hello');
 });
-*/
+/*
 app.get('/test', function(req, res){
 	d = fs.readFileSync('./more.json', 'utf8');
 	datum = JSON.stringify(d);
@@ -251,7 +267,7 @@ app.get('/test', function(req, res){
 	request.end(d, encoding='utf8');
 	res.redirect('/');
 });
-
+*/
 function unsubscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
 		data = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
@@ -441,7 +457,7 @@ app.post('/feed', function(req, res){
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(80);
+  app.listen(8080);
   sys.puts("Express server listening on port %d", app.address().port);
 	frontis();
 }
