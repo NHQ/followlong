@@ -136,7 +136,7 @@ app.post('/delete/feed', function (req, res){
 
 app.post('/delete/item', function (req, res){
 	channel = req.body.channel;
-	feed = decodeURLComponent(req.body.feed);
+	feed = decodeURIComponent(req.body.feed);
 	console.log(feed);
 	client.del(feed);
 	client.zrem(channel, feed, function(err, res){
