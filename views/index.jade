@@ -34,7 +34,7 @@ ul#filter
         .fit
           h2
             a(href=article.link, class="title") #{article.title}
-            a(href="/"+article.channel+"/"+id=encodeURIComponent(article.title), class="admin", onclick="deleteItem", id=encodeURIComponent(article.title))
+            a(href="/delete/item/"+article.channel+"/"+encodeURIComponent(article.title), class="admin", onclick="deleteItem", id=encodeURIComponent(article.title))
 - else
   #container
     - each article in articles
