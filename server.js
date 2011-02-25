@@ -98,7 +98,7 @@ app.get('/', function(req, res){
 			articles = reply;
 			if (req.session.user_id)
 			{res.render('index', {
-				locals: {title: "MOSTMODERNIST", articles: articles, admin: 'encodeURIComponent(article.title)'}
+				locals: {title: "MOSTMODERNIST", articles: articles, admin: encodeURIComponent(articles.article.title)}
 			})}
 			else
 			{res.render('index', {
