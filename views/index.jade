@@ -32,9 +32,9 @@ ul#filter
     - each article in articles
       div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
         .fit
+          a(href="/delete/item/"+encodeURIComponent(article.furl)+"/"+encodeURIComponent(article.title), class="admin", onclick="deleteItem", id=encodeURIComponent(article.title)) delete
           h2
-            a(href=article.link, class="title") #{article.title}+' '
-            a(href="/delete/item/"+encodeURIComponent(article.furl)+"/"+encodeURIComponent(article.title), class="admin", onclick="deleteItem", id=encodeURIComponent(article.title)) delete
+            a(href=article.link, class="title") #{article.title}
 - else
   #container
     - each article in articles
