@@ -68,7 +68,7 @@ function getSesh (req, res, next){
 	{
 		client.hgetall(req.session.user_id, function(err, facts){
 			if(facts.isAdmin = 1)
-			var req.isAdmin = 1;
+			req.isAdmin = 1;
 			next();
 		})
 	}
