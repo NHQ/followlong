@@ -27,7 +27,7 @@ ul#filter
   li.reading
     h2
       a(href="#", data-filter=".reading") Reading
-- if admin == 1
+- if (admin == 1)
   #container
     - each article in articles
       div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
