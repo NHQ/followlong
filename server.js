@@ -139,15 +139,15 @@ app.post('/delete/feed', function (req, res){
 	res.redirect('/admin');
 })
 
-app.get('/delete/item/:channel/:item', function (req, res){
-	channel = req.params.channel;
+app.get('/delete/item/:furl/:item', function (req, res){
+	furl = decodeURIComponent(req.params.furl);
 	feed = decodeURIComponent(req.params.item);
 	console.log(feed);
 	client.del(feed);
-	client.zrem(channel, feed, function(err, res){
+	client.zrem(furl, feed, function(err, res){
 		frontis();
 	});
-	//res.redirect('/edit?feed='+encodeURIComponent(channel))
+	res.redirect('/')
 })
 
 app.get('/edit', function(req, res){
