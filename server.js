@@ -102,14 +102,11 @@ function frontis(){
 app.get('/', function(req, res){
 	multi = client.multi();
 	var isAdmin;
-	if(!req.session.user_id)
-		next()
 	if(req.session.user_id)
 	{
 		client.hgetall(req.session.user_id, function(err, facts){
 			if(facts.isAdmin = 1)
 			var isAdmin = 1;
-			next();
 		})
 	};
 	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
