@@ -421,7 +421,7 @@ app.post('/feed', function(req, res){
 			summary = d.items[x].summary
 		};
 		console.log(d.items.title);
-		title = d.item[x].title.replace(/\s/g, "_");
+		title = d.items[x].title.replace(/\s/g, "_");
 		client.zadd(unfurl, d.items[x].postedTime, title, function(err, reply){if (err){sys.puts(err)}});
 		client.hmset(title, 
 			{
