@@ -61,7 +61,7 @@ function isAdmin(req, res, next) {
 */
 
 function getSesh (req, res, next){
-	var isAdmin = 0;
+	req.isAdmin = 0;
 	if(!req.session.user_id)
 		next()
 	if(req.session.user_id)
@@ -149,10 +149,9 @@ app.post('/delete/feed', function (req, res){
 	res.redirect('/admin');
 })
 
-app.get('/delete/item/:furl/:item', function (req, res){
+app.get('/delete/item/:furl/:item', getSesh, function (req, res){
 	furl = decodeURIComponent(req.params.furl);
 	feed = decodeURIComponent(req.params.item);
-	console.log(feed);
 	client.del(feed);
 	client.zrem(furl, feed, function(err, res){
 		frontis();
