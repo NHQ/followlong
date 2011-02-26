@@ -272,7 +272,8 @@ app.post('/new-user', function(req, res){
 });
 
 app.get('/logout', function(req, res){
-	req.session.destroy; 
+	req.session.destroy;
+	console.log(req.session.user_id) 
 	res.redirect('/')
 })
 /*
