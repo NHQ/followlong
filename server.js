@@ -263,7 +263,7 @@ app.post('/login', function(req, res){
 app.post('/new-user', function(req, res){
 	id = (Math.round((new Date().valueOf() * Math.random())) + '');
 	console.log(id);
-	req.session.user_id = email;
+	req.session.user_id = req.body.email;
 	newuser.fUSR(req.body.email, req.body.password, id);
     res.redirect('/');
 	res.writeHead(200, {'Content-Type': 'text/plain'});
