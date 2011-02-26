@@ -18,9 +18,9 @@ $('#filter a').click(function(){
   return false;
 });
 
-$('.article').click(function){
-	$(this).find('div.summary').show();
-}
+$('.article').click(function()){
+	$.find('div.summary').show();
+});
 
 $('admin a', function(event){
 	$ajax.({
