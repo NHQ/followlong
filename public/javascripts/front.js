@@ -19,7 +19,7 @@ $('#filter a').click(function(){
 });
 
 $('.article').click(function()){
-	$.find('div.summary').show();
+	$(this).find('div.summary').show();
 });
 
 $('admin a', function(event){
