@@ -18,8 +18,8 @@ $('#filter a').click(function(){
   return false;
 });
 
-$('.article').click(function()){
-	$(this).find('div.summary').show();
+$('.article').click(function(){
+	$(this).find('div.summary').css('display', 'block');
 });
 
 $('admin a', function(event){
