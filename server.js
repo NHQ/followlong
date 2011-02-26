@@ -1,13 +1,7 @@
 /**
  * Module dependencies.
  */
-var banner = "
-                     _                       _                 _     _   
-                    | |                     | |               (_)   | |  
- _ __ ___   ___  ___| |_ _ __ ___   ___   __| | ___ _ __ _ __  _ ___| |_ 
-| '_ ` _ \ / _ \/ __| __| '_ ` _ \ / _ \ / _` |/ _ \ '__| '_ \| / __| __|
-| | | | | | (_) \__ \ |_| | | | | | (_) | (_| |  __/ |  | | | | \__ \ |_ 
-|_| |_| |_|\___/|___/\__|_| |_| |_|\___/ \__,_|\___|_|  |_| |_|_|___/\__|";
+
 var express = require('express');
 
 var app = module.exports = express.createServer(),
@@ -54,7 +48,13 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
-
+var banner = new String("
+                     _                       _                 _     _   
+                    | |                     | |               (_)   | |  
+ _ __ ___   ___  ___| |_ _ __ ___   ___   __| | ___ _ __ _ __  _ ___| |_ 
+| '_ ` _ \ / _ \/ __| __| '_ ` _ \ / _ \ / _` |/ _ \ '__| '_ \| / __| __|
+| | | | | | (_) \__ \ |_| | | | | | (_) | (_| |  __/ |  | | | | \__ \ |_ 
+|_| |_| |_|\___/|___/\__|_| |_| |_|\___/ \__,_|\___|_|  |_| |_|_|___/\__|");
 /*
 function isAdmin(req, res, next) {
   if (req.session.user_id) {
