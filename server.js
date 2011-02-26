@@ -228,7 +228,13 @@ var path = url.parse(req.url).pathname;
       });
 }),
 */
-
+app.error(function(err, req, res, next) {
+  if (err instanceof NotFound) {
+    res.redirect('/');
+  } else {
+    next(err);
+  }
+});
 send404 = function(res){
   res.writeHead(404);
 	res.redirect('/');
