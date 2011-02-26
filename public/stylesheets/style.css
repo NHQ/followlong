@@ -11,7 +11,7 @@ h2 {font-size:100%;font-weight:300;}
 	width:970px;
 }
 a, a:visited {color:#d9d9d9;text-decoration:none;}
-.title{padding-left:3ex;text-decoration:none;}
+.title{text-decoration:none;}
 .articles{
 	background:#111;
 	margin-bottom:5px;
@@ -98,6 +98,11 @@ ul#filter li h2 {
 }
 ul#filter li a{
 	color:#e6e6e6;
+}
+
+.summary{
+	display:none;
+	text-indent:3ex;
 }
 
 /**** Isotope filtering ****/
