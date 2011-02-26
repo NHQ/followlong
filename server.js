@@ -112,11 +112,7 @@ app.get('/', getSesh, function(req, res){
 			if(err){console.log(err)}
 			articles = reply;
 			res.render('index', {
-				locals: {title: "                    | |                     | |               (_)   | |  
-				 _ __ ___   ___  ___| |_ _ __ ___   ___   __| | ___ _ __ _ __  _ ___| |_ 
-				| '_ ` _ \ / _ \/ __| __| '_ ` _ \ / _ \ / _` |/ _ \ '__| '_ \| / __| __|
-				| | | | | | (_) \__ \ |_| | | | | | (_) | (_| |  __/ |  | | | | \__ \ |_ 
-				|_| |_| |_|\___/|___/\__|_| |_| |_|\___/ \__,_|\___|_|  |_| |_|_|___/\__|", articles: articles, admin: req.isAdmin}
+				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
 			})
 		}); console.log(req.isAdmin)
 	})
