@@ -114,7 +114,7 @@ app.get('/', getSesh, function(req, res){
 			res.render('index', {
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
 			})
-		}); console.log(isAdmin)
+		}); console.log(req.isAdmin)
 	})
 });
 
