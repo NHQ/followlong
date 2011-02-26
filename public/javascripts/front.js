@@ -18,7 +18,7 @@ $('#filter a').click(function(){
   return false;
 });
 
-$('div.articles').bind('click', function(){
+$('div.articles').bind('click', function(event){
 	$(this).find('div.summary').css('display', 'block');
 });
 
