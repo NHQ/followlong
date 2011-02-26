@@ -254,10 +254,10 @@ app.post('/login', function(req, res){
 		if (user && function(password){
 			return crypto.createHmac('sha1', user.salt).update(password).digest('hex') === user.password
 		})
-		res.writeHead('200');
+		{res.writeHead('200');
 		req.session.user_id = user.email;
-		res.redirect('/');
-		if else res.redirect('/')
+		res.redirect('/')}
+		else {res.redirect('/')}
 	})
 });
 
