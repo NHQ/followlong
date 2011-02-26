@@ -67,7 +67,7 @@ function getSesh (req, res, next){
 	if(req.session.user_id)
 	{
 		client.hgetall(req.session.user_id, function(err, facts){
-			if(facts.isAdmin = 1)
+			if(facts[isAdmin] = 1)
 			req.isAdmin = 1;
 			next();
 		})
@@ -249,15 +249,15 @@ app.get('/login', function(req, res){
 })
 
 app.post('/login', function(req, res){
-	password = req.body.password
+	password = req.body.password;
 	client.hgetall(req.body.email, function(err, user){
+		if (user = ""){res.redirect('/')};
 		if (user && function(password){
 			return crypto.createHmac('sha1', user.salt).update(password).digest('hex') === user.password
 		})
 		{res.writeHead('200');
 		req.session.user_id = user.email;
 		res.redirect('/')}
-		else {res.redirect('/')}
 	})
 });
 
