@@ -42,8 +42,7 @@ ul#filter
         .fit
           h2
             a(href=article.link, class="title") #{article.title}
-          h3.summary
-            #{article.summary}
+          h3.summary!= article.summary
 script(type='text/javascript', src='/javascripts/jquery-1.4.4.min.js')
 script(type='text/javascript', src='/javascripts/jquery.isotope.min.js')
 script(type='text/javascript', src='/javascripts/front.js')
