@@ -144,7 +144,7 @@ app.get('/admin', function(req, res){
 
 app.post('/delete/feed', function (req, res){
 	channel = req.body.channel;
-	feed = req.body.feed;
+	feed = decodeURIComponent(req.body.feed);
 	delFeed(channel, feed);
 	res.redirect('/admin');
 })
