@@ -271,10 +271,11 @@ app.post('/new-user', function(req, res){
 	res.end('hello');
 });
 
-app.del('/logout', function(req, res){
-	req.session.destroy(function() {});
+app.get('/logout', function(req, res){
+	if(req.session)
+	{req.session.destroy(function() {});
 	console.log(req.session.user_id) 
-	res.redirect('/')
+	res.redirect('/')}
 })
 /*
 app.get('/test', function(req, res){
