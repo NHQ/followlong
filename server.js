@@ -256,7 +256,8 @@ app.post('/login', function(req, res){
 		})
 		res.writeHead('200');
 		req.session.user_id = user.email;
-		res.redirect('/')
+		res.redirect('/');
+		else res.redirect('/')
 	})
 });
 
@@ -269,6 +270,11 @@ app.post('/new-user', function(req, res){
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('hello');
 });
+
+app.get('/logout', function(req, res){
+	req.session.destroy; 
+	res.redirect('/')
+})
 /*
 app.get('/test', function(req, res){
 	d = fs.readFileSync('./more.json', 'utf8');
