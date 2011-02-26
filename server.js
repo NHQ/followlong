@@ -257,7 +257,7 @@ app.post('/login', function(req, res){
 		res.writeHead('200');
 		req.session.user_id = user.email;
 		res.redirect('/');
-		else res.redirect('/')
+		if else res.redirect('/')
 	})
 });
 
