@@ -113,8 +113,8 @@ app.get('/', getSesh, function(req, res){
 			articles = reply;
 			res.render('index', {
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
-			})console.log(isAdmin)
-		})
+			})
+		}); console.log(isAdmin)
 	})
 });
 
