@@ -61,7 +61,7 @@ function isAdmin(req, res, next) {
 */
 
 function getSesh (req, res, next){
-	req.isAdmin = 0;
+	var isAdmin = 0;
 	if(!req.session.user_id)
 		next()
 	if(req.session.user_id)
