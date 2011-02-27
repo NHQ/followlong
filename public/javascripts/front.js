@@ -18,14 +18,4 @@ $('#filter a').click(function(){
   return false;
 });
 
-
-
-$('admin a', function(event){
-	$ajax.({
-		type:"POST",
-		url:"/delete/item",
-		
-	})
-})
-
 });
