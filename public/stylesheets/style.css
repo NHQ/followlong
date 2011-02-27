@@ -99,7 +99,7 @@ ul#filter li h2 {
 ul#filter li a{
 	color:#e6e6e6;
 }
-h2 a.admin (color: green; margin-right: 2ex)
+a.admin {color: green; margin-right: 2ex}
 
 /**** Isotope filtering ****/
 
