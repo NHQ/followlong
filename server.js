@@ -240,7 +240,7 @@ send404 = function(res){
 	res.redirect('/');
   res.end();
 };
-/*
+
 app.get('/new-user', function(req, res){
 	console.log(req.session.user_id);
 	res.render('new-user', {
@@ -256,7 +256,6 @@ app.post('/new-user', function(req, res){
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('hello');
 });
-*/
 
 app.get('/login', function(req, res){
 	res.render('new-user', {
