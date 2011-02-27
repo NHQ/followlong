@@ -33,7 +33,7 @@ ul#filter
       div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
         .fit
           h2
-            a(href="/delete/item/"+encodeURIComponent(article.furl)+"/"+encodeURIComponent(article.title), class="admin", onclick="deleteItem", id=encodeURIComponent(article.title)) delete
+            a(href="/delete/item/"+encodeURIComponent(article.furl)+"/"+encodeURIComponent(article.title), class="admin") delete
             a(href=article.link, class="title") #{article.title}
 - else
   #container
