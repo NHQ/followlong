@@ -100,11 +100,6 @@ ul#filter li a{
 	color:#e6e6e6;
 }
 
-.summary{
-	display:none;
-	text-indent:3ex;
-}
-
 /**** Isotope filtering ****/
 
 .isotope-item {
