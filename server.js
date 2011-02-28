@@ -137,6 +137,7 @@ app.get('/frontpage', function(req, res){
 	        res.writeHead(200, {'Content-Type': 'application/json'})
 	        res.write(data, 'utf8');
 	        res.end();
+			console.log(data)
 		})
 	})
 });
