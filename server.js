@@ -153,6 +153,7 @@ app.get('/delete/item/:furl/:item', getSesh, function (req, res){
 	furl = decodeURIComponent(req.params.furl);
 	feed = decodeURIComponent(req.params.item);
 	item = feed.replace(/\s/g, "_")
+	console.log("Feed= "+feed+"\nitem= "+item)
 	client.del(item);
 	client.zrem(furl, item, function(err, res){
 		frontis();
