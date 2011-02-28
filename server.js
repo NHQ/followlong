@@ -152,8 +152,9 @@ app.post('/delete/feed', function (req, res){
 app.get('/delete/item/:furl/:item', getSesh, function (req, res){
 	furl = decodeURIComponent(req.params.furl);
 	feed = decodeURIComponent(req.params.item);
-	client.del(feed);
-	client.zrem(furl, feed, function(err, res){
+	item = feed.replace(/\s/g, "_")
+	client.del(item));
+	client.zrem(furl, item, function(err, res){
 		frontis();
 	});
 	res.redirect('/')
