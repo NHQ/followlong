@@ -24,7 +24,7 @@ $('#filter a').click(function(){
 
 
 $(window).load(function(){
-	var jqxhr = $.ajax({ url: "./frontpgae", dataType: "json"})
+	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		$('#container').html(JSON.stringify(data)).css('color', 'green')
 	})
