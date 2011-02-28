@@ -133,10 +133,10 @@ app.get('/frontpage', function(req, res){
 		}
 		multi.exec(function(err, reply){
 			if(err){console.log(err)}
-			articles = reply;
-			res.write(articles);
-			res.end();
-			console.log("will be done")
+			data = JSON.stringify(reply);
+	        res.writeHead(200, {'Content-Type': 'application/json'})
+	        res.write(data, 'utf8');
+	        res.end();
 		})
 	})
 });
