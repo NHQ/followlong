@@ -348,7 +348,6 @@ function retrieve (channel, feed){
 		});
 		response.on('end', function (){
 			var d = JSON.parse(ditto);
-			console.log(d);
 			var dl = d.items.length;
 			for (x = 0; x < dl; ++x){
 				picture = ""; // do what the green line says!
@@ -360,6 +359,7 @@ function retrieve (channel, feed){
 					content = d.items[x].content
 				};
 				title = d.items[x].title.replace(/&nbsp;/g," ");
+				console.log(title);
 				client.zadd(feed, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
 				client.hmset(title.replace(/\s/g, "_"), 
 					{
@@ -426,14 +426,14 @@ app.post('/feed', function(req, res){
 			summary = d.items[x].summary
 		};
 		console.log(d.items.title);
-		title = d.items[x].title.replace(/\s/g, "_");
+		title = d.items[x].title.replace(/&nbsp;/g, " ");
 		client.zadd(unfurl, d.items[x].postedTime, title, function(err, reply){if (err){sys.puts(err)}});
-		client.hmset(title, 
+		client.hmset(title.replace(/\s/g, "_"), 
 			{
 				"content": content,
 				"summary": summary,
 				"link": d.items[x].permalinkUrl,
-				"title": d.items[x].title.replace(/&nbsp;/g, " "),
+				"title":title,
 				"pic": picture,
 				"channel": channel,
 				"furl": unfurl,
