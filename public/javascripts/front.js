@@ -18,6 +18,11 @@ $(function(){
 
   // filter
 $('#filter a').live('click', function(event){
+    var href = $(this).attr("href");
+    if(href[0] == "/"){
+        event.preventDefault();
+        window.location.hash = "#!" + href;
+    }
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
   return false;
