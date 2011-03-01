@@ -30,7 +30,7 @@ $('#filter a').click(function(){
   return false;    
 });
 
-$(function loaded(){
+(function loaded(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
