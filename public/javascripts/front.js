@@ -18,11 +18,14 @@ $(function(){
 
   // filter
 $('#filter a').click(function(){
+	var href = $(this).attr("href");
+    if(href[0] == "/"){
+        event.preventDefault();
+        window.location.hash = "#/" + href;
+    }
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
   return false;
-	alert('go');
-
 });
 
 $(document).ready(function(){
@@ -39,3 +42,9 @@ $(document).ready(function(){
 	    .error(function() { alert("error: "+textStatus); })
 });
 });
+
+Path.map('/#/:category')to.(function(){
+	$('#container').isotope({ filter: this.params['category'] });
+  return false;
+})
+Path.listen();
