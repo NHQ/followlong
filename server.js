@@ -123,11 +123,11 @@ app.get('/ajax', function (req, res){
 });
 
 app.post('/load', function (req, res){
-	var path = url.parse(req.url).query;
+	var path = url.parse(req.url).href;
 	query = querystring.parse(path, sep='&', eq='=');
 	channel = req.params.channel;
 	score = req.params.score;
-	console.log(query);
+	console.log(path);
 	client.smembers(channel, function(err, list){
 		console.log(list);
 		for (l in list)
