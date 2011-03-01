@@ -51,7 +51,7 @@ $('#container').isotope({ filter: '.'+hash });
 function loaded(score, selector){
 	url = window.location.host+'/'+selector.slice(1)+'/'+score;
 	alert(url);
-	$.ajax({ url: url, dataType: "json"})
+	var lmnop = $.ajax({ url: url, dataType: "json"})
 	    .success(function(data) {
 		alert('success');
 		append= '';
