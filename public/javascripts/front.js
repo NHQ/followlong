@@ -39,7 +39,7 @@ $(document).ready(function(){
 	     duration: 333,
 	     easing: 'linear',
 	     queue: false
-	   };
+	   }});
 		$container.isotope('insert', $append);
 	})
 	    .error(function() { alert("error: "+textStatus); })
