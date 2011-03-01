@@ -138,6 +138,8 @@ app.get('/load', function (req, res){
 			if(err){console.log(err)}
 			console.log(data);
 			for (d in data)
+			if (data[d] = ""){return null}
+			else
 			{
 				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
 				})
@@ -148,7 +150,7 @@ app.get('/load', function (req, res){
 		        res.writeHead(200, {'Content-Type': 'application/json'})
 		        res.write(data, 'utf8');
 		        res.end();
-				//console.log(reply)
+				console.log(reply)
 			})		
 		})
 	})
