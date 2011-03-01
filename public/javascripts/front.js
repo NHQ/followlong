@@ -36,11 +36,12 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-Path.map('/#/culture')to.(function(){
-	$('#container').isotope({ filter: '.culture' });
-  return false;
-})
+
 $(document).ready(function()}{
+	Path.map('/#/culture')to.(function(){
+		$('#container').isotope({ filter: '.culture' });
+	  return false;
+	})
 Path.listen();	
 })
 });
