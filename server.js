@@ -125,6 +125,8 @@ app.get('/ajax', function (req, res){
 app.get('/load', function (req, res){
 	channel = req.params.channel;
 	score = req.params.score;
+	console.log(req.headers);
+	console.log(url.parse(req.url).href+'\n'+channel+'\n'+score);
 	client.smembers(channel, function(err, list){
 		//console.log(list);
 		for (l in list)
@@ -134,7 +136,7 @@ app.get('/load', function (req, res){
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
 			console.log(data);
-			for (d in data)
+			/*for (d in data)
 			{
 				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
 				})
@@ -146,11 +148,11 @@ app.get('/load', function (req, res){
 		        res.write(data, 'utf8');
 		        res.end();
 				//console.log(reply)
-			})		
+			})*/		
 		})
 	})
 });
-
+/*
 app.get('/frontpage', function(req, res){
 	multi = client.multi();
 	client.zrevrangebyscore('frontPage', epoch(), epoch()-90061, "limit", "0", "75", function(err, data){
@@ -170,7 +172,7 @@ app.get('/frontpage', function(req, res){
 		})
 	})
 });
-
+*/
 app.get('/admin', function(req, res){
 	var obj = new Object();
 	var cats = [];
