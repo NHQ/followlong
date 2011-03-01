@@ -25,7 +25,7 @@ $('#filter a').click(function(){
 
 });
 
-$(window).load(function(){
+$(document).ready(function(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
