@@ -41,10 +41,12 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-});
-
 Path.map('/#/:category')to.(function(){
 	$('#container').isotope({ filter: this.params['category'] });
   return false;
 })
 Path.listen();
+
+});
+
+
