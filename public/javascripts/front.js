@@ -21,7 +21,7 @@ $('#filter a').click(function(){
 	var href = $(this).attr("href");
     if(href[0] == "/"){
         event.preventDefault();
-        window.location.hash = "#/" + href;
+        window.location.hash = "#!" + href;
     }
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
