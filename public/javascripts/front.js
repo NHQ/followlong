@@ -36,10 +36,8 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-Path.map('#/:category')to.(function(){
-	clazz = this.params['category'];
-	$('#container').isotope({ filter: '.'+clazz });
-	alert(clazz)
+Path.map('#/culture')to.(function(){
+	$('#container').isotope({ filter: '.culture' });
   return false;
 })
 Path.listen();
