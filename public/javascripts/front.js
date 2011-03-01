@@ -27,9 +27,9 @@ $(window).load(function(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		var append;
-		for (item in data)
+		for (i in data)
 		{
-			append += '<div class="articles '+data[item].channel+'", data-score='+item.score+', data-category='+item.channel+', id='+item.furl+'><h2><a href='+item.link+', class="title">'+item.title+'</a></h2></div>'
+			append += '<div class="articles '+data[i].channel+'", data-score='+data[i].score+', data-category='+data[i].channel+', id='+data[i].furl+'><h2><a href='+[i].link+', class="title">'+data[i].title+'</a></h2></div>'
 		}
 		$('#container').append(append);
 	})
