@@ -26,7 +26,7 @@ $('#filter a').click(function(){
 	});
 	var score = Math.min.apply(null,dingo);
 	window.location.hash = selector.slice(1);
-	loadUp(score, selector);
+	//loadUp(score, selector);
   return false;    
 });
 /*
