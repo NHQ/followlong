@@ -21,11 +21,6 @@ $('#filter a').live('click', function(event){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
   return false;    
-var href = $(this).attr("href");
-    if(href[0] == "/"){
-        event.preventDefault();
-        window.location.hash = "#!" + href;
-    }
 });
 
 $(document).ready(function(){
@@ -44,6 +39,7 @@ $(document).ready(function(){
 Path.map('/#/:category')to.(function(){
 	clazz = this.params['category'];
 	$('#container').isotope({ filter: clazz });
+	alert(clazz)
   return false;
 })
 Path.listen();
