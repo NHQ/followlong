@@ -35,7 +35,7 @@ $(document).ready(function(){
 		}
 		var $append = $( append )
 		$container.isotope({animationOptions: {
-	     duration: 100,
+	     duration: 0,
 	     easing: 'linear',
 	     queue: false
 	   }}).isotope('insert', $append);
