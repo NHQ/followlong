@@ -25,7 +25,7 @@ $('#filter a').click(function(){
 
 });
 
-	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
+$.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
 		for (i in data)
