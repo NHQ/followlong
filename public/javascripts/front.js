@@ -30,8 +30,9 @@ $('#filter a').click(function(){
   return false;    
 });
 
-function loaded(){
-	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
+function loaded(score, selector){
+	channel = selector.slice(1);
+	var jqxhr = $.ajax({ url: "./load/"+channel+"/"+score, dataType: "json"})
 	    .success(function(data) {
 		append= '';
 		for (i in data)
