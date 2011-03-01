@@ -32,7 +32,7 @@ $(document).ready(function(){
 		for (i in data)
 		h = 100;
 		{	
-			$('#container').css('height', (h+100)+'px').append('<div class="articles '+data[i][3]+'", data-score="'+data[i][1]+'", data-category="'+data[i][3]+'", id="'+data[i][4]+'"><div class="fit"><h2><a href="'+data[i][2]+'",class="title">'+data[i][0]+'</a></h2></div></div>')
+			$('#container').css('height', (h+=100)+'px').append('<div class="articles '+data[i][3]+'", data-score="'+data[i][1]+'", data-category="'+data[i][3]+'", id="'+data[i][4]+'"><div class="fit"><h2><a href="'+data[i][2]+'",class="title">'+data[i][0]+'</a></h2></div></div>')
 		}
 		//var $append = $( append )
 		//$container.isotope('insert', $append);
