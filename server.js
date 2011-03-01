@@ -122,12 +122,12 @@ app.get('/ajax', function (req, res){
 	})
 });
 
-app.post('/load', function (req, res){
-	var path = url.parse(req.url).href;
+app.get('/load', function (req, res){
+	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	channel = req.params.channel;
-	score = req.params.score;
-	console.log(path);
+	channel = query.channel;
+	score = query.score;
+	console.log(url.parse(req.url).href);
 	client.smembers(channel, function(err, list){
 		console.log(list);
 		for (l in list)
