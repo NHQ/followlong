@@ -24,7 +24,7 @@ $('#filter a').click(function(){
 	$(selector, '#container').each(function(){
 		dingo.push(parseInt($(this).attr('data-score')))
 	});
-	alert(Math.max(dingo));
+	alert(Math.max.apply(null,dingo));
 	window.location.hash = selector.slice(1)
   return false;    
 });
