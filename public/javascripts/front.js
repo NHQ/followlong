@@ -49,7 +49,7 @@ hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
 
 function loaded(score, selector){
-	url = window.location.host+'/'+selector.slice(1)+'/'+score;
+	url = '/'+selector.slice(1)+'/'+score;
 	alert(url);
 	var lmnop = $.ajax({ url: url, dataType: "json"})
 	    .success(function(data) {
