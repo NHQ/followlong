@@ -137,7 +137,7 @@ app.get('/load', function (req, res){
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
 			console.log(data);
-			/*for (d in data)
+			for (d in data)
 			{
 				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
 				})
@@ -149,7 +149,7 @@ app.get('/load', function (req, res){
 		        res.write(data, 'utf8');
 		        res.end();
 				//console.log(reply)
-			})*/		
+			})		
 		})
 	})
 });
