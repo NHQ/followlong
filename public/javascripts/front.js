@@ -25,7 +25,6 @@ $('#filter a').click(function(){
 
 });
 
-$(document).ready(function(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
@@ -38,5 +37,5 @@ $(document).ready(function(){
 		//$container.isotope('insert', $append);
 	})
 	    .error(function() { alert("error: "+textStatus); })
-});
+
 });
