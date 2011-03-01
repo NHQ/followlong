@@ -25,7 +25,8 @@ $('#filter a').click(function(){
 
 });
 
-$.ajax({ url: "./frontpage", dataType: "json"})
+$(document).ready(function(){
+	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
 		for (i in data)
@@ -37,5 +38,5 @@ $.ajax({ url: "./frontpage", dataType: "json"})
 		//$container.isotope('insert', $append);
 	})
 	    .error(function() { alert("error: "+textStatus); })
-
+});
 });
