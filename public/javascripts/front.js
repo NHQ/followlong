@@ -26,11 +26,11 @@ $('#filter a').click(function(){
 	});
 	var score = Math.min.apply(null,dingo);
 	window.location.hash = selector.slice(1);
-	loaded();
+	loaded(score, selector);
   return false;    
 });
 
-function loaded(){
+function blum(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
@@ -48,7 +48,7 @@ $(window).load(function(){
 hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
 
-var loadUp = new function (score, selector){
+function loaded(score, selector){
 	$.ajax({ url: window.location.host+'/'+selector.slice(1)+'/'+score, dataType: "json"})
 	    .success(function(data) {
 		alert('success');
