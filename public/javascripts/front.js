@@ -38,12 +38,4 @@ $(document).ready(function(){
 });
 });
 
-Path.map('#/culture')to.(function(){
-	alert('rooty')
-  return false;
-});
-$(document).ready(function()}{
-Path.listen();	
-})
-
 
