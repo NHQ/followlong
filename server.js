@@ -132,7 +132,7 @@ app.get('/load', function (req, res){
 		//console.log(list);
 		for (l in list)
 		{
-			multi.zrevrangebyscore(list[l], score, score-90061)
+			multi.zrevrangebyscore(list[l], score-100, score-90061)
 		}
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
