@@ -123,6 +123,7 @@ app.get('/ajax', function (req, res){
 });
 
 app.get('/load/:channel/:score', function (req, res){
+	console.log('hit');
 	channel = req.params.channels;
 	score = req.params.score;
 	client.smembers(channel, function(err, list){

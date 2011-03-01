@@ -26,11 +26,11 @@ $('#filter a').click(function(){
 	});
 	var score = Math.min.apply(null,dingo);
 	window.location.hash = selector.slice(1);
-	loadUp(score, selector);
+	loaded();
   return false;    
 });
-/*
-$(document).ready(function(){
+
+$(function loaded(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
@@ -43,7 +43,7 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-*/
+
 $(window).load(function(){
 hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
