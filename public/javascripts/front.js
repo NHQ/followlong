@@ -40,8 +40,9 @@ Path.map('/#/culture')to.(function(){
 	$('#container').isotope({ filter: '.culture' });
   return false;
 })
-Path.listen();
-
+$(document).ready(function()}{
+Path.listen();	
+})
 });
 
 
