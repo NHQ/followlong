@@ -44,7 +44,7 @@ function loaded(score, selector){
 		var $append = $( append )
 		$container.isotope('insert', $append);
 	})
-	    .error(function(jqXHR, textStatus, errorThrown) { alert("error: "+textStatus); })
+	    .error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
 };
 
 $(window).load(function(){
