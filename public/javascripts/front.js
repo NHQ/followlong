@@ -12,7 +12,7 @@ $(function(){
   animationOptions: {
      duration: 0,
      easing: 'none',
-     queue: false
+     queue: true
    }
   });
 
@@ -37,7 +37,7 @@ $(document).ready(function(){
 		$container.isotope({animationOptions: {
 	     duration: 0,
 	     easing: 'none',
-	     queue: false
+	     queue: true
 	   }}).isotope('insert', $append);
 	})
 	    .error(function() { alert("error: "+textStatus); })
