@@ -36,13 +36,14 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
+});
+
 Path.map('#/culture')to.(function(){
 	alert('rooty')
   return false;
-})
+});
 $(document).ready(function()}{
 Path.listen();	
 })
-});
 
 
