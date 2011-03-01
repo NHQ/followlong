@@ -20,7 +20,7 @@ $(function(){
 $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
-	$('#container' +selector).each(function(){
+	$('.articles '+selector).each(function(){
 		alert($(this).attr('data-score'))
 	});
 	window.location.hash = selector.slice(1)
