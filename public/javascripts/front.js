@@ -30,7 +30,7 @@ $('#filter a').click(function(){
   return false;    
 });
 
-function blum(){
+function loaded(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
@@ -48,7 +48,7 @@ $(window).load(function(){
 hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
 
-function loaded(score, selector){
+function blum(score, selector){
 	url = '/'+selector.slice(1)+'/'+score;
 	alert(url);
 	var lmnop = $.ajax({ url: url, dataType: "json"})
