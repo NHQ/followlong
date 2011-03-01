@@ -25,6 +25,7 @@ $('#filter a').click(function(){
 		dingo.push(parseInt($(this).attr('data-score')))
 	});
 	var score = Math.min.apply(null,dingo);
+	alert(score);
 	window.location.hash = selector.slice(1);
 	loaded(score, selector);
   return false;    
@@ -32,7 +33,7 @@ $('#filter a').click(function(){
 
 function loaded(score, selector){
 	datum = {'score':score,'channel': selector.slice(1)};
-	var jqxhr = $.getJSON('./load', datum, function(){alert('success '+datum);})
+	var jqxhr = $.getJSON('./load', datum, function(){})
 	    .success(function(data) {
 		append= '';
 		for (i in data)

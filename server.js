@@ -125,11 +125,11 @@ app.get('/ajax', function (req, res){
 app.get('/load', function (req, res){
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	channel = query.channel;
-	score = query.score;
+	var channel = query.channel;
+	var score = query.score;
 	console.log(url.parse(req.url).href);
 	client.smembers(channel, function(err, list){
-		console.log(list);
+		//console.log(list);
 		for (l in list)
 		{
 			multi.zrevrangebyscore(list[l], score, score-90061)
@@ -148,7 +148,7 @@ app.get('/load', function (req, res){
 		        res.writeHead(200, {'Content-Type': 'application/json'})
 		        res.write(data, 'utf8');
 		        res.end();
-				console.log(reply)
+				//console.log(reply)
 			})		
 		})
 	})
