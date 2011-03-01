@@ -131,9 +131,9 @@ app.get('/load', function (req, res){
 		{
 			multi.zrevrangebyscore(list[l], score, score-90061)
 		}
-		multi.exec(function(err, reply){
+		multi.exec(function(err, data){
 			if(err){console.log(err)}
-			for (r in reply)
+			for (d in data)
 			{
 				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
 				})
