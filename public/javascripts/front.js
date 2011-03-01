@@ -10,7 +10,7 @@ $(function(){
 		rowHeight: 100
 	  },
   animationOptions: {
-     duration: 750,
+     duration: 333,
      easing: 'linear',
      queue: false
    }
