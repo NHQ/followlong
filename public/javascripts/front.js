@@ -30,7 +30,7 @@ $('#filter a').click(function(){
   return false;    
 });
 
-var loaded = new (function(){
+function loaded(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
 		append= '';
@@ -42,7 +42,7 @@ var loaded = new (function(){
 		$container.isotope('insert', $append);
 	})
 	    .error(function() { alert("error: "+textStatus); })
-});
+};
 
 $(window).load(function(){
 hash = window.location.hash.slice(1);
