@@ -22,7 +22,7 @@ $('#filter a').click(function(){
   $('#container').isotope({ filter: selector });
 	var dingo = [];
 	$(selector, '#container').each(function(){
-		dingo += parseInt($(this).attr('data-score'))
+		dingo.push(parseInt($(this).attr('data-score')))
 	});
 	alert(dingo);
 	window.location.hash = selector.slice(1)
