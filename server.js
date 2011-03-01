@@ -138,8 +138,7 @@ app.get('/load', function (req, res){
 			if(err){console.log(err)}
 			console.log(data);
 			for (d in data)
-			if (data[d] = ""){return null}
-			else
+			if (data[d] != [])
 			{
 				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
 				})
