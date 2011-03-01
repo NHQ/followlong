@@ -38,6 +38,3 @@ $(window).load(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-
-
-});
