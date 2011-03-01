@@ -37,7 +37,11 @@ $(document).ready(function(){
 	    .error(function() { alert("error: "+textStatus); })
 });
 */
-
+if window.location.hash = "culture";
+	{
+		alert("it is")
+		$('#container').isotope({ filter: '.culture' });
+    }
 });
 
 
