@@ -20,9 +20,6 @@ $('#filter a').click(function(){
 
 });
 
-});
-
-
 $(window).load(function(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
@@ -35,4 +32,7 @@ $(window).load(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 	    .complete(function() { $container.isotope('insert', $append)});
+});
+
+
 });
