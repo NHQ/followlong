@@ -22,7 +22,7 @@ $('#filter a').click(function(){
   $('#container').isotope({ filter: selector });
   return false;    
 });
-
+/*
 $(document).ready(function(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
@@ -36,7 +36,7 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-});
+*/
 
 $(document).ready(function(){
 	if window.location.hash = culture;
@@ -44,4 +44,8 @@ $(document).ready(function(){
 		$('#container').isotope({ filter: '.culture' });
     }
 }}
+
+
+});
+
 
