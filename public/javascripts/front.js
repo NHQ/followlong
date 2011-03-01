@@ -21,7 +21,7 @@ $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
 	var dingo = '';
-	$('#container').find('.articles '+selector).each(function(){
+	$('#container', selector).each(function(){
 		dingo += $(this).attr('data-score')
 	});
 	alert(dingo);
