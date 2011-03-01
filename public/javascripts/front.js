@@ -36,7 +36,13 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-
+Path.map('#/:category')to.(function(){
+	clazz = this.params['category'];
+	$('#container').isotope({ filter: '.'+clazz });
+	alert(clazz)
+  return false;
+})
+Path.listen();
 
 });
 
