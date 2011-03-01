@@ -32,7 +32,8 @@ $('#filter a').click(function(){
 
 function loaded(score, selector){
 	channel = selector.slice(1);
-	url = "./load/"+channel+"/"+score;
+	url = window.location.host+"/load/"+channel+"/"+score;
+	alert(url);
 	var jqxhr = $.ajax({ url: url, dataType: "json"})
 	    .success(function(data) {
 		append= '';
