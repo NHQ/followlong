@@ -8,7 +8,7 @@ $(function(){
 	cellsByRow : {
 	    columnWidth : 800,
 	    rowHeight : 100
-	  }
+	  },
   animationOptions: {
      duration: 750,
      easing: 'linear',
