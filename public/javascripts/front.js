@@ -26,7 +26,7 @@ $('#filter a').click(function(){
 	});
 	var score = Math.min.apply(null,dingo);
 	window.location.hash = selector.slice(1);
-	//loadUp(score, selector);
+	loadUp(score, selector);
   return false;    
 });
 /*
@@ -51,7 +51,7 @@ $('#container').isotope({ filter: '.'+hash });
 });
 });
 
-(function loadUp (score, selector){
+var loadUp = new function (score, selector){
 	$.ajax({ url: window.location.host+'/'+selector.slice(1)+'/'+score, dataType: "json"})
 	    .success(function(data) {
 		alert('success');
@@ -64,5 +64,5 @@ $('#container').isotope({ filter: '.'+hash });
 		$container.isotope('appended', $append, function(){});
 	})
 	    .error(function() { alert("error: "+textStatus); })
-});
+};
 
