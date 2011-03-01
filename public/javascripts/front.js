@@ -20,9 +20,11 @@ $(function(){
 $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
-	$('.articles '+selector).each(function(){
-		alert($(this).attr('data-score'))
+	var dingo;
+	$('#container').find(selector).each(function(){
+		dingo += $(this).attr('data-score')
 	});
+	alert(dingo);
 	window.location.hash = selector.slice(1)
   return false;    
 });
