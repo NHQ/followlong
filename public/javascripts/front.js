@@ -31,6 +31,7 @@ $('#filter a').click(function(){
 });
 
 function loaded(score, selector){
+	score = score;
 	channel = selector.slice(1);
 	var jqxhr = $.ajax({ url: './load?channel='+channel+'&score='+score, dataType: "json"})
 	    .success(function(data) {
@@ -48,7 +49,7 @@ function loaded(score, selector){
 $(window).load(function(){
 hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
-
+/*
 function blum(score, selector){
 	url = '/'+selector.slice(1)+'/'+score;
 	alert(url);
@@ -65,7 +66,7 @@ function blum(score, selector){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 };
-		
+*/		
 });
 });
 
