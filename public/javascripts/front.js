@@ -4,6 +4,7 @@ $(function(){
 
   $container.isotope({
     itemSelector : '.articles',
+	layoutMode: 'fitColumns',
 	cellsByRow : {
 	    columnWidth : 800,
 	    rowHeight : 100
