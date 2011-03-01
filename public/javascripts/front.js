@@ -29,7 +29,7 @@ $(window).load(function(){
 		var append;
 		for (i in data)
 		{
-			append += '<div class="articles '+data[i]+'", data-score='+data[i].score+', data-category='+data[i].channel+', id='+data[i].furl+'><h2><a href='+data[i].link+', class="title">'+data[i][0]+'</a></h2></div>'
+			append += '<div class="articles '+data[i][3]+'", data-score='+data[i][1]+', data-category='+data[i][3]+', id='+data[i][4]+'><h2><a href='+data[i][2]+', class="title">'+data[i][0]+'</a></h2></div>'
 		}
 		$('#container').append(append);
 	})
