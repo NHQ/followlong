@@ -39,7 +39,7 @@ $(document).ready(function(){
 
 $(document).ready(function()}{
 	Path.map('#/culture')to.(function(){
-		$('#container').isotope({ filter: '.culture' });
+		alert('rooty')
 	  return false;
 	})
 Path.listen();	
