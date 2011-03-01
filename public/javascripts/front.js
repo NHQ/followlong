@@ -25,8 +25,6 @@ $('#filter a').click(function(){
 		dingo.push(parseInt($(this).attr('data-score')))
 	});
 	var score = Math.min.apply(null,dingo);
-	window.location.hash = selector.slice(1);
-	
 	var jqxhr = $.ajax({ url: "/load/"+selector.slice(1)+"/"+score, dataType: "json"})
 	    .success(function(data) {
 		append= '';
@@ -38,8 +36,8 @@ $('#filter a').click(function(){
 		$container.isotope('insert', $append);
 	})
 	    .error(function() { alert("error: "+textStatus); })
-	
-  return false;    
+		window.location.hash = selector.slice(1);
+//  return false;    
 });
 /*
 $(document).ready(function(){
