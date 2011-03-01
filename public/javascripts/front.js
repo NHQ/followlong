@@ -27,7 +27,7 @@ $('#filter a').click(function(){
 	var score = Math.min.apply(null,dingo);
 	window.location.hash = selector.slice(1);
 	
-	var jqxhr = $.ajax({ url: "./load/"+selector.slice(1)+"/"+score, dataType: "json"})
+	var jqxhr = $.ajax({ url: "/load/"+selector.slice(1)+"/"+score, dataType: "json"})
 	    .success(function(data) {
 		append= '';
 		for (i in data)
