@@ -38,7 +38,7 @@ $(document).ready(function(){
 });
 Path.map('/#/:category')to.(function(){
 	clazz = this.params['category'];
-	$('#container').isotope({ filter: clazz });
+	$('#container').isotope({ filter: '.'+clazz });
 	alert(clazz)
   return false;
 })
