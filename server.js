@@ -127,12 +127,14 @@ app.get('/load', function (req, res){
 	channel = req.params.channel;
 	score = req.params.score;
 	client.smembers(channel, function(err, list){
+		console.log(list);
 		for (l in list)
 		{
 			multi.zrevrangebyscore(list[l], score, score-90061)
 		}
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
+			console.log(data);
 			for (d in data)
 			{
 				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
