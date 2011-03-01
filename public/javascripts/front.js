@@ -38,11 +38,8 @@ $(document).ready(function(){
 });
 */
 $(window).load(function(){
-if window.location.hash = "#culture";
-	{
-		alert("it is")
-		$('#container').isotope({ filter: '.culture' });
-    }
+hash = window.location.hash;
+		alert(hash)
 });
 });
 
