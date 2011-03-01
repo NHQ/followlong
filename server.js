@@ -124,6 +124,7 @@ app.get('/ajax', function (req, res){
 
 app.get('/load', function (req, res){
 	multi = client.multi();
+	var jbody = '';
 	channel = req.query.channel;
 	score = req.query.score;
 	console.log(req.headers);
@@ -138,19 +139,18 @@ app.get('/load', function (req, res){
 			if(err){console.log(err)}
 			console.log(data);
 			for (d in data)
-			if (data[d] != [])
+			if (data[d] != "[]")
 			{
-				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
+				client.hmget(data[d],'title','score','link','channel','furl', (function(err, reply){
+					if(err){console.log(err)}
+					data = JSON.stringify(reply);
+					jbody += data;
+					console.log(reply)
 				})
-			}
-			multi.exec(function(err, reply){
-				if(err){console.log(err)}
-				data = JSON.stringify(reply);
-		        res.writeHead(200, {'Content-Type': 'application/json'})
-		        res.write(data, 'utf8');
-		        res.end();
-				console.log(reply)
-			})		
+			}	
+			res.writeHead(200, {'Content-Type': 'application/json'})
+	        res.write(jbody, 'utf8');
+	        res.end();	
 		})
 	})
 });
