@@ -31,7 +31,7 @@ $(window).load(function(){
 		append= '';
 		for (i in data)
 		{
-			append += '<div class="articles ""'+data[i][3]+'", data-score="'+data[i][1]+'", data-category="'+data[i][3]+'", id="'+data[i][4]+'"><h2><a href="'+data[i][2]+'",class="title">'+data[i][0]+'</a></h2></div>'
+			append += '<div class="articles '+data[i][3]+'", data-score="'+data[i][1]+'", data-category="'+data[i][3]+'", id="'+data[i][4]+'"><h2><a href="'+data[i][2]+'",class="title">'+data[i][0]+'</a></h2></div>'
 		}
 		var $append = $( append )
 		$container.isotope('insert', $append)});
