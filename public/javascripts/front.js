@@ -33,6 +33,7 @@ $('#filter a').click(function(){
 function loaded(score, selector){
 	score = score;
 	channel = selector.slice(1);
+	alert(score+'\n'+channel)
 	var jqxhr = $.ajax({ url: './load',type: "POST", dataType: "json", data: ({score:score, channel:channel}), async:false})
 	    .success(function(data) {
 		append= '';
