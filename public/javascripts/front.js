@@ -47,9 +47,6 @@ $(document).ready(function(){
 $(window).load(function(){
 hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
-		
-});
-});
 
 var loadUp = new function (score, selector){
 	$.ajax({ url: window.location.host+'/'+selector.slice(1)+'/'+score, dataType: "json"})
@@ -65,4 +62,8 @@ var loadUp = new function (score, selector){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 };
+		
+});
+});
+
 
