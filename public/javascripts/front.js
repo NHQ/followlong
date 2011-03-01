@@ -38,8 +38,9 @@ $(document).ready(function(){
 });
 */
 $(window).load(function(){
-hash = window.location.hash;
-		alert(hash)
+hash = window.location.hash.slice(1);
+$('#container').isotope({ filter: '.'+hash });
+		
 });
 });
 
