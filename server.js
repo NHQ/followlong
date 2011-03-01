@@ -128,7 +128,7 @@ app.get('/frontpage', function(req, res){
 		if(err){console.log(err)}
 		for (d in data)
 		{
-			multi.hgetall(data[d], function(err, contents){
+			multi.hmget(data[d], "title", "furl", "score", "channel", "link", function(err, contents){
 			})
 		}
 		multi.exec(function(err, reply){

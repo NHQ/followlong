@@ -26,8 +26,12 @@ $('#filter a').click(function(){
 $(window).load(function(){
 	var jqxhr = $.ajax({ url: "./frontpage", dataType: "json"})
 	    .success(function(data) {
-		$('#container').html(JSON.stringify(data)).css('color', 'green')
+		var append;
+		for (item in data)
+		{
+			append += '<div class="articles "+'item.channel+', data-score='+item.score+', data-category='+item.chanel+', id='+item.furl+'><h2><a href='+item.link+', class="title">'+item.title+'</a></h2></div>'
+		}
 	})
 	    .error(function() { alert("error: "+textStatus); })
-	    .complete(function() { alert("complete"); });
+	    .complete(function() { $container.isotope('insert', append)});
 });
