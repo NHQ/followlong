@@ -128,7 +128,7 @@ app.get('/frontpage', function(req, res){
 		if(err){console.log(err)}
 		for (d in data)
 		{
-			multi.hmget(data[d], "title", "furl", "score", "channel", "link", function(err, contents){
+			multi.hgetall(data[d], function(err, contents){
 			})
 		}
 		multi.exec(function(err, reply){
@@ -137,7 +137,7 @@ app.get('/frontpage', function(req, res){
 	        res.writeHead(200, {'Content-Type': 'application/json'})
 	        res.write(data, 'utf8');
 	        res.end();
-			console.log(data)
+			console.log(data.length)
 		})
 	})
 });
