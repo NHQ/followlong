@@ -122,6 +122,26 @@ app.get('/ajax', function (req, res){
 		locals: {title: "MOSTMODERNIST"}
 	})
 });
+
+app.get('/load/:channel', function (req, res){
+	channel = req.params.channels;
+	client.smembers(channel, function(err, data){
+		for (d in data)
+		{
+			multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
+			})
+		}
+			multi.exec(function(err, reply){
+				if(err){console.log(err)}
+				data = JSON.stringify(reply);
+		        res.writeHead(200, {'Content-Type': 'application/json'})
+		        res.write(data, 'utf8');
+		        res.end();
+				console.log(reply)
+			})
+	})
+});
+
 app.get('/frontpage', function(req, res){
 	multi = client.multi();
 	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
