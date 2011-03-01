@@ -26,7 +26,7 @@ $('#filter a').click(function(){
 	});
 	var score = Math.min.apply(null,dingo);
 	window.location.hash = selector.slice(1);
-	loaded(score, selector);
+	//loaded(score, selector);
   return false;    
 });
 
@@ -49,6 +49,9 @@ function loaded(score, selector){
 $(window).load(function(){
 hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
+	
+});
+
 /*
 function blum(score, selector){
 	url = '/'+selector.slice(1)+'/'+score;
@@ -66,8 +69,7 @@ function blum(score, selector){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 };
-*/		
-});
+*/
 });
 
 
