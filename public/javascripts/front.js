@@ -32,8 +32,7 @@ $('#filter a').click(function(){
 
 function loaded(score, selector){
 	datum = {'score':score,'channel': selector.slice(1)};
-	alert(data)
-	var jqxhr = $.getJSON({ url: './load', data: datum})
+	var jqxhr = $.getJSON('./load', datum, function(){alert('success '+datum);})
 	    .success(function(data) {
 		append= '';
 		for (i in data)
