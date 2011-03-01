@@ -20,7 +20,7 @@ $(function(){
 $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
-	var dingo;
+	var dingo = '';
 	$('#container').find(selector).each(function(){
 		dingo += $(this).attr('data-score')
 	});
