@@ -123,9 +123,9 @@ app.get('/ajax', function (req, res){
 });
 
 app.get('/load', function (req, res){
-	console.log('hit');
 	channel = req.params.channel;
 	score = req.params.score;
+	console.log(channel+'\n'+score);
 	client.smembers(channel, function(err, list){
 		console.log(list);
 		for (l in list)
