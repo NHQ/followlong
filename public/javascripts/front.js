@@ -17,7 +17,7 @@ $(function(){
   });
 
   // filter
-$('#filter a').click(function(){
+$('#filter a').live('click', function(event){
 	var href = $(this).attr("href");
     if(href[0] == "/"){
         event.preventDefault();
