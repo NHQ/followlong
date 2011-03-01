@@ -4,10 +4,10 @@ $(function(){
 
   $container.isotope({
     itemSelector : '.articles',
-	layoutMode: 'fitColumns',
+	layoutMode: 'firRows',
 	cellsByRow : {
 	    columnWidth : 800,
-	    rowHeight : 100
+		rowHeight: 100
 	  },
   animationOptions: {
      duration: 750,
