@@ -123,8 +123,9 @@ app.get('/ajax', function (req, res){
 });
 
 app.get('/load', function (req, res){
-	channel = req.params.channel;
-	score = req.params.score;
+	multi = client.multi();
+	channel = req.query.channel;
+	score = req.query.score;
 	console.log(req.headers);
 	console.log(url.parse(req.url).href+'\n'+channel+'\n'+score);
 	client.smembers(channel, function(err, list){
