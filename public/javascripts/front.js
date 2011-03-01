@@ -49,7 +49,9 @@ hash = window.location.hash.slice(1);
 $('#container').isotope({ filter: '.'+hash });
 
 function loaded(score, selector){
-	$.ajax({ url: window.location.host+'/'+selector.slice(1)+'/'+score, dataType: "json"})
+	url = window.location.host+'/'+selector.slice(1)+'/'+score;
+	alert(url);
+	$.ajax({ url: url, dataType: "json"})
 	    .success(function(data) {
 		alert('success');
 		append= '';
