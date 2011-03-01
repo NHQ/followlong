@@ -20,6 +20,7 @@ $(function(){
 $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
+	window.location.hash = selector.slice(1)
   return false;    
 });
 /*
