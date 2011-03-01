@@ -38,8 +38,7 @@ $(document).ready(function(){
 });
 */
 
-$(document).ready(function(){
-	if window.location.hash = culture;
+if window.location.hash = culture;
 	{
 		$('#container').isotope({ filter: '.culture' });
     }
