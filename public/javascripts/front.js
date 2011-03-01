@@ -20,9 +20,9 @@ $(function(){
 $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
-	var dingo = '';
+	var dingo = [];
 	$(selector, '#container').each(function(){
-		dingo += $(this).attr('data-score')
+		dingo += parseInt($(this).attr('data-score'))
 	});
 	alert(dingo);
 	window.location.hash = selector.slice(1)
