@@ -81,7 +81,6 @@ function frontis(){
 	multi = client.multi();
 	client.smembers('channels', function (err, repo){
 		repo = repo;
-		sys.puts(repo);
 		for (r in repo)
 		{
 			multi.smembers(repo[r], function (err, reply){})		
@@ -101,7 +100,7 @@ function frontis(){
 
 app.get('/', getSesh, function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
+	client.zrevrangebyscore('frontPage', epoch(), epoch()-90061, "limit", "0", "75", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{
@@ -123,14 +122,21 @@ app.get('/ajax', function (req, res){
 	})
 });
 
-app.get('/load/:channel', function (req, res){
+app.get('/load/:channel/:score', function (req, res){
 	channel = req.params.channels;
-	client.smembers(channel, function(err, data){
-		for (d in data)
+	score = req.params.score;
+	client.smembers(channel, function(err, list){
+		for (l in list)
 		{
-			multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
-			})
+			multi.zrevrangebyscore(list[l], score, score-90061)
 		}
+		multi.exec(function(err, reply){
+			if(err){console.log(err)}
+			for (r in reply)
+			{
+				multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
+				})
+			}
 			multi.exec(function(err, reply){
 				if(err){console.log(err)}
 				data = JSON.stringify(reply);
@@ -138,13 +144,14 @@ app.get('/load/:channel', function (req, res){
 		        res.write(data, 'utf8');
 		        res.end();
 				console.log(reply)
-			})
+			})		
+		})
 	})
 });
 
 app.get('/frontpage', function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage', epoch(), 1295718384, "limit", "0", "75", function(err, data){
+	client.zrevrangebyscore('frontPage', epoch(), epoch()-90061, "limit", "0", "75", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{

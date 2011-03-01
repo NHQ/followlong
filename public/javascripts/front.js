@@ -24,10 +24,10 @@ $('#filter a').click(function(){
 	$(selector, '#container').each(function(){
 		dingo.push(parseInt($(this).attr('data-score')))
 	});
-	Math.min.apply(null,dingo);
+	score = Math.min.apply(null,dingo);
 	window.location.hash = selector.slice(1);
 	
-	$.ajax({ url: "./load/"+selector.slice(1), dataType: "json"})
+	$.ajax({ url: "./load/"+selector.slice(1)+"/"+score, dataType: "json"})
 	    .success(function(data) {
 		append= '';
 		for (i in data)
