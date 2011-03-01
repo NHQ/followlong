@@ -125,8 +125,8 @@ app.get('/ajax', function (req, res){
 app.get('/load', function (req, res){
 	var path = url.parse(req.url).query;
 	query = querystring.parse(path, sep='&', eq='=');
-	var channel = query.channel;
-	var score = query.score;
+	channel = query.channel;
+	score = query.score;
 	console.log(url.parse(req.url).href);
 	client.smembers(channel, function(err, list){
 		//console.log(list);
