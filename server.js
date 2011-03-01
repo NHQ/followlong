@@ -122,7 +122,7 @@ app.get('/ajax', function (req, res){
 	})
 });
 
-app.get('/load/:channel/:score', function (req, res){
+app.post('/load', function (req, res){
 	channel = req.params.channel;
 	score = req.params.score;
 	console.log(channel+'\n'+score);
