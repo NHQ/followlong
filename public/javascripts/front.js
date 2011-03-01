@@ -20,6 +20,9 @@ $(function(){
 $('#filter a').click(function(){
   var selector = $(this).attr('data-filter');
   $('#container').isotope({ filter: selector });
+	$('#container .'+selector).each(function(){
+		alert($(this).attr('data-score'))
+	});
 	window.location.hash = selector.slice(1)
   return false;    
 });
@@ -45,4 +48,7 @@ $('#container').isotope({ filter: '.'+hash });
 });
 });
 
+(function loadUp(word){
+	
+})
 
