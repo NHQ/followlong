@@ -18,7 +18,7 @@ $(function(){
 
   // filter
 $('#filter a').live('click', function(event){
-	var href = $(this).attr("href");
+    var href = $(this).attr("href");
     if(href[0] == "/"){
         event.preventDefault();
         window.location.hash = "#!" + href;
@@ -41,11 +41,7 @@ $(document).ready(function(){
 	})
 	    .error(function() { alert("error: "+textStatus); })
 });
-Path.map('/#/:category')to.(function(){
-	$('#container').isotope({ filter: this.params['category'] });
-  return false;
-})
-Path.listen();
+
 
 });
 
