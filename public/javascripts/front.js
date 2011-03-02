@@ -27,7 +27,7 @@ $('#filter a').click(function(){
 	var score = Math.min.apply(null,dingo);
 	alert(score);
 	window.location.hash = selector.slice(1);
-	loaded(score, selector);
+	//loaded(score, selector);
   return false;    
 });
 
