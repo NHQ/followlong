@@ -137,17 +137,16 @@ app.get('/load', function (req, res){
 		}
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
-			console.log(data);
 			for (d in data)
-			if (data[d] != "[]")
+			{if (data[d] != "[]")
 			{
 				client.hmget(data[d],'title','score','link','channel','furl', (function(err, reply){
 					if(err){console.log(err)}
 					data = JSON.stringify(reply);
 					jbody += data;
 					console.log(reply)
-				})
-			}	
+				}))
+			}}	
 			res.writeHead(200, {'Content-Type': 'application/json'})
 	        res.write(jbody, 'utf8');
 	        res.end();	
