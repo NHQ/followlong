@@ -139,7 +139,7 @@ app.get('/load', function (req, res){
 				jvar.push(re[r])
 			})
 		}
-		multi.exec(function(err, data){
+		multi.exec(function(err, nope){
 			if(err){console.log(err)}
 			console.log(jvar);
 			for (j = 0; j<jvar.length;j+=1)
@@ -149,7 +149,7 @@ app.get('/load', function (req, res){
 			multi.exec(function(err, reply){
 				if(err){console.log(err)}
 				data = JSON.stringify(reply);
-				console.log(data)	
+				console.log(reply)	
 			res.writeHead(200, {'Content-Type': 'application/json'})
 	        res.write(data, 'utf8');
 	        res.end();
