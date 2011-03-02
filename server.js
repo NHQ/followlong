@@ -141,17 +141,19 @@ app.get('/load', function (req, res){
 		}
 		multi.exec(function(err, nope){
 			if(err){console.log(err)}
-			for (j = 0; j<jvar.length;j+=1)
+			for (j = 0; j=jvar.length;j+=1)
+			if (j < jvar.length)
 			{
 				client.hmget(jvar[j],'title','score','link','channel','furl', function(err, rere){
 					data = JSON.stringify(rere);
 					jbody += data;
 				})
-			};
-			console.log(jbody);
+			}
+			else if (j = jvar.length)
+			{console.log(jbody);
 			res.writeHead(200, {'Content-Type': 'application/json'})
 	        res.write(jbody, 'utf8');
-	        res.end();
+	        res.end()}
 		});
 	})
 });
