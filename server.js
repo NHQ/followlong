@@ -143,7 +143,6 @@ app.get('/load', function (req, res){
 			if(err){console.log(err)}
 			console.log(jvar);
 			for (j in jvar)
-			if (jvar[j].length > 0)
 			{
 				multi.hmget(jvar[j],'title','score','link','channel','furl')
 			}
