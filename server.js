@@ -135,6 +135,7 @@ app.get('/load', function (req, res){
 	console.log(url.parse(req.url).href+'\n'+channel+'\n'+score);
 	
 	ee.on('godot', function() {
+		console.log('he"s here!')
 	    multi.exec(function(err, nope){
 			if(err){console.log(err)}
 			j = 0;
@@ -153,14 +154,17 @@ app.get('/load', function (req, res){
 	});
 	client.smembers(channel, function(err, list){
 		//console.log(list);
-		for (l in list)
+		l = 0;
+		if (l < list.length)
 		{
 			multi.zrevrangebyscore(list[l], score-100, score-90061, function(err, re){
 				for (r in re)
 				jvar.push(re[r])
 			})
+			++l
 		}
-		 ee.emit('godot');
+		else
+		 {ee.emit('godot');}
 	})
 });
 /*
