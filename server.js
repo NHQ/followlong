@@ -19,7 +19,9 @@ var app = module.exports = express.createServer(),
 	, newfeed = require('./models/newfeed')
 	, newuser = require('./models/user')
 	, RedisStore = require('connect-redis'), multi
-	, local = http.createClient(80, 'mostmodernist.no.de');
+	, local = http.createClient(80, 'mostmodernist.no.de')
+	, EE = require('events').EventEmitter
+	, ee = new EE();
 
 function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
@@ -131,16 +133,9 @@ app.get('/load', function (req, res){
 	score = req.query.score;
 	console.log(req.headers);
 	console.log(url.parse(req.url).href+'\n'+channel+'\n'+score);
-	client.smembers(channel, function(err, list){
-		//console.log(list);
-		for (l in list)
-		{
-			multi.zrevrangebyscore(list[l], score-100, score-90061, function(err, re){
-				for (r in re)
-				jvar.push(re[r])
-			})
-		}
-		multi.exec(function(err, nope){
+	
+	ee.on('godot', function() {
+	    multi.exec(function(err, nope){
 			if(err){console.log(err)}
 			j = 0;
 			if (j < jvar.length)
@@ -155,6 +150,17 @@ app.get('/load', function (req, res){
 			console.log(jbody);
 	        res.end()
 		});
+	});
+	client.smembers(channel, function(err, list){
+		//console.log(list);
+		for (l in list)
+		{
+			multi.zrevrangebyscore(list[l], score-100, score-90061, function(err, re){
+				for (r in re)
+				jvar.push(re[r])
+			})
+		}
+		 ee.emit('godot');
 	})
 });
 /*
