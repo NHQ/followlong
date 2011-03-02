@@ -142,17 +142,16 @@ app.get('/load', function (req, res){
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
 			console.log(jvar);
-			for (j in jvar)
+			for (j = 0; j<jvar.length;j+=1)
 			{
-				multi.hmget(j,'title','score','link','channel','furl')
-			}
+				multi.hmget(jcar[j],'title','score','link','channel','furl')
+			};
 			multi.exec(function(err, reply){
 				if(err){console.log(err)}
 				data = JSON.stringify(reply);
-				jbody += data;
-				console.log(jbody)	
+				console.log(data)	
 			res.writeHead(200, {'Content-Type': 'application/json'})
-	        res.write(jbody, 'utf8');
+	        res.write(data, 'utf8');
 	        res.end();
 		});
 		})
