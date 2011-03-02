@@ -153,7 +153,7 @@ app.get('/load', function (req, res){
 		});
 	});
 	client.smembers(channel, function(err, list){
-		//console.log(list);
+		console.log(list);
 		l = 0;
 		if (l < list.length)
 		{
