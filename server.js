@@ -102,7 +102,7 @@ function frontis(){
 
 app.get('/', getSesh, function(req, res){
 	multi = client.multi();
-	client.zrevrangebyscore('frontPage', epoch(), epoch()-270061, "limit", "0", "75", function(err, data){
+	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 		if(err){console.log(err)}
 		for (d in data)
 		{
