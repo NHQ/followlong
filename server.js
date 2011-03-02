@@ -123,6 +123,7 @@ app.get('/ajax', function (req, res){
 });
 
 app.get('/load', function (req, res){
+	res.writeHead(200, {'Content-Type': 'application/json'})
 	multi = client.multi();
 	var jbody = '';
 	var jvar = [];
@@ -141,19 +142,18 @@ app.get('/load', function (req, res){
 		}
 		multi.exec(function(err, nope){
 			if(err){console.log(err)}
-			for (j = 0; j=jvar.length;j+=1)
+			j = 0;
 			if (j < jvar.length)
 			{
 				client.hmget(jvar[j],'title','score','link','channel','furl', function(err, rere){
 					data = JSON.stringify(rere);
-					jbody += data;
+					res.write(data, 'utf8');
 				})
+				j += 1
 			}
-			else if (j = jvar.length)
-			{console.log(jbody);
-			res.writeHead(200, {'Content-Type': 'application/json'})
-	        res.write(jbody, 'utf8');
-	        res.end()}
+			else
+			console.log(jbody);
+	        res.end()
 		});
 	})
 });
