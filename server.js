@@ -144,7 +144,7 @@ app.get('/load', function (req, res){
 			console.log(jvar);
 			for (j in jvar)
 			{
-				multi.hmget(jvar[j],'title','score','link','channel','furl')
+				multi.hmget(j,'title','score','link','channel','furl')
 			}
 			multi.exec(function(err, reply){
 				if(err){console.log(err)}
