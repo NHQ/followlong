@@ -141,20 +141,18 @@ app.get('/load', function (req, res){
 		}
 		multi.exec(function(err, nope){
 			if(err){console.log(err)}
-			console.log(jvar);
 			for (j = 0; j<jvar.length;j+=1)
 			{
-				multi.hmget(jvar[j],'title','score','link','channel','furl')
+				client.hmget(jvar[j],'title','score','link','channel','furl', function(err, rere){
+					data = JSON.stringify(rere);
+					jbody += data;
+				})
 			};
-			multi.exec(function(err, reply){
-				if(err){console.log(err)}
-				data = JSON.stringify(reply);
-				console.log(reply)	
+			console.log(jbody);
 			res.writeHead(200, {'Content-Type': 'application/json'})
-	        res.write(data, 'utf8');
+	        res.write(jbody, 'utf8');
 	        res.end();
 		});
-		})
 	})
 });
 /*
