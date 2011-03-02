@@ -143,7 +143,7 @@ app.get('/load', function (req, res){
 				multi.hmget(data[d],'title','score','link','channel','furl', (function(err, reply){
 				}))
 			}
-			multi.exec(function(err, re){
+			multi.exec(function(err, reply){
 				if(err){console.log(err)}
 				data = JSON.stringify(reply);
 				jbody += data;
