@@ -25,7 +25,6 @@ $('#filter a').click(function(){
 		dingo.push(parseInt($(this).attr('data-score')))
 	});
 	var score = Math.min.apply(null,dingo);
-	alert(score);
 	window.location.hash = selector.slice(1);
 	//loaded(score, selector);
   return false;    
