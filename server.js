@@ -161,9 +161,8 @@ app.get('/load', function (req, res){
 				for (r in re)
 				jvar.push(re[r])
 			})
-			++l
 		}
-		else
+		else if (l = list.length)
 		 {ee.emit('godot');}
 	})
 });
