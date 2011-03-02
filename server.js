@@ -142,16 +142,16 @@ app.get('/load', function (req, res){
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
 			console.log(jvar);
-			for (d in data)
-			if (data[d].length > 0)
+			for (j in jvar)
+			if (jvar[j].length > 0)
 			{
-				multi.hmget(data[d],'title','score','link','channel','furl')
+				multi.hmget(jvar[j],'title','score','link','channel','furl')
 			}
 			multi.exec(function(err, reply){
 				if(err){console.log(err)}
 				data = JSON.stringify(reply);
 				jbody += data;
-				console.log(reply)	
+				console.log(jbody)	
 			res.writeHead(200, {'Content-Type': 'application/json'})
 	        res.write(jbody, 'utf8');
 	        res.end();
