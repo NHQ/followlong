@@ -125,6 +125,7 @@ app.get('/ajax', function (req, res){
 app.get('/load', function (req, res){
 	multi = client.multi();
 	var jbody = '';
+	var jvar = [];
 	channel = req.query.channel;
 	score = req.query.score;
 	console.log(req.headers);
@@ -133,15 +134,18 @@ app.get('/load', function (req, res){
 		//console.log(list);
 		for (l in list)
 		{
-			multi.zrevrangebyscore(list[l], score-100, score-90061)
+			multi.zrevrangebyscore(list[l], score-100, score-90061, function(err, re){
+				for (r in re)
+				jvar.push(re[r])
+			})
 		}
 		multi.exec(function(err, data){
 			if(err){console.log(err)}
+			console.log(jvar);
 			for (d in data)
 			if (data[d].length > 0)
 			{
-				multi.hmget(data[d],'title','score','link','channel','furl', (function(err, reply){
-				}))
+				multi.hmget(data[d],'title','score','link','channel','furl')
 			}
 			multi.exec(function(err, reply){
 				if(err){console.log(err)}
