@@ -602,9 +602,10 @@ request.on('response', function (response){
 		console.log(chunk);
 	});
 	response.on('end', function(){
-		try {data = JSON.parse(result)}
-		catch(e){data = querystring.parse(result)}
-		var access_token= data["access_token"];
+		var fbdata;
+		try {fbdata = JSON.parse(result)}
+		catch(e){fbdata = querystring.parse(result)}
+		var access_token= fbdata["access_token"];
 		console.log(access_token)
 	})
 })
