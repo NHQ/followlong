@@ -20,12 +20,12 @@ var app = module.exports = express.createServer(),
 	, newuser = require('./models/user')
 	, RedisStore = require('connect-redis'), multi
 	, local = http.createClient(80, 'mostmodernist.no.de')
-	, EE = require('events').EventEmitter
-	, ee = new EE()
 	, facebookClient = require('facebook-js')(
       '190292354344532',
       '6a8433e613782515148f6b2ee038cb1a'
-    );
+    ),
+	, EE = require('events').EventEmitter
+	, ee = new EE();
 
 function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
