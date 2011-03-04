@@ -599,6 +599,7 @@ request.on('response', function (response){
 	var result;
 	response.on('data', function(chunk){
 		result += chunk;
+		console.log(chunk+ '\n and \n' +result)
 	});
 	response.on('end', function(){
 		console.log(querystring.parse(result))
