@@ -6,6 +6,7 @@ var express = require('express');
 
 var app = module.exports = express.createServer(),
     redis = require("./redis"),
+	connect = require('connect'),
     client = redis.createClient(),
     sub = redis.createClient(),
     pub = redis.createClient(),
