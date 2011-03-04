@@ -404,7 +404,7 @@ function unsubscribe (channel, feed){
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
 		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
-		var request = spfdr.request('POST', '/hubbub', {
+		request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
