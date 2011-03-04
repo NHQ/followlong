@@ -104,7 +104,7 @@ function frontis(){
 }
 // Routes
 
-app.get('/auth', getSesh, function(req, res){
+app.get('/', getSesh, function(req, res){
 	multi = client.multi();
 	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 		if(err){console.log(err)}
@@ -580,7 +580,7 @@ app.get('/fb', function (req, res) {
   }));
 });
 
-app.get('/poop', function (req, res) {
+app.get('/auth', function (req, res) {
     res.render('client', {
       locals: {
 		title: 'fb',
@@ -588,6 +588,7 @@ app.get('/poop', function (req, res) {
       }
     });
   });
+
 
 app.post('/message', function (req, res) {
   facebookClient.apiCall(
