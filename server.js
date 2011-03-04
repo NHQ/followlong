@@ -582,8 +582,14 @@ app.get('/fb', function (req, res) {
 });
 
 app.get('/auth', function (req, res) {
-	code = req.query.code;
-	console.log(code);
+  facebookClient.getAccessToken({redirect_uri: 'http://yourhost.com:3003/auth', code: req.param('code')}, function (error, token) {
+    res.render('client.jade', {
+      layout: false,
+      locals: {
+        token: token
+      }
+    });
+  });
 });
 
 
