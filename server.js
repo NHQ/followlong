@@ -603,7 +603,7 @@ request.on('response', function (response){
 	});
 	response.on('end', function(){
 		try {data = JSON.parse(result)}
-		catch(e){data = querysting.parse(result)}
+		catch(e){data = querystring.parse(result)}
 		var access_token= data["access_token"];
 		console.log(access_token)
 	})
