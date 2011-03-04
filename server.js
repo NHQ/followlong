@@ -576,7 +576,7 @@ app.post('/feed', function(req, res){
 app.get('/fb', function (req, res) {
   res.redirect(facebookClient.getAuthorizeUrl({
     client_id: '190292354344532',
-    redirect_uri: 'http://mostmodernist.no.de/auth',
+    redirect_uri: 'http://mostmodernist.no.de:80/auth',
     scope: 'offline_access,publish_stream'
   }));
 });
