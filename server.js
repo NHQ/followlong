@@ -582,7 +582,8 @@ app.get('/fb', function (req, res) {
 
 app.get('/auth', function (req, res) {
   facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: req.param('code')}, function (error, token) {
-    res.render('client', {
+token = token;    
+res.render('client', {
       locals: {
 		title: 'momo',
         token: token
