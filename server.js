@@ -583,7 +583,7 @@ app.get('/fb', function (req, res) {
 
 app.get('/auth', function (req, res) {
 	code = req.query.code;
-facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: code}, function (error, token) { 
+facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth:80', code: code}, function (error, token) { 
 res.render('client', {
       locals: {
 		title: 'momo',
