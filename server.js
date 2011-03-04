@@ -594,10 +594,9 @@ request = fbGetAccessToken.request('POST', url, {
 });
 request.end();
 request.on('response', function (response){
-	console.log("hello hi");
-	var result;
+	var result = "";
 	response.on('data', function(chunk){
-		result += chunk;
+		result+= chunk
 		console.log(chunk+ '\n and \n' +result)
 	});
 	response.on('end', function(){
