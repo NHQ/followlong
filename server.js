@@ -584,6 +584,8 @@ app.get('/fb', function (req, res) {
 app.get('/auth', function (req, res) {
 code = req.query.code;
 console.log(code);
+res.writeHead('200');
+res.end();
 });
 /*
 app.get('/auth', function (req, res) {
