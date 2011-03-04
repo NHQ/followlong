@@ -576,14 +576,14 @@ app.post('/feed', function(req, res){
 app.get('/fb', function (req, res) {
   res.redirect(facebookClient.getAuthorizeUrl({
     client_id: '190292354344532',
-    redirect_uri: 'http://mostmodernist.no.de:3003/auth',
+    redirect_uri: 'http://mostmodernist.no.de/auth',
     scope: 'offline_access,publish_stream'
   }));
 });
 
 app.get('/auth', function (req, res) {
 	code = req.query.code;
-facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de:3003/auth', code: req.query.code}, function (error, token) { 
+facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de:80/auth', code: req.query.code}, function (error, token) { 
 res.render('client', {
       locals: {
 		title: 'momo',
@@ -612,7 +612,7 @@ app.post('/message', function (req, res) {
 });
 
 if (!module.parent) {
-  app.listen(3003);
+  app.listen(80);
   sys.puts("Express server listening on port %d", app.address().port);
 	frontis();
 }
