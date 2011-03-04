@@ -599,12 +599,10 @@ request.on('response', function (response){
 	var result;
 	response.on('data', function(chunk){
 		result += chunk;
-		console.log(chunk);
 	});
 	response.on('end', function(){
 		var fbdata;
-		try {fbdata = JSON.parse(result)}
-		catch(e){fbdata = querystring.parse(result)}
+		fbdata = querystring.parse(result);
 		var access_token= fbdata["access_token"];
 		console.log(access_token)
 	})
