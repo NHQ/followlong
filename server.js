@@ -581,10 +581,15 @@ app.get('/fb', function (req, res) {
 });
 
 app.get('/auth', function (req, res) {
-	res.render('client', {
-		locals: {title: "MOSTMODERNIST"}
-	})
+  facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: req.param('code')}, function (error, token) {
+    res.render('client.jade', {
+      layout: false,
+      locals: {
+        token: token
+      }
+    });
   });
+});
 
 
 app.post('/message', function (req, res) {
