@@ -581,12 +581,9 @@ app.get('/fb', function (req, res) {
 });
 
 app.get('/auth', function (req, res) {
-    res.render('client', {
-      locals: {
-		title: 'fb',
-        token: 'token'
-      }
-    });
+	res.render('client', {
+		locals: {title: "MOSTMODERNIST", token: 'tolkiewn'}
+	})
   });
 
 
