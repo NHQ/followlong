@@ -25,7 +25,7 @@ var app = module.exports = express.createServer(),
 	, facebookClient = require('facebook-js')(
       '190292354344532',
       '6a8433e613782515148f6b2ee038cb1a'
-    ),;
+    );
 
 function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
