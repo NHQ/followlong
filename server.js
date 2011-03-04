@@ -595,7 +595,6 @@ request = fbGetAccessToken.request('POST', url, {
 request.end();
 request.on('response', function (response){
 	console.log("hello hi");
-	response.setEncoding('utf8');
 	var result;
 	response.on('data', function(chunk){
 		result += chunk;
