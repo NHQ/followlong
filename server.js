@@ -602,7 +602,8 @@ request.on('response', function (response){
 		console.log(chunk+ '\n and \n' +result)
 	});
 	response.on('end', function(){
-		console.log(querystring.parse(result))
+		 results= querystring.parse( result );
+		console.log(results);
 	})
 })
 });
