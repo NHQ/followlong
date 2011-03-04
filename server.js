@@ -593,7 +593,7 @@ request = fbGetAccessToken.request('GET', url, {
 	'Content-Length': 0
 });
 request.end();
-request.on('repsonse', function (respsonse){
+request.on('response', function (response){
 	response.setEncoding('utf8');
 	var result;
 	response.on('data', function(chunk){
