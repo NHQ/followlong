@@ -601,7 +601,7 @@ request.on('response', function (response){
 		result += chunk;
 	});
 	response.on('end', function(){
-		console.log(result)
+		console.log(querystring.parse(result))
 	})
 })
 });
