@@ -601,7 +601,7 @@ request.on('response', function (response){
 	});
 	response.on('end', function(){
 		 results= querystring.parse( result );
-		console.log(results);
+		console.log(results['access_token']);
 	})
 })
 });
