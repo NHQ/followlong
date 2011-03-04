@@ -601,8 +601,7 @@ request.on('response', function (response){
 		result += chunk;
 	});
 	response.on('end', function(){
-		var fbdata = result;
-		console.log(fbdata)
+		console.log(result)
 	})
 })
 });
