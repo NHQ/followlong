@@ -586,7 +586,7 @@ token = token;
 res.render('client', {
       locals: {
 		title: 'momo',
-        token: token
+        token: 'token'
       }
     });
   });
