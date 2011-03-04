@@ -21,7 +21,11 @@ var app = module.exports = express.createServer(),
 	, RedisStore = require('connect-redis'), multi
 	, local = http.createClient(80, 'mostmodernist.no.de')
 	, EE = require('events').EventEmitter
-	, ee = new EE();
+	, ee = new EE()
+	, facebookClient = require('facebook-js')(
+      '190292354344532',
+      '6a8433e613782515148f6b2ee038cb1a'
+    ),;
 
 function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
@@ -154,7 +158,7 @@ app.get('/load', function (req, res){
 	});
 	client.smembers(channel, function(err, list){
 		console.log(list);
-		l = 0;
+		var l = 0;
 		if (l < list.length)
 		{
 			multi.zrevrangebyscore(list[l], score-100, score-90061, function(err, re){
@@ -164,8 +168,8 @@ app.get('/load', function (req, res){
 			l += 1
 		}
 		else if (l = list.length)
-		 {ee.emit('godot');}
-		client.quit();
+		 {ee.emit('godot');
+		client.quit();}
 	})
 });
 /*
@@ -567,6 +571,38 @@ app.post('/feed', function(req, res){
 	}); */
 });
 // Only listen on $ node app.js
+
+app.get('/fb', function (req, res) {
+  res.redirect(facebookClient.getAuthorizeUrl({
+    client_id: '190292354344532',
+    redirect_uri: '/auth',
+    scope: 'offline_access,publish_stream'
+  }));
+});
+
+app.get('/auth', function (req, res) {
+  facebookClient.getAccessToken({redirect_uri: 'http://yourhost.com:3003/auth', code: req.param('code')}, function (error, token) {
+    res.render('client.jade', {
+      layout: false,
+      locals: {
+        token: token
+      }
+    });
+  });
+});
+
+app.post('/message', function (req, res) {
+  facebookClient.apiCall(
+    'POST',
+    '/me/feed',
+    {access_token: req.param('access_token'), message: req.param('message')},
+    function (error, result) {
+      console.log(error);
+      console.log(result);
+      res.render('done.jade', {layout: false});
+    }
+  );
+});
 
 if (!module.parent) {
   app.listen(80);
