@@ -582,7 +582,7 @@ app.get('/fb', function (req, res) {
 
 app.get('/auth', function (req, res) {
   facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: req.param('code')}, function (error, token) {
-    res.render('client.jade', {
+    res.render('client', {
       layout: false,
       locals: {
         token: token
@@ -599,7 +599,7 @@ app.post('/message', function (req, res) {
     function (error, result) {
       console.log(error);
       console.log(result);
-      res.render('done.jade', {layout: false});
+      res.render('done', {layout: false});
     }
   );
 });
