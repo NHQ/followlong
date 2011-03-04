@@ -585,7 +585,7 @@ app.get('/auth', function (req, res) {
     res.render('client', {
       layout: false,
       locals: {
-		title: 'momo'
+		title: 'momo',
         token: token
       }
     });
