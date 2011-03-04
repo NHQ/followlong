@@ -575,13 +575,13 @@ app.post('/feed', function(req, res){
 app.get('/fb', function (req, res) {
   res.redirect(facebookClient.getAuthorizeUrl({
     client_id: '190292354344532',
-    redirect_uri: '/auth',
+    redirect_uri: 'http://mostmodernist.no.de/auth',
     scope: 'offline_access,publish_stream'
   }));
 });
 
 app.get('/auth', function (req, res) {
-  facebookClient.getAccessToken({redirect_uri: 'http://yourhost.com:3003/auth', code: req.param('code')}, function (error, token) {
+  facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: req.param('code')}, function (error, token) {
     res.render('client.jade', {
       layout: false,
       locals: {
