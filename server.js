@@ -576,14 +576,14 @@ app.post('/feed', function(req, res){
 app.get('/fb', function (req, res) {
   res.redirect(facebookClient.getAuthorizeUrl({
     client_id: '190292354344532',
-    redirect_uri: 'http://mostmodernist.no.de/auth',
+    redirect_uri: 'http://mostmodernist.no.de:80/auth',
     scope: 'offline_access,publish_stream'
   }));
 });
 
 app.get('/auth', function (req, res) {
 	code = req.query.code;
-facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: req.query.code}, function (error, token) { 
+facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de:80/auth', code: req.query.code}, function (error, token) { 
 res.render('client', {
       locals: {
 		title: 'momo',
