@@ -583,25 +583,7 @@ app.get('/fb', function (req, res) {
 
 app.get('/auth', function (req, res) {
 	code = req.query.code;
-	url = 'oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
-	var fbGetAccessToken = http.createClient('443', 'https://graph.facebook.com/', secure=true);
-	request = fbGetAccessToken.request('GET', url, {
-		'Host':'facebook.com',
-		'Content-Length': 0
-	});
-	request.end();
-	request.on('repsonse', function (respsonse){
-		var result;
-		response.on('data', function(chunk){
-			result += chunk;
-		});
-		response.on('end', function(){
-			try {data = JSON.parse(result)}
-			catch(e){data = querysting.parse(data)}
-			var access_token= data["access_token"];
-			console.log(access_token)
-		})
-	})
+	console.log(code);
 });
 
 
