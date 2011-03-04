@@ -581,7 +581,7 @@ app.get('/fb', function (req, res) {
 });
 
 app.get('/auth', function (req, res) {
-  facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: req.param('code')}, function (error, token) {
+  facebookClient.getAccessToken({redirect_uri: 'http://mostmodernist.no.de/auth', code: req.query.code}, function (error, token) {
 token = token;    
 res.render('client', {
       locals: {
