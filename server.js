@@ -602,8 +602,7 @@ request.on('response', function (response){
 	});
 	response.on('end', function(){
 		var fbdata = result;
-		access_token = querystring.parse(fbdata).access_token;
-		console.log(access_token)
+		console.log(fbdata)
 	})
 })
 });
