@@ -467,9 +467,8 @@ function retrieve (channel, feed){
 };
 
 app.get('/new/:channel/', function(req, res){
-	var path = url.parse(req.url).query;
-	query = querystring.parse(path, sep='&', eq='=');
-	unfurl = query.furl;
+	unfurl = req.query.furl;
+	console.log(unfurl)
 	channel = req.params.channel;
 	client.zadd(unfurl, -1, unfurl);	
 	client.sadd(channel, unfurl);
@@ -483,9 +482,7 @@ app.get('/new/:channel/', function(req, res){
 app.get('/feed', function(req, res){
 	res.writeHead('200');
 	console.log(req.headers);
-	var path = url.parse(req.url).query;
-	query = querystring.parse(path, sep='&', eq='=');
-	channel = query.channel;
+	channel = req.query.channel;
 	challenge = query.hub.challenge;
 	res.write(challenge);
 	res.end();
@@ -493,9 +490,9 @@ app.get('/feed', function(req, res){
 
 app.post('/feed', function(req, res){
 	console.log(req.headers);
-	path = url.parse(req.url).query;
+	//path = url.parse(req.url).query;
 	//query = querystring.parse(path, sep='&', eq='=');
-	channel = query.channel;
+	channel = req.query.channel;
 	
 	d = req.body;
 	var dl = d.items.length;
@@ -586,9 +583,9 @@ code = req.query.code;
 console.log(code);
 res.writeHead('200');
 res.end();
-url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
+fburl = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
 var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
-request = fbGetAccessToken.request('POST', url, {
+request = fbGetAccessToken.request('POST', fburl, {
 	'Host':'graph.facebook.com',
 	'Content-Length': 0
 });
