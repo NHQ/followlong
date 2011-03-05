@@ -611,11 +611,11 @@ request.on('response', function (response){
 		var result2 = '';
 		response2.on('data', function(chunk){
 			result2+= chunk
-			console.log(chunk+ '\n and \n' +result)
+			console.log(chunk+ '\n and \n' +result2)
 		});
 		response2.on('end', function(){
-			results2 = JSON.parse(result2)
-			console.log(results.id)
+			resulting = JSON.parse(result2)
+			console.log(resulting.id)
 		})
 	})
 	})
