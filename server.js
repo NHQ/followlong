@@ -13,7 +13,6 @@ var app = module.exports = express.createServer(),
     crypto = require('crypto')
     , http = require('http')
     , url = require('url')
-	, querystring = require('querystring')
     , fs = require('fs')
     , sys = require(process.binding('natives').util ? 'util' : 'sys')
     , server
