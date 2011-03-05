@@ -601,7 +601,23 @@ request.on('response', function (response){
 	});
 	response.on('end', function(){
 		 results= querystring.parse( result );
-		console.log(results['access_token']);
+	 access_token = results['access_token'];
+	2ndRequest = fbGetAccessToken.request('get', '/me?access_token='+access_token, {
+		'Host':'graph.facebook.com',
+		'Content-Length': 0
+	});
+	2ndRequest.end();
+	2ndRequest.on('response', function(2ndResponse){
+		var result2 = '';
+		2ndResponse.on('data', function(chunk){
+			result2+= chunk
+			console.log(chunk+ '\n and \n' +result)
+		});
+		2ndResponse.on('end', function(){
+			results2 = JSON.parse(result2)
+			console.log(results.id)
+		})
+	})
 	})
 })
 });
