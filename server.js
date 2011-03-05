@@ -13,6 +13,7 @@ var app = module.exports = express.createServer(),
     crypto = require('crypto')
     , http = require('http')
     , url = require('url')
+	, querystring = require('querystring')
     , fs = require('fs')
     , sys = require(process.binding('natives').util ? 'util' : 'sys')
     , server
@@ -466,8 +467,9 @@ function retrieve (channel, feed){
 };
 
 app.get('/new/:channel/', function(req, res){
-	unfurl = req.query.furl;
-	console.log(unfurl)
+	var path = url.parse(req.url).query;
+	query = new querystring.parse(path, sep='&', eq='=');
+	unfurl = query.furl;
 	channel = req.params.channel;
 	client.zadd(unfurl, -1, unfurl);	
 	client.sadd(channel, unfurl);
@@ -480,18 +482,20 @@ app.get('/new/:channel/', function(req, res){
 
 app.get('/feed', function(req, res){
 	res.writeHead('200');
-	console.log(req.headers+ '\n and query \n' +req.query);
-	channel = req.query.channel;
-	challenge = req.query['hub.challenge'];
+	console.log(req.headers);
+	var path = url.parse(req.url).query;
+	query = new querystring.parse(path, sep='&', eq='=');
+	channel = query.channel;
+	challenge = query.hub.challenge;
 	res.write(challenge);
 	res.end();
 });
 
 app.post('/feed', function(req, res){
 	console.log(req.headers);
-	//path = url.parse(req.url).query;
-	//query = querystring.parse(path, sep='&', eq='=');
-	channel = req.query.channel;
+	path = url.parse(req.url).query;
+	query = new querystring.parse(path, sep='&', eq='=');
+	channel = query.channel;
 	
 	d = req.body;
 	var dl = d.items.length;
@@ -576,15 +580,15 @@ app.get('/fb', function (req, res) {
     scope: 'offline_access,publish_stream'
   }));
 });
-/*
+
 app.get('/auth', function (req, res) {
 code = req.query.code;
 console.log(code);
 res.writeHead('200');
 res.end();
-fburl = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
+url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
 var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
-request = fbGetAccessToken.request('POST', fburl, {
+request = fbGetAccessToken.request('POST', url, {
 	'Host':'graph.facebook.com',
 	'Content-Length': 0
 });
@@ -596,7 +600,7 @@ request.on('response', function (response){
 		console.log(chunk+ '\n and \n' +result)
 	});
 	response.on('end', function(){
-		 results= querystring.parse( result );
+		 results= new querystring.parse( result );
 	 access_token = results['access_token'];
 	request2 = fbGetAccessToken.request('GET', '/me?access_token='+access_token, {
 		'Host':'graph.facebook.com',
@@ -617,7 +621,31 @@ request.on('response', function (response){
 	})
 })
 });
+/*
+app.get('/auth', function (req, res) {
+	code = req.query.code;
+	url = 'oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
+	var fbGetAccessToken = http.createClient('443', 'https://graph.facebook.com/', secure=true);
+	request = fbGetAccessToken.request('GET', url, {
+		'Host':'facebook.com',
+		'Content-Length': 0
+	});
+	request.end();
+	request.on('repsonse', function (respsonse){
+		var result;
+		response.on('data', function(chunk){
+			result += chunk;
+		});
+		response.on('end', function(){
+			try {data = JSON.parse(result)}
+			catch(e){data = querysting.parse(data)}
+			var access_token= data["access_token"];
+			console.log(access_token)
+		})
+	})
+});
 */
+
 app.post('/message', function (req, res) {
   facebookClient.apiCall(
     'POST',
