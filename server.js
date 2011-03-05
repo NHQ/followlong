@@ -576,7 +576,7 @@ app.get('/fb', function (req, res) {
     scope: 'offline_access,publish_stream'
   }));
 });
-
+/*
 app.get('/auth', function (req, res) {
 code = req.query.code;
 console.log(code);
@@ -617,7 +617,7 @@ request.on('response', function (response){
 	})
 })
 });
-
+*/
 app.post('/message', function (req, res) {
   facebookClient.apiCall(
     'POST',
