@@ -480,9 +480,9 @@ app.get('/new/:channel/', function(req, res){
 
 app.get('/feed', function(req, res){
 	res.writeHead('200');
-	console.log(req.headers);
+	console.log(req.headers+ '\n and query \n' +req.query);
 	channel = req.query.channel;
-	challenge = query.hub.challenge;
+	challenge = req.query[hub.challenge];
 	res.write(challenge);
 	res.end();
 });
