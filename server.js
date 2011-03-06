@@ -108,7 +108,6 @@ function frontis(){
 			// or else use limit offset above, depenidng on size of indexes
 			client.zunionstore(['frontPage', num].concat(allem), function (err, front){
 				if(err){sys.puts(err)};
-				client.quit();
 			})
 		});	
 	});
@@ -130,6 +129,7 @@ app.get('/', getSesh, function(req, res){
 			res.render('index', {
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
 			});
+			client.quit();
 			res.end();
 		}); 
 		console.log(req.isAdmin)
