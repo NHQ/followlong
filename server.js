@@ -115,8 +115,8 @@ function frontis(){
 // Routes
 
 app.get('/', getSesh, function(req, res){
-	multi = client.multi();
 	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
+	multi = client.multi();
 		if(err){console.log(err)}
 		for (d in data)
 		{
