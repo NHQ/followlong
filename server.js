@@ -88,6 +88,7 @@ function frontis(){
 	var allem = new Array();
 	multi = client.multi();
 	client.smembers('channels', function (err, repo){
+		client.quit();
 		repo = repo;
 		for (r in repo)
 		{
@@ -116,6 +117,7 @@ app.get('/', getSesh, function(req, res){
 			multi.hgetall(data[d], function(err, contents){
 			})
 		}
+		client.quit();
 		multi.exec(function(err, reply){
 			if(err){console.log(err)}
 			articles = reply;
@@ -123,7 +125,6 @@ app.get('/', getSesh, function(req, res){
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
 			});
 			res.end();
-			client.quit();
 		}); 
 		console.log(req.isAdmin)
 	});
@@ -193,6 +194,7 @@ app.get('/admin', function(req, res){
 			multi.smembers(repo[x], function (err, reply){
 			})		
 		}
+		client.quit();
 		multi.exec(function(err, list){
 			for (x = 0; x < list.length; ++x)
 			{
@@ -203,7 +205,6 @@ app.get('/admin', function(req, res){
 			})
 		})
 	});
-	client.quit;
 	res.end();
 });
 
