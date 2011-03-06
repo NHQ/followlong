@@ -116,7 +116,6 @@ app.get('/', getSesh, function(req, res){
 			multi.hgetall(data[d], function(err, contents){
 			})
 		}
-		client.quit();
 		multi.exec(function(err, reply){
 			if(err){console.log(err)}
 			articles = reply;
