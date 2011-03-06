@@ -102,7 +102,6 @@ function frontis(){
 				if(err){sys.puts(err)};
 			})
 		});	
-		client.quit();
 	});
 }
 // Routes
