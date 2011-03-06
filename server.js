@@ -484,7 +484,7 @@ function retrieve (channel, feed){
 */
 app.get('/new/:channel/', function(req, res){
 	var path = url.parse(req.url).query;
-	query = new querystring.parse(path, sep='&', eq='=');
+	query = new querystring.parse(path);
 	unfurl = query.furl;
 	channel = req.params.channel;
 	client.zadd(unfurl, -1, unfurl);	
