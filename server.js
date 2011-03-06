@@ -499,11 +499,11 @@ app.get('/new/:channel/', function(req, res){
 });
 
 app.get('/feed', function(req, res){
-	res.writeHead('200');
 	path = url.parse(req.url).query;
 	queriness = querystring.parse(path, sep='&', eq='=');
 	channel = queriness.channel;
-	challenge = query.hub.challenge;
+	challenge = queryiness.hub.challenge;
+	res.writeHead('200');
 	res.write(challenge);
 	res.end();
 	console.log(req.headers+'\n'+path);
