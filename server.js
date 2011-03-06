@@ -129,7 +129,6 @@ app.get('/', getSesh, function(req, res){
 			res.render('index', {
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
 			});
-			client.quit();
 			res.end();
 		}); 
 		console.log(req.isAdmin)
