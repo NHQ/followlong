@@ -483,9 +483,9 @@ function retrieve (channel, feed){
 };
 */
 app.get('/new/:channel/', function(req, res){
-	var path = url.parse(req.url).query;
+	path = url.parse(req.url).query;
 	console.log(path); 
-	queriesPls = querystring.parse(path);
+	queriesPls = querystring.parse(path, sep='&', eq='=');
 	unfurl = queriesPls.furl;
 	channel = req.params.channel;
 	client.zadd(unfurl, -1, unfurl);	
@@ -500,7 +500,7 @@ app.get('/new/:channel/', function(req, res){
 
 app.get('/feed', function(req, res){
 	res.writeHead('200');
-	var path = url.parse(req.url).query;
+	path = url.parse(req.url).query;
 	query = new querystring.parse(path, sep='&', eq='=');
 	channel = query.channel;
 	challenge = query.hub.challenge;
