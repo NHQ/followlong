@@ -100,10 +100,10 @@ function frontis(){
 			// or else use limit offset above, depenidng on size of indexes
 			client.zunionstore(['frontPage', num].concat(allem), function (err, front){
 				if(err){sys.puts(err)};
+				client.quit();
 			})
 		});	
 	});
-	client.quit();
 }
 // Routes
 
