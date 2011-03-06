@@ -123,10 +123,10 @@ app.get('/', getSesh, function(req, res){
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
 			});
 			res.end();
+			client.quit();
 		}); 
 		console.log(req.isAdmin)
 	});
-	client.quit();
 });
 
 /*
