@@ -400,13 +400,13 @@ app.get('/test', function(req, res){
 });
 */
 function unsubscribe (channel, feed){
-		var spfdr = http.createClient(80, 'superfeedr.com');
+		spfdr = http.createClient(80, 'superfeedr.com');
 		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
-		var request = spfdr.request('POST', '/hubbub', {
+		request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
-			'Content-Length': data.length
+			'Content-Length': datat.length
 		});
 		request.write(datat, encoding='utf8');
 		request.on('response', function (response){
@@ -418,13 +418,13 @@ function unsubscribe (channel, feed){
 };
 
 function subscribe (channel, feed){
-		var spfdr = http.createClient(80, 'superfeedr.com');
+		spfdr = http.createClient(80, 'superfeedr.com');
 		dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
 		request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
-			'Content-Length': data.length
+			'Content-Length': dataw.length
 		});
 		request.write(dataw, encoding='utf8');
 		request.on('response', function (response){
