@@ -501,8 +501,8 @@ app.get('/new/:channel/', function(req, res){
 app.get('/feed', function(req, res){
 	res.writeHead('200');
 	path = url.parse(req.url).query;
-	query = new querystring.parse(path, sep='&', eq='=');
-	channel = query.channel;
+	queriness = querystring.parse(path, sep='&', eq='=');
+	channel = queriness.channel;
 	challenge = query.hub.challenge;
 	res.write(challenge);
 	res.end();
