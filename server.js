@@ -483,8 +483,6 @@ function retrieve (channel, feed){
 };
 */
 app.get('/new/:channel/', function(req, res){
-	res.redirect('/');
-	res.end();
 	var path = url.parse(req.url).query;
 	query = new querystring.parse(path, sep='&', eq='=');
 	unfurl = query.furl;
@@ -495,6 +493,8 @@ app.get('/new/:channel/', function(req, res){
 		client.quit();
 	});
 	subscribe(channel, unfurl);
+	res.redirect('/');
+	res.end();	
 	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 });
 
