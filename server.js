@@ -88,7 +88,6 @@ function frontis(){
 	var allem = new Array();
 	multi = client.multi();
 	client.smembers('channels', function (err, repo){
-		client.quit();
 		repo = repo;
 		for (r in repo)
 		{
