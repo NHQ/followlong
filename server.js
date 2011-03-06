@@ -77,7 +77,8 @@ function getSesh (req, res, next){
 			if(facts[isAdmin] = 1)
 			req.isAdmin = 1;
 			next();
-		})
+		});
+		client.quit();
 	}
 };
 
@@ -102,6 +103,7 @@ function frontis(){
 			})
 		});	
 	});
+	client.quit();
 }
 // Routes
 
@@ -119,10 +121,15 @@ app.get('/', getSesh, function(req, res){
 			articles = reply;
 			res.render('index', {
 				locals: {title: "MOSTMODERNIST", articles: articles, admin: req.isAdmin}
-			})
-		}); console.log(req.isAdmin)
-	})
+			});
+			res.end();
+		}); 
+		console.log(req.isAdmin)
+	});
+	client.quit();
 });
+
+/*
 app.get('/ajax', function (req, res){
 	res.render('ajax', {
 		locals: {title: "MOSTMODERNIST"}
@@ -173,26 +180,6 @@ app.get('/load', function (req, res){
 		client.quit();}
 	})
 });
-/*
-app.get('/frontpage', function(req, res){
-	multi = client.multi();
-	client.zrevrangebyscore('frontPage', epoch(), epoch()-90061, "limit", "0", "75", function(err, data){
-		if(err){console.log(err)}
-		for (d in data)
-		{
-			multi.hmget(data[d],'title','score','link','channel','furl', function(err, contents){
-			})
-		}
-		multi.exec(function(err, reply){
-			if(err){console.log(err)}
-			data = JSON.stringify(reply);
-	        res.writeHead(200, {'Content-Type': 'application/json'})
-	        res.write(data, 'utf8');
-	        res.end();
-			console.log(reply)
-		})
-	})
-});
 */
 app.get('/admin', function(req, res){
 	var obj = new Object();
@@ -216,6 +203,8 @@ app.get('/admin', function(req, res){
 			})
 		})
 	});
+	client.quit;
+	res.end();
 });
 
 app.post('/delete/feed', function (req, res){
@@ -223,6 +212,7 @@ app.post('/delete/feed', function (req, res){
 	feed = decodeURIComponent(req.body.feed);
 	delFeed(channel, feed);
 	res.redirect('/admin');
+	res.end();
 })
 
 app.get('/delete/item/:furl/:item', getSesh, function (req, res){
@@ -234,7 +224,8 @@ app.get('/delete/item/:furl/:item', getSesh, function (req, res){
 	client.zrem(furl, item, function(err, res){
 		frontis();
 	});
-	res.redirect('/')
+	res.redirect('/');
+	res.end();
 })
 
 app.get('/edit', function(req, res){
@@ -247,6 +238,8 @@ app.get('/edit', function(req, res){
 			locals: {title: feed, go: '/delete/item', channels: channels }
 		})
 	})
+	client.quit()
+	res.end();
 })
 
 function delFeed (channel, feed){
@@ -275,7 +268,9 @@ function delItem (feed, item) {
 app.get('/admin/channels', function(req, res){
 	client.lrange('channels', 0, -1, function(err, data){
 		res.body = data;
+		res.end()
 	})
+	client.quit();
 });
 
 app.post('/admin', function(req, res){
@@ -283,7 +278,9 @@ app.post('/admin', function(req, res){
 	client.sadd('channels', channel, function(err, body){
 		if (err){sys.puts(err)};
 		res.redirect('/admin');
+		res.end()
 	})
+	client.quit;
 });
 
 app.post('/delete', function(req, res){
@@ -292,7 +289,9 @@ app.post('/delete', function(req, res){
 	client.srem('channels', function(err, body){
 		if (err){sys.puts(err)};
 		res.redirect('/admin');
+		res.end();
 	})
+	client.quit()
 });
 
 /*
@@ -328,47 +327,56 @@ send404 = function(res){
 	res.redirect('/');
   res.end();
 };
-
+/*
 app.get('/new-user', function(req, res){
 	console.log(req.session.user_id);
 	res.render('new-user', {
 		locals: {title: "create user", action: "/new-user"}
 	})
 });
+
 app.post('/new-user', function(req, res){
 	id = (Math.round((new Date().valueOf() * Math.random())) + '');
-	console.log(id);
 	req.session.user_id = req.body.email;
 	newuser.fUSR(req.body.email, req.body.password, id);
     res.redirect('/');
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('hello');
 });
-
+*/
 app.get('/login', function(req, res){
 	res.render('new-user', {
 		locals: {title: "login", action: "/login"}
-	})
+	});
+	res.end()
 })
 
 app.post('/login', function(req, res){
 	password = req.body.password;
 	client.hgetall(req.body.email, function(err, user){
-		if (user = ""){res.redirect('/')};
+		if (user = ""){res.redirect('/');res.end();}
 		if (user && function(password){
 			return crypto.createHmac('sha1', user.salt).update(password).digest('hex') === user.password
 		})
 		{res.writeHead('200');
 		req.session.user_id = user.email;
-		res.redirect('/')}
-	})
+		res.redirect('/');res.end()}
+	});
+	client.quit()
 });
 
 app.get('/logout', function(req, res){
 	if(req.session)
-	{console.log("logout: "+req.session.user_id);
-	req.session.destroy(function() {});
-	res.redirect('/')}
+	{
+		req.session.destroy(function() {});
+		res.redirect('/');
+		res.end()
+	}
+	else
+	{
+		res.redirect('/');
+		res.end()
+	}
 })
 /*
 app.get('/test', function(req, res){
@@ -385,14 +393,14 @@ app.get('/test', function(req, res){
 */
 function unsubscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
+		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
 			'Content-Length': data.length
 		});
-		request.write(data, encoding='utf8');
+		request.write(datat, encoding='utf8');
 		request.on('response', function (response){
 			response.on('data', function (stuff){
 				console.log(stuff.toString('utf8', 0, stuff.length))
@@ -403,14 +411,14 @@ function unsubscribe (channel, feed){
 
 function subscribe (channel, feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		data = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
+		dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
 		request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
 			'Content-Length': data.length
 		});
-		request.write(data, encoding='utf8');
+		request.write(dataw, encoding='utf8');
 		request.on('response', function (response){
 			response.on('data', function (stuff){
 				console.log(stuff.toString('utf8', 0, stuff.length))
@@ -418,7 +426,7 @@ function subscribe (channel, feed){
 		})
 		request.end();
 };
-
+/*
 function retrieve (channel, feed){
 	var spfdr = http.createClient(80, 'superfeedr.com');
 	var ditto = new String();
@@ -465,8 +473,10 @@ function retrieve (channel, feed){
 		});
 	});
 };
-
+*/
 app.get('/new/:channel/', function(req, res){
+	res.redirect('/');
+	res.end();
 	var path = url.parse(req.url).query;
 	query = new querystring.parse(path, sep='&', eq='=');
 	unfurl = query.furl;
@@ -474,25 +484,25 @@ app.get('/new/:channel/', function(req, res){
 	client.zadd(unfurl, -1, unfurl);	
 	client.sadd(channel, unfurl);
 	client.sadd('allFeeds', unfurl);
+	client.quit();
 	subscribe(channel, unfurl);
 	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
-	res.redirect('/');
-	res.end();
 });
 
 app.get('/feed', function(req, res){
 	res.writeHead('200');
-	console.log(req.headers);
 	var path = url.parse(req.url).query;
 	query = new querystring.parse(path, sep='&', eq='=');
 	channel = query.channel;
 	challenge = query.hub.challenge;
 	res.write(challenge);
 	res.end();
+	console.log(req.headers+'\n'+path);
 });
 
 app.post('/feed', function(req, res){
-	console.log(req.headers);
+	res.writeHead('200');
+	res.end();
 	path = url.parse(req.url).query;
 	query = new querystring.parse(path, sep='&', eq='=');
 	channel = query.channel;
@@ -528,48 +538,9 @@ app.post('/feed', function(req, res){
 				"score": d.items[x].postedTime,
 				"created": d.items[x].postedTime
 			}, function(err, reply){if (err){console.log("error: " + err)}});
+		client.quit();	
 	};
-	
-	if(req.body){
-		res.writeHead('200');
-		res.end();}
-	//path = url.parse(req.url).query;
-	//query = querystring.parse(path, sep='&', eq='=');
-	//unfurl = req.headers.x-pubsubhubbub-topic;
-	//channel = query.channel;
-	//var data = new String();
-/*	req.on('data', function(chunk){
-		console.log('a very palpable data!');
-		data += chunk;
-		console.log(chunk.toString('utf8', 0, chunk.length))
-	});
-	
-	req.on('end', function (){
-		var d = JSON.parse(data);
-				console.log(d);
-		var dl = d.items.length;
-		unfurl = d.status.feed
-		for (x = 0; x < dl; ++x){
-			picture = ""; // do what the green line says!	
-			if (d.items[x].standardLinks && d.items[x].standardLinks.picture){
-				picture = d.items[x].standardLinks.picture[0].href
-			};
-			sys.puts(d.title);
-			client.zadd(unfurl, d.items[x].postedTime, d.items[x].title, function(err, reply){if (err){sys.puts(err)}});
-			client.hmset(d.items[x].title, 
-				{
-					"content": d.items[x].content,
-					"link": d.items[x].permalinkUrl,
-					"title": d.items[x].title,
-					"pic": picture,
-					"channel": channel,
-					"furl": unfurl,
-					"score": d.items[x].postedTime,
-					"created": d.items[x].postedTime
-				}, function(err, reply){if (err){console.log("error: " + err)}})
-		};
-	//res.end()
-	}); */
+	console.log(req.headers);
 });
 // Only listen on $ node app.js
 
@@ -582,69 +553,45 @@ app.get('/fb', function (req, res) {
 });
 
 app.get('/auth', function (req, res) {
-code = req.query.code;
-console.log(code);
-res.writeHead('200');
-res.end();
-url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
-var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
-request = fbGetAccessToken.request('POST', url, {
-	'Host':'graph.facebook.com',
-	'Content-Length': 0
-});
-request.end();
-request.on('response', function (response){
-	var result = "";
-	response.on('data', function(chunk){
-		result+= chunk
-		console.log(chunk+ '\n and \n' +result)
-	});
-	response.on('end', function(){
-		 results= new querystring.parse( result );
-	 access_token = results['access_token'];
-	request2 = fbGetAccessToken.request('GET', '/me?access_token='+access_token, {
+	code = req.query.code;
+	console.log(code);
+	res.writeHead('200');
+	res.end();
+	url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
+	var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
+	request = fbGetAccessToken.request('POST', url, {
 		'Host':'graph.facebook.com',
 		'Content-Length': 0
 	});
-	request2.end();
-	request2.on('response', function(response2){
-		var result2 = '';
-		response2.on('data', function(chunk){
-			result2+= chunk
-			console.log(chunk+ '\n and \n' +result2)
-		});
-		response2.on('end', function(){
-			resulting = JSON.parse(result2)
-			console.log(resulting.id)
-		})
-	})
-	})
-})
-});
-/*
-app.get('/auth', function (req, res) {
-	code = req.query.code;
-	url = 'oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
-	var fbGetAccessToken = http.createClient('443', 'https://graph.facebook.com/', secure=true);
-	request = fbGetAccessToken.request('GET', url, {
-		'Host':'facebook.com',
-		'Content-Length': 0
-	});
 	request.end();
-	request.on('repsonse', function (respsonse){
-		var result;
+	request.on('response', function (response){
+		var result = "";
 		response.on('data', function(chunk){
-			result += chunk;
+			result+= chunk
+			console.log(chunk+ '\n and \n' +result)
 		});
 		response.on('end', function(){
-			try {data = JSON.parse(result)}
-			catch(e){data = querysting.parse(data)}
-			var access_token= data["access_token"];
-			console.log(access_token)
+			 results= new querystring.parse( result );
+		 access_token = results['access_token'];
+		request2 = fbGetAccessToken.request('GET', '/me?access_token='+access_token, {
+			'Host':'graph.facebook.com',
+			'Content-Length': 0
+		});
+		request2.end();
+		request2.on('response', function(response2){
+			var result2 = '';
+			response2.on('data', function(chunk){
+				result2+= chunk
+				console.log(chunk+ '\n and \n' +result2)
+			});
+			response2.on('end', function(){
+				resulting = JSON.parse(result2)
+				console.log(resulting.id)
+			})
+		})
 		})
 	})
 });
-*/
 
 app.post('/message', function (req, res) {
   facebookClient.apiCall(
