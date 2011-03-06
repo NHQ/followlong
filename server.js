@@ -490,7 +490,6 @@ app.get('/new/:channel/', function(req, res){
 	client.zadd(unfurl, -1, unfurl);	
 	client.sadd(channel, unfurl);
 	client.sadd('allFeeds', unfurl, function(e,r){
-		client.quit();
 	});
 	subscribe(channel, unfurl);
 	res.redirect('/');
