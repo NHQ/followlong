@@ -237,8 +237,8 @@ app.get('/edit', function(req, res){
 		{
 			locals: {title: feed, go: '/delete/item', channels: channels }
 		})
+		client.quit()
 	})
-	client.quit()
 	res.end();
 })
 
@@ -253,7 +253,9 @@ function delFeed (channel, feed){
 	});
 	client.del(feed);
 	client.srem(channel, feed);
-	client.srem('allFeeds', feed);
+	client.srem('allFeeds', feed, function(err, re){
+		client.quit()
+	});
 	unsubscribe(channel, feed);
 	frontis();
 	//perhaps only unsubscribe rather than delete all old ones? Move them out of their parent channel and into the "archives"
@@ -268,9 +270,9 @@ function delItem (feed, item) {
 app.get('/admin/channels', function(req, res){
 	client.lrange('channels', 0, -1, function(err, data){
 		res.body = data;
-		res.end()
+		res.end();
+		client.quit();
 	})
-	client.quit();
 });
 
 app.post('/admin', function(req, res){
@@ -278,9 +280,9 @@ app.post('/admin', function(req, res){
 	client.sadd('channels', channel, function(err, body){
 		if (err){sys.puts(err)};
 		res.redirect('/admin');
-		res.end()
+		res.end();
+		client.quit()
 	})
-	client.quit;
 });
 
 app.post('/delete', function(req, res){
@@ -290,8 +292,8 @@ app.post('/delete', function(req, res){
 		if (err){sys.puts(err)};
 		res.redirect('/admin');
 		res.end();
+		client.quit()
 	})
-	client.quit()
 });
 
 /*
@@ -361,8 +363,8 @@ app.post('/login', function(req, res){
 		{res.writeHead('200');
 		req.session.user_id = user.email;
 		res.redirect('/');res.end()}
+		client.quit()	
 	});
-	client.quit()
 });
 
 app.get('/logout', function(req, res){
@@ -483,8 +485,9 @@ app.get('/new/:channel/', function(req, res){
 	channel = req.params.channel;
 	client.zadd(unfurl, -1, unfurl);	
 	client.sadd(channel, unfurl);
-	client.sadd('allFeeds', unfurl);
-	client.quit();
+	client.sadd('allFeeds', unfurl, function(e,r){
+		client.quit();
+	});
 	subscribe(channel, unfurl);
 	//var retr = setTimeout(function(){retrieve(channel,unfurl)}, 30000);
 });
@@ -537,8 +540,13 @@ app.post('/feed', function(req, res){
 				"furl": unfurl,
 				"score": d.items[x].postedTime,
 				"created": d.items[x].postedTime
-			}, function(err, reply){if (err){console.log("error: " + err)}});
-		client.quit();	
+			}, function(err, reply){
+				if (err)
+					{
+						console.log("error: " + err)
+					}
+				client.quit()
+			});	
 	};
 	console.log(req.headers);
 });
