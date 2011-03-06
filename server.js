@@ -77,8 +77,8 @@ function getSesh (req, res, next){
 			if(facts[isAdmin] = 1)
 			req.isAdmin = 1;
 			next();
+			client.quit();
 		});
-		client.quit();
 	}
 };
 
