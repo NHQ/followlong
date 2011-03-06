@@ -484,7 +484,6 @@ function retrieve (channel, feed){
 */
 app.get('/new/:channel/', function(req, res){
 	path = url.parse(req.url).query;
-	console.log(path); 
 	queriesPls = querystring.parse(path, sep='&', eq='=');
 	unfurl = queriesPls.furl;
 	channel = req.params.channel;
@@ -506,7 +505,7 @@ app.get('/feed', function(req, res){
 	res.writeHead('200');
 	res.write(challenge);
 	res.end();
-	console.log(req.headers+'\n'+path);
+	console.log(req.headers);
 });
 
 app.post('/feed', function(req, res){
@@ -551,7 +550,6 @@ app.post('/feed', function(req, res){
 					{
 						console.log("error: " + err)
 					}
-				client.quit()
 			});	
 	};
 	console.log(req.headers);
