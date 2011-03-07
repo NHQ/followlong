@@ -594,8 +594,10 @@ app.get('/auth', function (req, res) {
 				result2+= chunk
 			});
 			response2.on('end', function(){
-				resulting = JSON.parse(result2)
-				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location catch(e) l = "unkown"; return l, 'link', link, function (err, rerun){
+				resulting = JSON.parse(result2);
+				user_location = "unkown";
+				if (resulting.user_location){user_location = resulting.user_location}
+				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', link, function (err, rerun){
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 					res.end();
