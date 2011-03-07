@@ -595,7 +595,7 @@ app.get('/auth', function (req, res) {
 			});
 			response2.on('end', function(){
 				resulting = JSON.parse(result2)
-				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location || undefined, 'link', link, function (err, rerun){
+				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location catch(e) l = "unkown"; return l, 'link', link, function (err, rerun){
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 					res.end();
