@@ -560,7 +560,7 @@ app.get('/fb', function (req, res) {
   res.redirect(facebookClient.getAuthorizeUrl({
     client_id: '190292354344532',
     redirect_uri: 'http://mostmodernist.no.de:80/auth',
-    scope: 'offline_access,publish_stream,location'
+    scope: 'offline_access,publish_stream,user_location'
   }));
 });
 
@@ -597,7 +597,7 @@ app.get('/auth', function (req, res) {
 				resulting = JSON.parse(result2);
 				user_location = "unkown";
 				if (resulting.user_location){user_location = resulting.user_location}
-				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', link, function (err, rerun){
+				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, function (err, rerun){
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 					res.end();
