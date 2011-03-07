@@ -560,15 +560,13 @@ app.get('/fb', function (req, res) {
   res.redirect(facebookClient.getAuthorizeUrl({
     client_id: '190292354344532',
     redirect_uri: 'http://mostmodernist.no.de:80/auth',
-    scope: 'offline_access,publish_stream'
+    scope: 'offline_access,publish_stream,location'
   }));
 });
 
 app.get('/auth', function (req, res) {
 	code = req.query.code;
 	console.log(code);
-	res.writeHead('200');
-	res.end();
 	url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
 	var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
 	request = fbGetAccessToken.request('POST', url, {
@@ -594,11 +592,14 @@ app.get('/auth', function (req, res) {
 			var result2 = '';
 			response2.on('data', function(chunk){
 				result2+= chunk
-				console.log(chunk+ '\n and \n' +result2)
 			});
 			response2.on('end', function(){
 				resulting = JSON.parse(result2)
-				console.log(resulting.id)
+				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location || undefined, 'link', link, function (err, rerun){
+					res.writeHead('200');
+					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
+					res.end();
+				})
 			})
 		})
 		})
