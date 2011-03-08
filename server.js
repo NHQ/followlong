@@ -67,7 +67,8 @@ function isAdmin(req, res, next) {
 }
 */
 
-function getSesh (req, res){
+function getSesh (req, res, next){
+	var isAdmin = 0;
 	if(!req.session.uid)
 		res.rediect('/fb');
 	if(req.session.uid)
@@ -101,11 +102,10 @@ function frontis(){
 	});
 }
 // Routes
-function neon(obj){if (typeof obj === 'string'){multi.smembers(obj)} else otro(obj)};
-function otro(obj){multi.smembers(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
 
 app.get('/', function(req, res){
-	client.zrevrangebyscore(req.facts.name+' Page', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
+	console.log(req.session.uid);
+	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 	multi = client.multi();
 		if(err){console.log(err)}
 		for (d in data)
