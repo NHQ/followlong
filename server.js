@@ -130,7 +130,7 @@ app.get('/user', function (req,res){
 	function neon(obj){if (typeof obj === 'string'){channels.push(obj)} else otro(obj)};
 	function otro(obj){channels.push(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
 	she = req.session.uid;
-	client.hmget(she, function (err, dossier){
+	client.hgetall(she, function (err, dossier){
 		facts = dossier;
 	});
 	client.get(she+':channels', function (err, string){
