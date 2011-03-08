@@ -598,7 +598,7 @@ app.get('/auth', function (req, res) {
 				req.session.uid = resulting.id;
 				user_location = "unkown";
 				if (resulting.user_location){user_location = resulting.user_location}
-				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, function (err, rerun){
+				client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, function (err, rerun){
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 					res.cookie = resulting.id;
