@@ -628,7 +628,7 @@ app.post('/message', function (req, res) {
   );
 });
 
-(function getLoco (id, token) {
+getLoco = (function (id, token) {
 	var loco = http.createClient(443, 'graph.facebook.com', secure=true);
 	reqLoco = loco.request('GET', '/'+id+'/location?access_token='+token, {
 			'Host':'graph.facebook.com',
