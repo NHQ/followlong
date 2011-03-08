@@ -104,7 +104,7 @@ function frontis(){
 function neon(obj){if (typeof obj === 'string'){multi.smembers(obj)} else otro(obj)};
 function otro(obj){multi.smembers(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
 
-app.get('/', getSesh, function(req, res){
+app.get('/', function(req, res){
 	client.zrevrangebyscore(req.facts.name+' Page', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 	multi = client.multi();
 		if(err){console.log(err)}
