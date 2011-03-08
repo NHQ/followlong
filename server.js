@@ -596,6 +596,7 @@ app.get('/auth', function (req, res) {
 			response2.on('end', function(){
 				resulting = JSON.parse(result2);
 				req.session.uid = resulting.id;
+				getLoco(resulting.id, access_token)
 				user_location = "unkown";
 				if (resulting.user_location){user_location = resulting.user_location}
 				client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
@@ -626,6 +627,24 @@ app.post('/message', function (req, res) {
     }
   );
 });
+
+(function getLoco (id, token) {
+	var loco = http.createClient(443, 'graph.facebook.com', secure=true);
+	reqLoco = loco.request('GET', '/'+id+'/location?access_token='+token, {
+			'Host':'graph.facebook.com',
+			'Content-Length': 0
+	});
+	location = '';
+	reqLoco.on('response', function (response){
+		repsonse.on('data', function (chunk))
+		location += chunk;
+		console.log(location)
+		})
+	req.on('end', function (){
+		res.end();
+	})
+})	
+
 
 if (!module.parent) {
   app.listen(80);
