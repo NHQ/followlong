@@ -634,14 +634,15 @@ app.post('/message', function (req, res) {
 			'Host':'graph.facebook.com',
 			'Content-Length': 0
 	});
-	location = '';
 	reqLoco.on('response', function (response){
-		repsonse.on('data', function (chunk))
-		location += chunk;
-		console.log(location)
+		location = '';
+		repsonse.on('data', function (chunk){
+			location += chunk;
+			console.log(location)
 		})
-	req.on('end', function (){
-		res.end();
+		req.on('end', function (){
+			res.end();
+		})
 	})
 })	
 
