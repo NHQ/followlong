@@ -115,7 +115,7 @@ function frontis(){
 // Routes
 
 app.get('/', function(req, res){
-	console.log(req.sessions.uid);
+	console.log(req.session.uid);
 	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 	multi = client.multi();
 		if(err){console.log(err)}
