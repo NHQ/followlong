@@ -595,6 +595,7 @@ app.get('/auth', function (req, res) {
 			});
 			response2.on('end', function(){
 				resulting = JSON.parse(result2);
+				req.sessions.uid = resulting.id
 				user_location = "unkown";
 				if (resulting.user_location){user_location = resulting.user_location}
 				client.hset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, function (err, rerun){
