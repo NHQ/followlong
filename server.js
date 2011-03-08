@@ -141,7 +141,7 @@ app.get('/user', function (req,res){
 			neon(channels[x])
 		}
 	})
-	res.render('/user', {
+	res.render('user', {
 		locals: {title: her.name, channels: channels, person: facts}
 	})
 })
