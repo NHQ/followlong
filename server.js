@@ -142,7 +142,7 @@ app.get('/user', function (req,res){
 		}
 	})
 	res.render('/user', {
-		locals: {title: her.name; channels: channels; person: facts}
+		locals: {title: her.name, channels: channels, person: facts}
 	})
 })
 
