@@ -124,6 +124,53 @@ app.get('/', function(req, res){
 	});
 });
 
+
+app.get('/user', function (req,res){
+	var channels = [], facts;
+	function neon(obj){if (typeof obj === 'string'){channels.push(obj)} else otro(obj)};
+	function otro(obj){channels.push(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
+	she = req.session.uid;
+	client.hmget(she, function (err, dossier){
+		facts = dossier;
+	});
+	client.get(she+':channels', function (err, string){
+		floss = JSON.parse(string);
+		multi = client.multi();
+		for (x in channels)
+		{
+			neon(channels[x])
+		}
+	})
+	res.render('/user', {
+		locals: {title: her.name; channels: channels; person: facts}
+	})
+})
+
+she = req.sessions.uid;
+var herChan = [];
+var allem = new Array();
+client.get(she+':channels', function(err, list){
+	multi = client.multi();
+	var chanList = JSON.parse(list);
+	for (x=0;x<list.length;++x)
+	{
+		neon(chanList[x]);
+		if (x = list.length-1)
+		{
+			multi.exec(function (err, echo){
+				allem = allem.concat.apply(allem, echo);
+				num = allem.length;
+				// need to add min/max to zunionstore to only "recent" scores
+				// or else use limit offset above, depenidng on size of indexes
+				client.zunionstore([req.facts.name+' Page', num].concat(allem), function (err, front){
+					if(err){sys.puts(err)};
+				})
+			})
+		}
+	}
+})
+
+
 /*
 app.get('/ajax', function (req, res){
 	res.render('ajax', {
