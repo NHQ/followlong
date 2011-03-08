@@ -144,7 +144,7 @@ app.get('/user', function (req,res){
 			neon(floss[x])
 		}
 		res.render('user', {
-			locals: {title: her.name, channels: channels, person: facts}
+			locals: {title: facts.name, channels: channels, person: facts}
 		})
 	})
 })
