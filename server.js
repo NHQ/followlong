@@ -135,14 +135,13 @@ app.get('/user', function (req,res){
 	});
 	client.get(she+':channels', function (err, string){
 		floss = JSON.parse(string);
-		multi = client.multi();
-		for (x in channels)
+		for (x in floss)
 		{
-			neon(channels[x])
+			neon(floss[x])
 		}
-	})
-	res.render('user', {
-		locals: {title: her.name, channels: channels, person: facts}
+		res.render('user', {
+			locals: {title: her.name, channels: channels, person: facts}
+		})
 	})
 })
 
