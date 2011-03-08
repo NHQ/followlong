@@ -604,26 +604,6 @@ app.get('/auth', function (req, res) {
 					res.cookie = resulting.id;
 					res.end();
 				})
-				
-				request3 = fbGetAccessToken.request('GET', '/me/location?access_token='+access_token, {
-					'Host':'graph.facebook.com',
-					'Content-Length': 0
-				});
-				request3.end();
-				request3.on('response', function(response3){
-					var result3 = '';
-					response2.on('data', function(chunk){
-						result3+= chunk
-					});
-					response2.on('end', function(){
-						resulting = JSON.parse(result3);
-						console.log(resulting)
-						})
-					})
-				})
-				})
-				
-			
 			})
 		})
 		})
