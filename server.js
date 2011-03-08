@@ -131,10 +131,14 @@ app.get('/user', function (req,res){
 	function otro(obj){channels.push(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
 	she = req.session.uid;
 	client.hgetall(she, function (err, dossier){
+		if(err){console.log(err)}
 		facts = dossier;
+		console.log(facts)
 	});
 	client.get(she+':channels', function (err, string){
+		if(err){console.log(err)}
 		floss = JSON.parse(string);
+		console.log(floss);
 		for (x in floss)
 		{
 			neon(floss[x])
