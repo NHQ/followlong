@@ -582,7 +582,7 @@ app.get('/auth', function (req, res) {
 		});
 		response.on('end', function(){
 			 results= new querystring.parse( result );
-		 access_token = results['access_token'];
+		var access_token = results['access_token'];
 		request2 = fbGetAccessToken.request('GET', '/me?access_token='+access_token, {
 			'Host':'graph.facebook.com',
 			'Content-Length': 0
@@ -598,12 +598,32 @@ app.get('/auth', function (req, res) {
 				req.session.uid = resulting.id;
 				user_location = "unkown";
 				if (resulting.user_location){user_location = resulting.user_location}
-				client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, function (err, rerun){
+				client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 					res.cookie = resulting.id;
 					res.end();
 				})
+				
+				request3 = fbGetAccessToken.request('GET', '/me/location?access_token='+access_token, {
+					'Host':'graph.facebook.com',
+					'Content-Length': 0
+				});
+				request3.end();
+				request3.on('response', function(response3){
+					var result3 = '';
+					response2.on('data', function(chunk){
+						result3+= chunk
+					});
+					response2.on('end', function(){
+						resulting = JSON.parse(result3);
+						console.log(resulting)
+						})
+					})
+				})
+				})
+				
+			
 			})
 		})
 		})
