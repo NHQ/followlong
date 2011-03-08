@@ -101,7 +101,7 @@ function frontis(){
 	});
 }
 // Routes
-function neon(obj){if (typeof obj === 'string'){multi.smembers(obj)} else otro(obj)}
+function neon(obj){if (typeof obj === 'string'){multi.smembers(obj)} else otro(obj)};
 function otro(obj){multi.smembers(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
 
 app.get('/', getSesh, function(req, res){
@@ -114,7 +114,7 @@ app.get('/', getSesh, function(req, res){
 		for (x=0;x<list.length;++x)
 		{
 			neon(chanList[x]);
-			if (if x = list.length-1)
+			if (x = list.length-1)
 			{
 				multi.exec(function (err, echo){
 					allem = allem.concat.apply(allem, echo);
