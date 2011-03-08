@@ -67,25 +67,13 @@ function isAdmin(req, res, next) {
 }
 */
 
-function getSesh (req, res, next){
-	var isAdmin = 0;
-	if(!req.session.user_id)
-		next()
-	if(req.session.user_id)
+function getSesh (req, res){
+	if(!req.session.uid)
+		res.rediect('/fb');
+	if(req.session.uid)
 	{
-		client.hgetall(req.session.user_id, function(err, facts){
-			if(facts[isAdmin] = 1)
-			{
-				req.isAdmin = 1;
-				next();
-				client.quit();
-			}
-			else
-			{
-				req.isAdmin = 0;
-				next();
-				client.quit();				
-			}
+		client.hgetall(req.session.uid, function(err, facts){
+			req.facts = facts;
 		});
 	}
 };
@@ -113,10 +101,35 @@ function frontis(){
 	});
 }
 // Routes
+function neon(obj){if (typeof obj === 'string'){multi.smembers(obj)} else otro(obj)}
+function otro(obj){multi.smembers(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
 
-app.get('/', function(req, res){
-	console.log(req.session.uid);
-	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
+app.get('/', getSesh, function(req, res){
+	she = req.sessions.uid;
+	var herChan = [];
+	var allem = new Array();
+	client.get(she+':channels', function(err, list){
+		multi = client.multi();
+		var chanList = JSON.parse(list);
+		for (x=0;x<list.length)
+		{
+			neon(chanList[x]);
+			++x;
+			if (if x = list.length)
+			{
+				multi.exec(function (err, echo){
+					allem = allem.concat.apply(allem, echo);
+					num = allem.length;
+					// need to add min/max to zunionstore to only "recent" scores
+					// or else use limit offset above, depenidng on size of indexes
+					client.zunionstore([req.facts.name+' Page', num].concat(allem), function (err, front){
+						if(err){sys.puts(err)};
+					})
+				})
+			}
+		}
+	})
+	client.zrevrangebyscore(req.facts.name+' Page', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 	multi = client.multi();
 		if(err){console.log(err)}
 		for (d in data)
@@ -132,7 +145,6 @@ app.get('/', function(req, res){
 			});
 			res.end();
 		}); 
-		console.log(req.isAdmin)
 	});
 });
 
@@ -596,6 +608,7 @@ app.get('/auth', function (req, res) {
 			});
 			response2.on('end', function(){
 				resulting = JSON.parse(result2);
+				// To Do: check if user already has account, get new token, but don't overwrite anything else
 				req.session.uid = resulting.id;
 				//getLoco(resulting.id, access_token)
 				user_location = resulting.locale;
@@ -604,7 +617,9 @@ app.get('/auth', function (req, res) {
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 					res.end();
-				})
+				});
+				channels = '["Culture","Business","Poiltics"]';
+				client.set(resulting.id+':channels', channels)
 			})
 		})
 		})
