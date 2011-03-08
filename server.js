@@ -583,7 +583,7 @@ app.get('/auth', function (req, res) {
 		response.on('end', function(){
 			 results= new querystring.parse( result );
 		var access_token = results['access_token'];
-		request2 = fbGetAccessToken.request('GET', '/me?access_token='+access_token, {
+		request2 = fbGetAccessToken.request('GET', '/me?fields=id,gender,name,location,locale&access_token='+access_token, {
 			'Host':'graph.facebook.com',
 			'Content-Length': 0
 		});
@@ -596,9 +596,9 @@ app.get('/auth', function (req, res) {
 			response2.on('end', function(){
 				resulting = JSON.parse(result2);
 				req.session.uid = resulting.id;
-				getLoco(resulting.id, access_token)
-				user_location = "unkown";
-				if (resulting.user_location){user_location = resulting.user_location}
+				//getLoco(resulting.id, access_token)
+				user_location = resulting.locale;
+				if (resulting.location){user_location = resulting.user_location}
 				client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
@@ -628,6 +628,7 @@ app.post('/message', function (req, res) {
   );
 });
 
+/*
 getLoco = (function (id, token) {
 	console.log(id + '\n' + token)
 	var loco = http.createClient(443, 'graph.facebook.com', secure=true);
@@ -646,6 +647,7 @@ getLoco = (function (id, token) {
 		})
 	})
 })	
+*/
 
 
 if (!module.parent) {
