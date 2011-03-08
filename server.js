@@ -636,11 +636,11 @@ getLoco = (function (id, token) {
 	});
 	reqLoco.on('response', function (response){
 		location = '';
-		repsonse.on('data', function (chunk){
+		response.on('data', function (chunk){
 			location += chunk;
 			console.log(location)
 		})
-		req.on('end', function (){
+		response.on('end', function (){
 			res.end();
 		})
 	})
