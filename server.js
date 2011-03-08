@@ -629,13 +629,14 @@ app.post('/message', function (req, res) {
 });
 
 getLoco = (function (id, token) {
+	console.loh(id + '\n' + token)
 	var loco = http.createClient(443, 'graph.facebook.com', secure=true);
 	reqLoco = loco.request('GET', '/'+id+'/location?access_token='+token, {
 			'Host':'graph.facebook.com',
 			'Content-Length': 0
 	});
 	reqLoco.on('response', function (response){
-		location = '';
+		var location = '';
 		response.on('data', function (chunk){
 			location += chunk;
 			console.log(location)
