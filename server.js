@@ -635,13 +635,14 @@ getLoco = (function (id, token) {
 			'Host':'graph.facebook.com',
 			'Content-Length': 0
 	});
+	reqLoco.end();
 	reqLoco.on('response', function (response){
 		var location = '';
 		response.on('data', function (chunk){
 			location += chunk;
-			console.log(location)
-		})
+		});
 		response.on('end', function (){
+				console.log(location);
 			res.end();
 		})
 	})
