@@ -111,11 +111,10 @@ app.get('/', getSesh, function(req, res){
 	client.get(she+':channels', function(err, list){
 		multi = client.multi();
 		var chanList = JSON.parse(list);
-		for (x=0;x<list.length)
+		for (x=0;x<list.length;++x)
 		{
 			neon(chanList[x]);
-			++x;
-			if (if x = list.length)
+			if (if x = list.length-1)
 			{
 				multi.exec(function (err, echo){
 					allem = allem.concat.apply(allem, echo);
