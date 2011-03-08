@@ -643,7 +643,6 @@ getLoco = (function (id, token) {
 		});
 		response.on('end', function (){
 				console.log(location);
-			res.end();
 		})
 	})
 })	
