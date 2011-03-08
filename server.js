@@ -114,7 +114,8 @@ function frontis(){
 }
 // Routes
 
-app.get('/', getSesh, function(req, res){
+app.get('/', function(req, res){
+	console.log(req.sessions.uid);
 	client.zrevrangebyscore('frontPage', epoch(), epoch()-450061, "limit", "0", "75", function(err, data){
 	multi = client.multi();
 		if(err){console.log(err)}
@@ -602,7 +603,6 @@ app.get('/auth', function (req, res) {
 				client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
 					res.writeHead('200');
 					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
-					res.cookie = resulting.id;
 					res.end();
 				})
 			})
