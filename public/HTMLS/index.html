@@ -24,9 +24,12 @@
   		  var $that = $( that )
   		}};
   	var hermes = $.getJSON('/info', function(data){
-  	  alert(data[1]);
+  	  channel = '';
   		for (x in data)
-      {$('ul.container').append(($('li').html(data[x])));}
+      {
+        channel += '<li><h1>'+data[x]+'</h2></li>'
+      }
+      $('ul.channel').append(channel);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
   </script>
