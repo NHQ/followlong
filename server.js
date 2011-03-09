@@ -72,8 +72,8 @@ function getSesh (req, res, next){
 		res.rediect('/fb');
 	if(req.session.uid)
 	{
-		client.hgetall(req.session.uid, function(err, facts){
-			req.facts = facts;
+		client.hgetall(req.session.uid, function(err, fax){
+			req.facts = fax.id;
 			next();
 		});
 	}
@@ -150,7 +150,8 @@ app.get('/user', getSesh, function (req,res){
 })
 
 app.post('/new/channel', getSesh, function (req, res){
-	id = req.facts.id
+	id = req.facts;
+	
 	var newChannel = req.body.channel;
 	client.get(id+':channels', function (err, json){
 		channels = JSON.parse(json);
