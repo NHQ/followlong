@@ -22,7 +22,7 @@
     		{
     		that.append('<li></li>').attr({class: obj, "data-station": x}).html(obj);
     		} 
-    		else 
+    	/*	else 
     		{	
     		that.append('<ul></ul>').attr({class: obj.channel, "data-station": x}).html(obj.channel);
     		var that = $('ul#'+object.channel);
@@ -36,8 +36,7 @@
     		for (l in obj.subChannels)
     		{
     			neon(obj.subChannels[x], x+'.'+l)
-    		}};
-
+    	    */
     	var hermes = $.getJSON('/info', function(data){
     	  channels = JSON.parse(data);
     		for (x in channels)
