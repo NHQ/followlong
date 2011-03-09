@@ -74,7 +74,6 @@ function getSesh (req, res, next){
 	{
 		client.hgetall(req.session.uid, function(err, fax){
 			req.facts = fax.id;
-			console.log(fax.id);
 			next();
 		});
 	}
@@ -151,13 +150,11 @@ app.get('/user', getSesh, function (req,res){
 })
 
 app.post('/new/channel', getSesh, function (req, res){
-	id = req.facts;
-	
 	var newChannel = req.body.channel;
 	client.get(id+':channels', function (err, json){
 		channels = JSON.parse(json);
 		channels.push(newChannel);
-		client.set(id+':channels', JSON.stringify(channels), function(){
+		client.set(req.facts+':channels', JSON.stringify(channels), function(){
 			res.redirect('/user')
 		})
 	})
