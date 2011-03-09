@@ -147,6 +147,27 @@ app.get('/user', getSesh, function (req,res){
 	})
 })
 
+app.get('/info', getSesh, function (req, res){
+	she = req.facts;
+	client.get(she+':channels', function (err, string){
+		if(err){console.log(err)}
+		floss = JSON.parse(string);
+		res.writeHead(200, {'Content-Type':'application/json'});
+		res.write(floss, 'utf8');
+		res.end();
+	})
+})
+
+app.get("/index", function(req, res){
+var path = url.parse(req.url).pathname;
+      fs.readFile(__dirname + '/public/HTMLS/index.html', function(err, data){
+        if (err) return send404(res);
+        res.writeHead(200, {'Content-Type': 'text/html'})
+        res.write(data, 'utf8');
+        res.end();
+      });
+});
+
 app.post('/new/channel', getSesh, function (req, res){
 	var newChannel = req.body.channel;
 	client.get(req.facts+':channels', function (err, json){
@@ -172,6 +193,7 @@ app.post('/new/subChannel', getSesh, function (req, res){
 			res.redirect('/user');
 			res.end();
 		})
+	})
 });
 app.post('/delete/station', getSesh, function (req,res){
 	var delStation = req.body.station;
