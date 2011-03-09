@@ -15,22 +15,21 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
   <script type='text/javascript', src='/javascripts/front.js'></script>
    <script type='text/javascript'>
-  	$(document).ready(function(){
+
   	neon = function(obj, x){
   	  var that = ''
   		if (typeof obj === 'string')
   		{
   		  that += '<li><h2>'+obj+'</h2></li>'; 
   		$('ul#channels').append(that);
-  		};
+  		}};
   	var hermes = $.getJSON('/info', function(data){
   	  channels = JSON.parse(data);
   		for (x in channels)
   		{
   			neon(channels[x], x)
   		}
-  	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
-  }})
+  	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   </script>
 
 </html>
