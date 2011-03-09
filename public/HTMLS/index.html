@@ -20,6 +20,7 @@
     	  var that = ''
     		if (typeof obj === 'string')
     		{
+    		  that += '<li>' 
     		$('ul#channels').append('<li></li>').attr({class: obj, "data-station": x}).html(obj);
     		};
     	var hermes = $.getJSON('/info', function(data){
@@ -29,7 +30,7 @@
     			neon(channels[x], x)
     		}
     	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
-    }
+    }};
     </script>
   </body>
 </html>
