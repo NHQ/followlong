@@ -6,7 +6,7 @@
   <body>
   
   <h1>Your channels, Sir</h1>
-  <ul class="channels"></ul>
+  <div class="container"></ul>
   
   
   </body>
@@ -20,8 +20,9 @@
   	  var that = ''
   		if (typeof obj === 'string')
   		{
-  		  that += '<li><h2>'+obj+'</h2></li>'; 
-  		$('ul#channels').append(that);
+  		  that += '<li><h2>'+obj+'</h2></li>';
+  		  var $that = $( that )
+  		$container.isotope('insert', $that);
   		}};
   	var hermes = $.getJSON('/info', function(data){
   		for (x in data)
