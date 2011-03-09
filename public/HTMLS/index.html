@@ -33,7 +33,7 @@
     		}};
     	otro = function(obj, x){
     		$('ul').append('<ul></ul>').attr({class: obj.channel, "data-station": x}).html(obj.channel);
-    		for (l in obj.subChannels
+    		for (l in obj.subChannels)
     		{
     			neon(obj.subChannels[x], x+'.'+l)
     		}};
