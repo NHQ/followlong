@@ -24,12 +24,13 @@
   		  var $that = $( that )
   		}};
   	var hermes = $.getJSON('/info', function(data){
-  	  channel = '';
+  	  append = '';
   		for (x in data)
       {
         channel += '<li><h1>'+data[x]+'</h2></li>'
       }
-      $('ul.channel').append(channel);
+      var $appended = $(append)
+      $('ul.container').append(appended);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
   </script>
