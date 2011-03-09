@@ -16,27 +16,12 @@
     <script type='text/javascript', src='/javascripts/front.js'></script>
      <script type='text/javascript'>
     	$(document).ready(function(){
-    	var that = $('ul#channels');
     	neon = function(obj, x){
+    	  var that = ''
     		if (typeof obj === 'string')
     		{
     		$('ul#channels').append('<li></li>').attr({class: obj, "data-station": x}).html(obj);
     		};
-    	/*	else 
-    		{	
-    		that.append('<ul></ul>').attr({class: obj.channel, "data-station": x}).html(obj.channel);
-    		var that = $('ul#'+object.channel);
-    		for (l in obj.subChannels)
-    		{
-    			neon(obj.subChannels, x+'.'+((l+1)/10))
-    		}
-    		}};
-    	otro = function(obj, x){
-    		$('ul').append('<ul></ul>').attr({class: obj.channel, "data-station": x}).html(obj.channel);
-    		for (l in obj.subChannels)
-    		{
-    			neon(obj.subChannels[x], x+'.'+l)
-    	    */
     	var hermes = $.getJSON('/info', function(data){
     	  channels = JSON.parse(data);
     		for (x in channels)
@@ -44,6 +29,7 @@
     			neon(channels[x], x)
     		}
     	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
+    }
     </script>
   </body>
 </html>
