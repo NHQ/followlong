@@ -15,7 +15,7 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
   <script type='text/javascript', src='/javascripts/front.js'></script>
    <script type='text/javascript'>
-
+   $(document).ready(function(){
   	neon = function(obj, x){
   	  var that = ''
   		if (typeof obj === 'string')
@@ -30,6 +30,7 @@
   			neon(channels[x], x)
   		}
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
+  	 });
   </script>
 
 </html>
