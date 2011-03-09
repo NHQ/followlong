@@ -149,13 +149,14 @@ app.get('/user', getSesh, function (req,res){
 
 app.post('/new/channel', getSesh, function (req, res){
 	var newChannel = req.body.channel;
-	client.get(id+':channels', function (err, json){
+	client.get(req.facts+':channels', function (err, json){
 		channels = JSON.parse(json);
 		channels.push(newChannel);
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
-			res.redirect('/user')
+			res.redirect('/user');
+			res.end();
 		})
-	})
+	});
 })
 /*
 app.get('/ajax', function (req, res){
