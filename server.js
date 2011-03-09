@@ -73,7 +73,8 @@ function getSesh (req, res, next){
 	if(req.session.uid)
 	{
 		client.hgetall(req.session.uid, function(err, fax){
-			req.facts = fax.id;
+			req.facts = '';
+			req.facts += fax.id;
 			next();
 		});
 	}
