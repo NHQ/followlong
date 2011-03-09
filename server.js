@@ -186,12 +186,7 @@ app.post('/new/subChannel', getSesh, function (req, res){
 		channels = JSON.parse(json);
 		index = parseInt(req.body.station);
 		superChannel = channels.slice(index, 1);
-		if (typeof superChannel === 'object')
-		{
-			superChannel.subChannels.push(req.body.channel);
-			channels[index] = superChannel
-		}
-		else
+		if (typeof superChannel === 'string')
 		{
 			obj = new Object();
 			obj.channel = superChannel;
@@ -199,6 +194,11 @@ app.post('/new/subChannel', getSesh, function (req, res){
 			obj.subChannels.push(req.body.channel);
 			channels[index] = obj;
 		}
+		else
+		{
+			superChannel.subChannels.push(req.body.channel);
+			channels[index] = superChannel
+		};
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
 			res.redirect('/user');
 			res.end();
