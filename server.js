@@ -145,7 +145,7 @@ app.get('/user', getSesh, function (req,res){
 			locals: {title: facts.name, channels: channels, person: facts}
 		})
 	})
-})
+});
 
 app.get('/info', getSesh, function (req, res){
 	she = req.facts;
