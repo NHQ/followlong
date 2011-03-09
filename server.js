@@ -149,7 +149,7 @@ app.get('/user', getSesh, function (req,res){
 	})
 })
 
-app.post('new/channel', getSesh, function (req, res){
+app.post('/new/channel', getSesh, function (req, res){
 	var newChannel = req.body.channel;
 	client.get(req.facts.id+':channels', function (err, json){
 		channels = JSON.parse(json);
