@@ -180,7 +180,7 @@ app.get('/index.html', getSesh, function (req,res){
 	        res.write(data, 'utf8');
 	        res.end();
 	      });
-})
+});
 
 app.post('/new/channel', getSesh, function (req, res){
 	var newChannel = req.body.channel;
