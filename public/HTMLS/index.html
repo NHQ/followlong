@@ -13,9 +13,23 @@
   <script type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
-  <script type='text/javascript', src='/javascripts/front.js'></script>
    <script type='text/javascript'>
    $(document).ready(function(){
+     var $container = $('ul#container');
+
+       $container.isotope({
+         itemSelector : '.articles',
+     	layoutMode: 'fitRows',
+     	cellsByRow : {
+     	    columnWidth : 800,
+     		rowHeight: 100
+     	  },
+       animationOptions: {
+          duration: 0,
+          easing: 'none',
+          queue: true
+        }
+       });
   	neon = function(obj, x){
   	  var that = ''
   		if (typeof obj === 'string')
