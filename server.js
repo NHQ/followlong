@@ -41,7 +41,7 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.bodyDecoder());
   app.use(express.cookieDecoder());
-  app.use(express.session({key: 'k33k33', secret: 'superSecret!', store: new RedisStore}));
+  app.use(express.session({key: 'k33k33', secret: 'superSecret!', cookie: {maxAge: 14400000}, store: new RedisStore}));
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.staticProvider(__dirname + '/public'));
@@ -68,6 +68,7 @@ function isAdmin(req, res, next) {
 */
 
 function getSesh (req, res, next){
+	console.log(req.session.uid)
 	if(!req.session.uid)
 		res.rediect('/fb');
 	if(req.session.uid)
@@ -144,6 +145,7 @@ app.get('/user', getSesh, function (req,res){
 		res.render('user', {
 			locals: {title: facts.name, channels: channels, person: facts}
 		})
+		res.end();
 	})
 });
 
@@ -666,20 +668,31 @@ app.get('/auth', function (req, res) {
 				result2+= chunk
 			});
 			response2.on('end', function(){
-				resulting = JSON.parse(result2);
-				// To Do: check if user already has account, get new token, but don't overwrite anything else
-				req.session.uid = resulting.id;
-				//getLoco(resulting.id, access_token)
-				user_location = resulting.locale;
-				if (resulting.location){user_location = resulting.user_location}
-				client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
-					res.writeHead('200');
-					res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
-					res.end();
-				});
-				channels = '["Culture","Business","Poiltics"]';
-				client.set(resulting.id+':channels', channels)
-			})
+				var resulting = JSON.parse(result2);
+				client.exists(resulting.id, function (err, answer){
+					if (answer === 1)
+					{
+						req.session.uid = resulting.id;
+						res.redirect('./user');
+						res.end();
+					}
+					else
+					{
+							// To Do: check if user already has account, get new token, but don't overwrite anything else
+							req.session.uid = resulting.id;
+							//getLoco(resulting.id, access_token)
+							user_location = resulting.locale;
+							if (resulting.location){user_location = resulting.user_location}
+							client.hmset(resulting.id, 'name', resulting.name, 'gender', resulting.gender, "location", user_location, 'link', resulting.link, "access_token", access_token, function (err, rerun){
+								res.writeHead('200');
+								res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
+								res.end();
+							});
+							channels = '["Culture","Business","Poiltics"]';
+							client.set(resulting.id+':channels', channels)
+						})						
+					}
+				})
 		})
 		})
 	})

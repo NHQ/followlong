@@ -15,22 +15,29 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
    $(document).ready(function(){
-
-  	neon = function(obj, x){
-  	  var that = ''
-  		if (typeof obj === 'string')
-  		{
-  		  that += '<li><h2>'+obj+'</h2></li>';
-  		  var $that = $( that )
-  		}};
+     	 (function neon (obj, x){
+    	   if (typeof obj === 'string')
+    	 {
+    	   append += '<li><h2>'+obj+'</h2></li>'
+    	 } 
+    	 else
+    	 { 
+    	   append += '<li><ul><h2>'+obj.channel+'</h2>';
+    	   for (x in obj.subChannels)
+    	   {
+    	     neon(obj.subChannels[x], x)
+    	   }
+         append += '</ul>'
+  	   }
+     });
   	var hermes = $.getJSON('/info', function(data){
-  	  append = '';
+  	  var append = '';
   		for (x in data)
       {
-        append += '<li><h1>'+data[x]+'</h2></li>'
+        (neon[x], x)
       }
-      var $appended = $(append)
-      $('ul.container').append($appended);
+      var $appending = $(append)
+      $('ul.container').append($appending);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
   </script>
