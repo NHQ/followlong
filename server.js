@@ -149,7 +149,7 @@ app.get('/user', getSesh, function (req,res){
 
 app.get('/info', getSesh, function (req, res){
 	she = req.facts;
-	alert(she);
+	console.log('req');
 	client.get(she+':channels', function (err, string){
 		if(err){console.log(err)}
 		res.writeHead(200);
