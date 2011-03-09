@@ -691,11 +691,11 @@ app.get('/auth', function (req, res) {
 							channels = '["Culture","Business","Poiltics"]';
 							client.set(resulting.id+':channels', channels)
 						}						
-					}
+					})
 				})
 		})
-		})
 	})
+})
 });
 
 app.post('/message', function (req, res) {
