@@ -153,7 +153,6 @@ app.get('/info', getSesh, function (req, res){
 		if(err){console.log(err)}
 		res.writeHead(200);
 		res.write(string, 'utf8');
-		console.log(string);
 		res.end();
 	})
 })
