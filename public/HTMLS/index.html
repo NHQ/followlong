@@ -38,7 +38,7 @@
     			neon(obj.subChannels[x], x+'.'+l)
     		}};
 
-    	var hermes = $.getJSON({url: "./user2", dataType: "Json"})
+    	var hermes = $.getJSON({url: "./info", dataType: "Json"})
     	.success(function(json){
     	  aler('success');
     		channels = JSON.parse(json);
