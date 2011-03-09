@@ -145,9 +145,9 @@ app.get('/user', getSesh, function (req,res){
 			locals: {title: facts.name, channel: floss, person: facts}
 		})
 	})
-})
+});
 
-app.get('/users', getSesh, function (req,res){
+app.get('/users2', getSesh, function (req,res){
 	var channels = [], facts;
 	function neon(obj){if (typeof obj === 'string'){channels.push(obj)} else otro(obj)};
 	function otro(obj){channels.push(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
@@ -170,7 +170,7 @@ app.get('/users', getSesh, function (req,res){
 		res.end()
 		})
 	})
-})
+});
 
 app.get('/index.html', getSesh, function (req,res){
 	var path = url.parse(req.url).pathname;
