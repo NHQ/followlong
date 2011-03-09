@@ -26,7 +26,7 @@
   	var hermes = $.getJSON('/info', function(data){
   		for (x in data)
   		{
-  			neon(channels[x], x)
+  			neon(data[x], x)
   		}
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
