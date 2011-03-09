@@ -160,10 +160,10 @@ app.post('/new/channel', getSesh, function (req, res){
 })
 
 app.post('/delete/station', getSesh, function (req,res){
-	var delStation = req.body.station;
+	var delStation = (req.body.station);
 	client.get(req.facts+':channels', function (err, json){
 		channels = JSON.parse(json);
-		channels.splice(delStation);
+		channels.splice(parseInt(delStation));
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
 			res.redirect('/user');
 			res.end();
