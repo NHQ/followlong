@@ -147,31 +147,6 @@ app.get('/user', getSesh, function (req,res){
 	})
 });
 
-app.get('/users2', getSesh, function (req,res){
-	var channels = [], facts;
-	function neon(obj){if (typeof obj === 'string'){channels.push(obj)} else otro(obj)};
-	function otro(obj){channels.push(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
-	she = req.facts;
-	client.hgetall(she, function (err, dossier){
-		if(err){console.log(err)}
-		facts = dossier;
-		console.log(facts)
-	});
-	client.get(she+':channels', function (err, string){
-		if(err){console.log(err)}
-		floss = JSON.parse(string);
-		console.log(floss);
-		for (x in floss)
-		{
-			neon(floss[x])	
-		}
-		res.writeHead(200, {'Content-Type': 'application/json'})
-		res.write(floss, 'utf8');
-		res.end()
-		})
-});
-
-
 app.post('/new/channel', getSesh, function (req, res){
 	var newChannel = req.body.channel;
 	client.get(req.facts+':channels', function (err, json){
