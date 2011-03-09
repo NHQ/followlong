@@ -16,7 +16,6 @@
     <script type='text/javascript', src='/javascripts/path.min.js'></script>
     <script type='text/javascript', src='/javascripts/front.js'></script>
      <script type='text/javascript'>
-    function getLobz(){
     	var that = $('ul#channels')
     	neon = function(obj, x){
     		if (typeof obj === 'string')
@@ -31,7 +30,7 @@
     		{
     			neon(obj.subChannels, x+'.'+((l+1)/10))
     		}
-    		}}
+    		}};
     	otro = function(obj, x){
     		$('ul').append('<ul></ul>').attr({class: obj.channel, "data-station": x}).html(obj.channel);
     		for (l in obj.subChannels
@@ -48,7 +47,6 @@
     			neon(channels(x), x)
     		}
     	})
-    }
     </script>
   </body>
 </html>
