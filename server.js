@@ -189,7 +189,7 @@ app.post('/new/subChannel', getSesh, function (req, res){
 		if (typeof superChannel === 'object')
 		{
 			superChannel.subChannels.push(req.body.channel);
-			channels[index] = superChannell
+			channels[index] = superChannel
 		}
 		else
 		{
