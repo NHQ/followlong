@@ -171,7 +171,7 @@ app.get('/users2', getSesh, function (req,res){
 		})
 });
 
-app.get('/index.html', getSesh, function (req,res){
+app.get("/index.html", getSesh, function (req,res){
 	var path = url.parse(req.url).pathname;
 	      fs.readFile(__dirname + '/public/HTMLS/'+ path, function(err, data){
 	        if (err) return send404(res);
