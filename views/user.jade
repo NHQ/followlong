@@ -1,8 +1,11 @@
 h1 Welcome #{person.name}
 ul here are your channels
   - for (x in channels)
-    li(data-chan: x) 
+    li(data-station: x) 
       !{channels[x]}
+      form(method:'post',action:'./delete/channel)
+        inout(type:'hidden', name:'station', value: x)
+        input(type:'button', value:'Delete')
 form(method: 'post', action:'./new/channel')
   input(type:'text', name:'channel')
   input(type: 'button', value:'New Channel')
