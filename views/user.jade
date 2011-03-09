@@ -5,7 +5,7 @@ ul here are your channels
       !{channels[x]}
       form(method:'post', action:'./delete/station')
         input(type:'hidden', name:'station', value: x)
-        input(type:'submit', value:'Delete', onClick: 'function(){alert("help;"")}')
+        input(type:'submit', value:'Delete', onMouseClick: 'function(){alert("help;"")}')
 form(method: 'post', action:'./new/channel')
   input(type:'text', name:'channel')
   input(type: 'submit', value:'New Channel')
