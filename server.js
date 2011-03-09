@@ -149,14 +149,14 @@ app.get('/user', getSesh, function (req,res){
 
 app.get('/info', getSesh, function (req, res){
 	she = req.facts;
-	console.log('req');
 	client.get(she+':channels', function (err, string){
 		if(err){console.log(err)}
 		res.writeHead(200);
+		console.log(string);
 		res.write(string, 'utf8');
 		res.end();
 	})
-})
+});
 
 app.get("/index", function(req, res){
 var path = url.parse(req.url).pathname;
