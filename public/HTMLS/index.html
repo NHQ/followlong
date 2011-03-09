@@ -15,34 +15,17 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
    $(document).ready(function(){
-     var $container = $('ul#container');
 
-       $container.isotope({
-         itemSelector : '.articles',
-     	layoutMode: 'fitRows',
-     	cellsByRow : {
-     	    columnWidth : 800,
-     		rowHeight: 100
-     	  },
-       animationOptions: {
-          duration: 0,
-          easing: 'none',
-          queue: true
-        }
-       });
   	neon = function(obj, x){
   	  var that = ''
   		if (typeof obj === 'string')
   		{
   		  that += '<li><h2>'+obj+'</h2></li>';
   		  var $that = $( that )
-  		$container.isotope('insert', $that);
   		}};
   	var hermes = $.getJSON('/info', function(data){
   		for (x in data)
-  		{
-  			neon(data[x], x)
-  		}
+      $('ul#container').append('<li></li>').html(data[x]);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
   </script>
