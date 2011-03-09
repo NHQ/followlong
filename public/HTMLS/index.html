@@ -15,7 +15,7 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
    $(document).ready(function(){
-     	 (function neon (obj, x){
+     	 function neon (obj, x){
     	   if (typeof obj === 'string')
     	 {
     	   append += '<li><h2>'+obj+'</h2></li>'
@@ -29,14 +29,14 @@
     	   }
          append += '</ul>'
   	   }
-     });
+     };
   	var hermes = $.getJSON('/info', function(data){
   	  var append = '';
   		for (x in data)
       {
         neon(data[x], x)
       }
-      var $appending = $(append)
+      var $appending = $(append);
       $('ul.container').append($appending);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
