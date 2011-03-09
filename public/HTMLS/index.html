@@ -24,8 +24,8 @@
   		$('ul#channels').append(that);
   		}};
   	var hermes = $.getJSON('/info', function(data){
+  	  alert(data);
   	  channels = JSON.parse(data);
-  	  alert(channels);
   		for (x in channels)
   		{
   			neon(channels[x], x)
