@@ -15,6 +15,7 @@
     <script type='text/javascript', src='/javascripts/path.min.js'></script>
     <script type='text/javascript', src='/javascripts/front.js'></script>
      <script type='text/javascript'>
+    	$(document).ready(function(){
     	var that = $('ul#channels');
     	neon = function(obj, x){
     		if (typeof obj === 'string')
@@ -46,6 +47,7 @@
     			neon(channels[x], x)
     		}
     	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
+    	});
     </script>
   </body>
 </html>
