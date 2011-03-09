@@ -184,7 +184,7 @@ app.post('/new/channel', getSesh, function (req, res){
 app.post('/new/subChannel', getSesh, function (req, res){
 	client.get(req.facts+':channels', function (err, json){
 		channels = JSON.parse(json);
-		index = req.body.station;
+		index = req.body.station - 1;
 		superChannel = channels.slice(parseInt(index), 1);
 		obj = new Object();
 		obj.channel = superChannel;
