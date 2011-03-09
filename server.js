@@ -153,7 +153,7 @@ app.get('/info', getSesh, function (req, res){
 	client.get(she+':channels', function (err, string){
 		if(err){console.log(err)}
 		floss = JSON.parse(string);
-		res.writeHead(200, {'Content-Type':'application/json'});
+		res.writeHead(200);
 		res.write(floss, 'utf8');
 		res.end();
 	})
