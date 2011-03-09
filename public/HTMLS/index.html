@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <script src="/json.js"></script> <!-- for ie -->
+  </head>
+  <body>
+  
+  <h1>Your channels, Sir</h1>
+  <ul class="channels"></ul>
+  
+  
+  
+    <script type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
+    <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
+    <script type='text/javascript', src='/javascripts/path.min.js'></script>
+    <script type='text/javascript', src='/javascripts/front.js'></script>
+     <script type='text/javascript'>
+    function getLobz(){
+    	var that = $('ul#channels')
+    	neon = function(obj, x){
+    		if (typeof obj === 'string')
+    		{
+    		that.append('<li></li>').attr({class: obj, "data-station": x}).html(obj);
+    		} 
+    		else 
+    		{	
+    		that.append('<ul></ul>').attr({class: obj.channel, "data-station": x}).html(obj.channel);
+    		var that = $('li#'+object.channel)
+    		for (l in obj.subChannels)
+    		{
+    			neon(obj.subChannels, x+'.'+((l+1)/10))
+    		}
+    		}}
+    	otro = function(obj, x){
+    		$('ul').append('<ul></ul>').attr({class: obj.channel, "data-station": x}).html(obj.channel);
+    		for (l in obj.subChannels
+    		{
+    			neon(obj.subChannels[x], x+'.'+l)
+    		}};
+
+    	var hermes = $.getJSON({url: "./user2", dataType: "Json"})
+    	.success(function(json){
+    		channels = JSON.parse(json);
+    		for (x in channels)
+    		{
+    			neon(channels(x), x)
+    		}
+    	})
+    }
+    </script>
+  </body>
+</html>
