@@ -72,11 +72,8 @@ function getSesh (req, res, next){
 		res.rediect('/fb');
 	if(req.session.uid)
 	{
-		client.hgetall(req.session.uid, function(err, fax){
-			req.facts = '';
-			req.facts += fax.id;
-			next();
-		});
+		req.facts = req.session.uid;
+		next();
 	}
 };
 
@@ -130,7 +127,7 @@ app.get('/user', getSesh, function (req,res){
 	var channels = [], facts;
 	function neon(obj){if (typeof obj === 'string'){channels.push(obj)} else otro(obj)};
 	function otro(obj){channels.push(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
-	she = req.session.uid;
+	she = req.facts;
 	client.hgetall(she, function (err, dossier){
 		if(err){console.log(err)}
 		facts = dossier;
