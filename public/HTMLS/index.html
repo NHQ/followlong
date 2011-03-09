@@ -20,8 +20,8 @@
     	  var that = ''
     		if (typeof obj === 'string')
     		{
-    		  that += '<li>' 
-    		$('ul#channels').append('<li></li>').attr({class: obj, "data-station": x}).html(obj);
+    		  that += '<li><h2>'+obj+'</h2></li>'; 
+    		$('ul#channels').append(that);
     		};
     	var hermes = $.getJSON('/info', function(data){
     	  channels = JSON.parse(data);
