@@ -68,13 +68,13 @@ function isAdmin(req, res, next) {
 */
 
 function getSesh (req, res, next){
-	var isAdmin = 0;
 	if(!req.session.uid)
 		res.rediect('/fb');
 	if(req.session.uid)
 	{
 		client.hgetall(req.session.uid, function(err, facts){
 			req.facts = facts;
+			next();
 		});
 	}
 };
