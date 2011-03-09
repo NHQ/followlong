@@ -3,6 +3,6 @@ ul here are your channels
   - for (x in channels)
     li(data-chan: x) 
       !{channels[x]}
-form(action='/new/channel', method: 'POST')
+form(action:'/new/channel', method: 'POST')
   input(type:'text', name:'channel')
   input(type: 'button', value:'New Channel')
