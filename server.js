@@ -125,7 +125,7 @@ app.get('/', function(req, res){
 });
 
 
-app.get('/user', function (req,res){
+app.get('/user', getSesh, function (req,res){
 	var channels = [], facts;
 	function neon(obj){if (typeof obj === 'string'){channels.push(obj)} else otro(obj)};
 	function otro(obj){channels.push(obj.channel);for (x in obj.subChannels){neon(obj.subChannels[x])}}
@@ -149,7 +149,14 @@ app.get('/user', function (req,res){
 	})
 })
 
-
+app.post('new/channel', getSesh, function (req, res){
+	var newChannel = req.body.channel;
+	client.get(req.facts.id+':channels', function (err, json){
+		channels = JSON.parse(json);
+		channels.push(newChannel);
+		client.set(req.facts.id+':channels', JSON.stringify(channels))
+	})
+})
 /*
 app.get('/ajax', function (req, res){
 	res.render('ajax', {
