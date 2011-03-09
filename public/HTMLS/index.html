@@ -6,7 +6,7 @@
   <body>
   
   <h1>Your channels, Sir</h1>
-  <div class="container"></ul>
+  <ul class="container"></ul>
   
   
   </body>
@@ -24,8 +24,9 @@
   		  var $that = $( that )
   		}};
   	var hermes = $.getJSON('/info', function(data){
+  	  alert(data);
   		for (x in data)
-      $('ul#container').append('<li></li>').html(data[x]);
+      {$('ul#container').append('<li></li>').html(data[x]);}
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
   </script>
