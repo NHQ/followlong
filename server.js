@@ -74,6 +74,7 @@ function getSesh (req, res, next){
 	{
 		client.hgetall(req.session.uid, function(err, fax){
 			req.facts = fax.id;
+			console.log(req.facts);
 			next();
 		});
 	}
