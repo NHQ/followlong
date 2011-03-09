@@ -3,7 +3,7 @@ ul here are your channels
   - for (x in channels)
     li(data-station: x) 
       !{channels[x]}
-      form(method:'post',action:'./delete/channel)
+      form(method:'post',action:'./delete/channel')
         inout(type:'hidden', name:'station', value: x)
         input(type:'button', value:'Delete')
 form(method: 'post', action:'./new/channel')
