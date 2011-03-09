@@ -184,13 +184,13 @@ app.post('/new/channel', getSesh, function (req, res){
 app.post('/new/subChannel', getSesh, function (req, res){
 	client.get(req.facts+':channels', function (err, json){
 		channels = JSON.parse(json);
-		index = req.body.station - 1;
-		superChannel = channels.slice(parseInt(index), 1);
+		index = parseInt(req.body.station);
+		superChannel = channels.slice(index, 1);
 		obj = new Object();
 		obj.channel = superChannel;
 		obj.subChannels = [];
 		obj.subChannels.push(req.body.channel);
-		channels[parseInt(index)] = obj;
+		channels[index] = obj;
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
 			res.redirect('/user');
 			res.end();
