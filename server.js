@@ -169,8 +169,7 @@ app.get('/users2', getSesh, function (req,res){
 		res.write(floss, 'utf8');
 		res.end()
 		})
-	})
-});
+})
 
 app.get('/index.html', getSesh, function (req,res){
 	var path = url.parse(req.url).pathname;
