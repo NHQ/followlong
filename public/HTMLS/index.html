@@ -20,7 +20,7 @@
     	neon = function(obj, x){
     		if (typeof obj === 'string')
     		{
-    		that.append('<li></li>').attr({class: obj, "data-station": x}).html(obj);
+    		$('ul#channels').append('<li></li>').attr({class: obj, "data-station": x}).html(obj);
     		} 
     	/*	else 
     		{	
