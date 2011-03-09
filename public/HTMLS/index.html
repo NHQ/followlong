@@ -37,13 +37,13 @@
     			neon(obj.subChannels[x], x+'.'+l)
     		}};
 
-    	var hermes = $.getJSON('/info')
+    	var hermes = $.getJSON('/info', function(){alert('pp')})
     	.success(function(json){
     	  alert('success');
     		channels = JSON.parse(json);
     		for (x in channels)
     		{
-    			neon(channels(x), x)
+    			neon(channels[x], x)
     		}
     	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); })
     </script>
