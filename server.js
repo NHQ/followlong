@@ -151,10 +151,9 @@ app.get('/info', getSesh, function (req, res){
 	she = req.facts;
 	client.get(she+':channels', function (err, string){
 		if(err){console.log(err)}
-		floss = JSON.parse(string);
 		res.writeHead(200);
-		res.write(floss, 'utf8');
-		console.log(floss);
+		res.write(string, 'utf8');
+		console.log(string);
 		res.end();
 	})
 })
