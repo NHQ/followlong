@@ -27,10 +27,10 @@
   	  append = '';
   		for (x in data)
       {
-        channel += '<li><h1>'+data[x]+'</h2></li>'
+        append += '<li><h1>'+data[x]+'</h2></li>'
       }
       var $appended = $(append)
-      $('ul.container').append(appended);
+      $('ul.container').append($appended);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
   </script>
