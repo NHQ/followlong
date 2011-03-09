@@ -145,7 +145,7 @@ app.get('/user', getSesh, function (req,res){
 			locals: {title: facts.name, channel: floss, person: facts}
 		})
 	})
-});
+})
 
 app.post('/new/channel', getSesh, function (req, res){
 	var newChannel = req.body.channel;
@@ -157,7 +157,7 @@ app.post('/new/channel', getSesh, function (req, res){
 			res.end();
 		})
 	});
-});
+})
 app.post('/new/subChannel', getSesh, function (req, res){
 	client.get(req.facts+':channels', function (err, json){
 		channels = JSON.parse(json);
@@ -172,7 +172,7 @@ app.post('/new/subChannel', getSesh, function (req, res){
 			res.redirect('/user');
 			res.end();
 		})
-});
+})
 app.post('/delete/station', getSesh, function (req,res){
 	var delStation = req.body.station;
 	console.log(delStation);
@@ -184,7 +184,7 @@ app.post('/delete/station', getSesh, function (req,res){
 			res.end();
 		})
 	});
-});
+})
 /*
 app.get('/ajax', function (req, res){
 	res.render('ajax', {
