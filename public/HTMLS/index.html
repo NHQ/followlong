@@ -15,6 +15,21 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
    $(document).ready(function(){
+     	 (function neon (obj, x){
+    	   if (typeof obj === 'string')
+    	 {
+    	   append += '<li><h2>'+obj+'</h2></li>'
+    	 } 
+    	 else
+    	 { 
+    	   append += '<li><ul><h2>'+obj.channel+'</h2>';
+    	   for (x in obj.subChannels)
+    	   {
+    	     neon(obj.subChannels[x], x)
+    	   }
+         append += '</ul>'
+  	   }
+     });
   	var hermes = $.getJSON('/info', function(data){
   	  alert(data);
   	  var append = '';

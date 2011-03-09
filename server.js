@@ -166,6 +166,7 @@ var path = url.parse(req.url).pathname;
         if (err) return send404(res);
         res.writeHead(200, {'Content-Type': 'text/html'})
         res.write(data, 'utf8');
+		res.end();
       });
 });
 
