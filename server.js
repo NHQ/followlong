@@ -139,10 +139,10 @@ app.get('/user', getSesh, function (req,res){
 		console.log(floss);
 		for (x in floss)
 		{
-			neon(floss[x])	
+			neon(floss[x])
 		}
 		res.render('user', {
-			locals: {title: facts.name, channel: floss, person: facts}
+			locals: {title: facts.name, channels: channels, person: facts}
 		})
 	})
 })
