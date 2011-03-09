@@ -24,7 +24,7 @@
   		  var $that = $( that )
   		}};
   	var hermes = $.getJSON('/info', function(data){
-  	  alert(data);
+  	  alert(data[1]);
   		for (x in data)
       {$('ul.container').append($('li')).html(data[x]);}
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
