@@ -16,7 +16,7 @@
     <script type='text/javascript', src='/javascripts/path.min.js'></script>
     <script type='text/javascript', src='/javascripts/front.js'></script>
      <script type='text/javascript'>
-    	var that = $('ul#channels')
+    	var that = $('ul#channels');
     	neon = function(obj, x){
     		if (typeof obj === 'string')
     		{
@@ -38,7 +38,7 @@
     			neon(obj.subChannels[x], x+'.'+l)
     		}};
 
-    	var hermes = $.getJSON({url: "./info", dataType: "Json"})
+    	var hermes = $.getJSON(url: "./info")
     	.success(function(json){
     	  aler('success');
     		channels = JSON.parse(json);
