@@ -167,6 +167,7 @@ var path = url.parse(req.url).pathname;
         res.writeHead(200, {'Content-Type': 'text/html'})
         res.write(data, 'utf8');
       });
+		res.end();
 });
 
 app.post('/new/channel', getSesh, function (req, res){

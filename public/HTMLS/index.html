@@ -34,7 +34,7 @@
   	  var append = '';
   		for (x in data)
       {
-        (neon[x], x)
+        neon(data[x], x)
       }
       var $appending = $(append)
       $('ul.container').append($appending);
