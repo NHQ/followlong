@@ -160,7 +160,7 @@ app.post('/new/channel', getSesh, function (req, res){
 })
 
 app.post('/delete/station', getSesh, function (req,res){
-	var delStation = (req.body.station);
+	var delStation = req.body.station;
 	console.log(delStation);
 	client.get(req.facts+':channels', function (err, json){
 		channels = JSON.parse(json);
