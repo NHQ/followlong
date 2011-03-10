@@ -200,7 +200,7 @@ app.post('/new/subChannel', getSesh, function (req, res){
 		for (i in index){ index.splice(i,1,parseInt(index[i])) }
 		find(index,channels)
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
-			res.redirect('/user');
+			res.redirect('/index');
 			res.end();
 		})
 	})
