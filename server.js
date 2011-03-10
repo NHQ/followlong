@@ -177,7 +177,7 @@ app.post('/new/channel', getSesh, function (req, res){
 		channels = JSON.parse(json);
 		channels.push(newChannel);
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
-			res.redirect('/user');
+			res.redirect('/index');
 			res.end();
 		})
 	});
