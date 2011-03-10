@@ -23,14 +23,14 @@
     	 } 
     	 else
     	 { 
-    	   append += '<ul>';
+    	   append += '<ul><li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>';
+    	       	     y = 1;
     	   for (ect in obj)
     	   {
-    	     z = x;
-    	     neon(obj[ect], z)
-    	     y = 1;
       	   z = x+'.'+(y);
     	     ++y;
+    	     z = x
+    	     neon(obj[ect], x)
     	   }
          append += '</ul>'
   	   }
