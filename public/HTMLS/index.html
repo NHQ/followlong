@@ -24,6 +24,7 @@
     	 else
     	 { 
     	   append += '<li  data-station="'+x+'"><ul><h2>'+obj[0]+'</h2>';
+    	   alert(obj[0]);
     	   y = 1;
     	   for (x in obj)
     	   {
@@ -35,7 +36,6 @@
   	   }
      };
   	var hermes = $.getJSON('/info', function(data){
-  	  alert(data);
   		for (x in data)
       {
         neon(data[x], x)
