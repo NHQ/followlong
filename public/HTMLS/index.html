@@ -33,14 +33,14 @@
     	   }
          append += '</ul>'
   	   }
-  	   var $appending = $(append);
-       $('ul.container').append($appending);
      };
   	var hermes = $.getJSON('/info', function(data){
   		for (x in data)
       {
         neon(data[x], x)
-      }
+      };
+       var $appending = $(append);
+        $('ul.container').append($appending);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 });
   </script>
