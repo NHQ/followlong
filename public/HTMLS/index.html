@@ -25,11 +25,11 @@
     	 { 
     	   append += '<li  data-station="'+x+'"><ul><h2>'+obj[0]+'</h2>';
     	   y = 1;
-    	   for (z in obj)
+    	   for (z = 1, z < obj.length, ++z)
     	   {
     	     x = x+'.'+(y);
     	     ++y;
-    	     neon(obj[z+1], x)
+    	     neon(obj[z], x)
     	   }
          append += '</ul>'
   	   }
