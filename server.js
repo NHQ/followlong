@@ -151,6 +151,7 @@ app.get('/user', getSesh, function (req,res){
 
 app.get('/info', getSesh, function (req, res){
 	she = req.facts;
+	console.log(she);
 	client.get(she+':channels', function (err, string){
 		if(err){console.log(err)}
 		res.writeHead(200);
@@ -160,7 +161,7 @@ app.get('/info', getSesh, function (req, res){
 	})
 });
 
-app.get("/index", function(req, res){
+app.get("/index", getSesh, function(req, res){
 var path = url.parse(req.url).pathname;
       fs.readFile(__dirname + '/public/HTMLS/index.html', function(err, data){
         if (err) return send404(res);
