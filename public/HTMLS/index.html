@@ -26,9 +26,10 @@
     	   append += '<ul>';
     	   for (ect in obj)
     	   {
-    	     neon(obj[ect], x)
+    	     z = x;
+    	     neon(obj[ect], z)
     	     y = 1;
-      	   x = x+'.'+(y);
+      	   z = x+'.'+(y);
     	     ++y;
     	   }
          append += '</ul>'
