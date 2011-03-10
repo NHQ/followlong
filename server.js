@@ -183,22 +183,21 @@ app.post('/new/channel', getSesh, function (req, res){
 });
 app.post('/new/subChannel', getSesh, function (req, res){
 	client.get(req.facts+':channels', function (err, json){
+	 function find(pos, arr) {
+		 var i = pos.shift();  
+	      if (pos.length) { 
+	        return find(pos, arr[i]); 
+	      } else { 
+	        if (typeof arr[i] === 'string')
+				{arr[i] = [arr[i], req.body.channel]}
+			else 
+				{arr[i].push(req.body.channel)}
+	      } 
+	    }
 		channels = JSON.parse(json);
-		index = parseInt(req.body.station);
-		superChannel = channels.slice(index, 1);
-		if (typeof superChannel[0] === 'string')
-		{
-			obj = new Object();
-			obj.channel = superChannel;
-			obj.subChannels = [];
-			obj.subChannels.push(req.body.channel);
-			channels[index] = obj;
-		}
-		else
-		{
-			superChannel[0].subChannels.push(req.body.channel);
-			channels[index] = superChannel[0]
-		};
+		index = req.body.station.match(/\d/g);
+		for (i in index){ index.splice(i,1,parseInt(index[i])) }
+		find(index,channels)
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
 			res.redirect('/user');
 			res.end();

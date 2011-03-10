@@ -19,14 +19,17 @@
      	 function neon (obj, x){
     	   if (typeof obj === 'string')
     	 {
-    	   append += '<li><h2>'+obj+'</h2></li>'
+    	   append += '<li data-station="'+x+'"><h2>'+obj+'</h2></li>'
     	 } 
     	 else
     	 { 
-    	   append += '<li><ul><h2>'+obj.channel+'</h2>';
-    	   for (x in obj.subChannels)
+    	   append += '<li  data-station="'+x+'"><ul><h2>'+obj[0]+'</h2>';
+    	   y = 1;
+    	   for (x in obj)
     	   {
-    	     neon(obj.subChannels[x], x)
+    	     x = x+'.'+(y);
+    	     ++y;
+    	     neon(obj[x], x)
     	   }
          append += '</ul>'
   	   }
