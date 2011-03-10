@@ -23,7 +23,7 @@
     	 } 
     	 else
     	 { 
-    	   append += '<li  data-station="'+x+'"><ul><h2>'+obj[0]+'</h2>';
+    	   append += '<li  data-station="'+x+'"><ul><h2>'+obj[0]+'</h2><form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form>';
     	   y = 1;
     	   for (z = 1; z < obj.length; ++z)
     	   {
