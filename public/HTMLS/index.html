@@ -17,20 +17,20 @@
    $(document).ready(function(){
      var append = '';
      	 function neon (obj, x){
-     	   append += '<li data-station="'+x+'">';
     	   if (typeof obj === 'string')
     	 {
-    	   append += '<h2>'+obj+'</h2><form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>';
+    	   append += '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>';
     	 } 
     	 else
     	 { 
     	   append += '<ul>';
-    	   y = 1;
+    	   z = x;
     	   for (ect in obj)
     	   {
-    	     z = x+'.'+(y);
+    	     neon(obj[ect], x)
+    	     y = 1;
+      	   z = x+'.'+(y);
     	     ++y;
-    	     neon(obj[ect], z)
     	   }
          append += '</ul>'
   	   }
