@@ -170,7 +170,7 @@ var path = url.parse(req.url).pathname;
 		res.end();
       });
 });
-
+/*
 app.post('/new/channel', getSesh, function (req, res){
 	var newChannel = req.body.channel;
 	client.get(req.facts+':channels', function (err, json){
@@ -182,6 +182,7 @@ app.post('/new/channel', getSesh, function (req, res){
 		})
 	});
 });
+*/
 app.post('/new/channel', getSesh, function (req, res){
 	if (req.body.channel === "")
 	{
@@ -224,8 +225,8 @@ app.post('/delete/station', getSesh, function (req,res){
 		channels = JSON.parse(json);
 		index = req.body.station.match(/\d/g);
 		for (i in index){ index.splice(i,1,parseInt(index[i])) }
-		chans = channels.filter(notEmpty);
-		client.set(req.facts+':channels', JSON.stringify(chans), function(){
+		dulute(index,channels;
+		client.set(req.facts+':channels', JSON.stringify(channels), function(){
 			res.redirect('/index');
 			res.end();
 		})
