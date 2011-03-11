@@ -213,9 +213,6 @@ app.post('/new/channel', getSesh, function (req, res){
 });
 app.post('/delete/station', getSesh, function (req,res){
 	client.get(req.facts+':channels', function (err, json){
-	function notEmpty(element, index, array){
-		return (array.length > 1)
-	};
 	function dulute(pos, arr) {
 		 var i = pos.shift();  
 	      if (pos.length) { 
@@ -223,12 +220,10 @@ app.post('/delete/station', getSesh, function (req,res){
 	      } 
 			else { 
 				arr.splice(0,1)
-
 				}	
 		channels = JSON.parse(json);
 		index = req.body.station.match(/\d/g);
 		for (i in index){ index.splice(i,1,parseInt(index[i])) }
-		dulute(index,channels);
 		chans = channels.filter(notEmpty);
 		client.set(req.facts+':channels', JSON.stringify(chans), function(){
 			res.redirect('/index');
