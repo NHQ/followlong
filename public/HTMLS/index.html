@@ -6,7 +6,7 @@
   <body>
   
   <h1>Your channels, Sir</h1>
-  <form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="hidden" name="station", value="0"><input type="submit" value="New subChannel"></form>
+  <form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="0"><input type="submit" value="New subChannel"></form>
   <ul class="container"></ul>
   
   
@@ -20,7 +20,7 @@
      	 function neon (obj, x){
     	   if (typeof obj === 'string')
     	 {
-    	   append += '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>';
+    	   append += '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>';
     	 } 
     	 else
     	 { 
@@ -37,7 +37,6 @@
   	   }
      };
   	var hermes = $.getJSON('/info', function(data){
-  	  form = '<form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="submit" value="New subChannel"></form>';
   		for (x in data)
       {
         neon(data[x], x)

@@ -182,7 +182,13 @@ app.post('/new/channel', getSesh, function (req, res){
 		})
 	});
 });
-app.post('/new/subChannel', getSesh, function (req, res){
+app.post('/new/channel', getSesh, function (req, res){
+	if (req.body.channel === "")
+	{
+		res.redirect('/index');
+		res.end();
+	}
+	else {
 	client.get(req.facts+':channels', function (err, json){
 	 function find(pos, arr) {
 		 var i = pos.shift();  
@@ -203,19 +209,32 @@ app.post('/new/subChannel', getSesh, function (req, res){
 			res.redirect('/index');
 			res.end();
 		})
-	})
+	})}
 });
 app.post('/delete/station', getSesh, function (req,res){
-	var delStation = req.body.station;
-	console.log(delStation);
 	client.get(req.facts+':channels', function (err, json){
+	function notEmpty(element, index, array){
+		return (array.length > 1)
+	}
+	function delete(pos, arr) {
+		 var i = pos.shift();  
+	      if (pos.length) { 
+	        return find(pos, arr[i]); 
+	      } 
+			else { 
+				arr.splice(0,1)
+
+				}	
 		channels = JSON.parse(json);
-		channels.splice(parseInt(delStation), 1);
-		client.set(req.facts+':channels', JSON.stringify(channels), function(){
-			res.redirect('/user');
+		index = req.body.station.match(/\d/g);
+		for (i in index){ index.splice(i,1,parseInt(index[i])) }
+		delete(index,channels);
+		chans = channels.filter(notEmpty);
+		client.set(req.facts+':channels', JSON.stringify(chans), function(){
+			res.redirect('/index');
 			res.end();
 		})
-	});
+	})}
 });
 /*
 app.get('/ajax', function (req, res){
@@ -564,7 +583,7 @@ function retrieve (channel, feed){
 	});
 };
 */
-app.get('/new/:channel/', function(req, res){
+app.get('/new/sub/', function(req, res){
 	path = url.parse(req.url).query;
 	queriesPls = querystring.parse(path, sep='&', eq='=');
 	unfurl = queriesPls.furl;
@@ -642,7 +661,7 @@ app.get('/fb', function (req, res) {
   res.redirect(facebookClient.getAuthorizeUrl({
     client_id: '190292354344532',
     redirect_uri: 'http://mostmodernist.no.de:80/auth',
-    scope: 'offline_access,publish_stream,user_location'
+    scope: 'offline_access,user_location,friends_likes,friends_events'
   }));
 });
 
