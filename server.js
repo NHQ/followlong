@@ -233,8 +233,8 @@ app.post('/delete/station', getSesh, function (req,res){
 			res.redirect('/index');
 			res.end();
 		})
-	}})
-});
+	});
+
 /*
 app.get('/ajax', function (req, res){
 	res.render('ajax', {
