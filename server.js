@@ -220,7 +220,7 @@ app.post('/delete/station', getSesh, function (req,res){
 	        return find(pos, arr[i]); 
 	      } 
 			else { 
-				arr[i].splice(arr[i][0],1)
+				arr.splice(arr[i],1)
 				}
 			}
 		channels = JSON.parse(json);
