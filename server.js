@@ -220,7 +220,7 @@ app.post('/delete/station', getSesh, function (req,res){
 	        return dulute(pos, arr[i]); 
 	      } 
 			else { 
-				arr.splice(i,1)
+				arr.splice(pos,1)
 				}
 			}
 		channels = JSON.parse(json);
