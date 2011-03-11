@@ -24,12 +24,12 @@
     	 else
     	 { 
     	   append += '<ul>';
-    	   y = 1;
-    	   z = x;
+    	       	   var y = 1;
+            	   var z = x;
     	   for (ect in obj)
-    	   {
-    	     neon(obj[ect], x)
-    	     x = z+'.'+(y);
+    	       	   {
+    	     neon(obj[ect], z)
+    	     z = x+'.'+(y);
     	         	     ++y;
     	   }
          append += '</ul>'
