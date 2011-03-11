@@ -23,12 +23,15 @@
     	 } 
     	 else
     	 { 
+    	   y = 1;
+    	   x = x+'.'+y
     	   append += '<ul>';
     	   for (ect in obj)
-    	    {
+    	  {
     	     neon(obj[ect], x)
     	   }
          append += '</ul>'
+         ++y;
   	   }
      };
   	var hermes = $.getJSON('/info', function(data){
