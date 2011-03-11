@@ -215,7 +215,7 @@ app.post('/new/channel', getSesh, function (req, res){
 app.post('/delete/station', getSesh, function (req,res){
 	client.get(req.facts+':channels', function (err, json){
 	function dulute(pos, arr) {  
-	      if (pos.length !=< 2) {
+	      if (pos.length > 1) {
 		 var i = pos.shift();
 	        return dulute(pos, arr[i]); 
 	      } 
