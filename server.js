@@ -389,7 +389,7 @@ app.post('/admin', function(req, res){
 		client.quit()
 	})
 });
-
+/*
 app.post('/delete', function(req, res){
 	channel = req.body.channel;
 	sys.puts(channel);
@@ -401,7 +401,7 @@ app.post('/delete', function(req, res){
 	})
 });
 
-/*
+
 app.get("/chat.html", function(req, res){
 var path = url.parse(req.url).pathname;
       fs.readFile(__dirname + path, function(err, data){
