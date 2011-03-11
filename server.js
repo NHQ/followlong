@@ -215,12 +215,12 @@ app.post('/new/channel', getSesh, function (req, res){
 app.post('/delete/station', getSesh, function (req,res){
 	client.get(req.facts+':channels', function (err, json){
 	function dulute(pos, arr) {
-	      if (pos.length) { 
 		 var i = pos.shift();  
+	      if (pos.length) { 
 	        return find(pos, arr[i]); 
 	      } 
 			else { 
-				arr.splice(0,1)
+				arr.splice(arr[i],1)
 				}	
 		channels = JSON.parse(json);
 		index = req.body.station.match(/\d/g);
