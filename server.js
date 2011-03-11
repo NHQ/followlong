@@ -217,7 +217,7 @@ app.post('/delete/station', getSesh, function (req,res){
 	function dulute(pos, arr) {
 		 var i = pos.shift();  
 	      if (pos.length) { 
-	        return find(pos, arr[i]); 
+	        return dulute(pos, arr[i]); 
 	      } 
 			else { 
 				arr.splice(arr[i],1)
