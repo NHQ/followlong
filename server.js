@@ -215,7 +215,7 @@ app.post('/delete/station', getSesh, function (req,res){
 	client.get(req.facts+':channels', function (err, json){
 	function notEmpty(element, index, array){
 		return (array.length > 1)
-	}
+	};
 	function dulute(pos, arr) {
 		 var i = pos.shift();  
 	      if (pos.length) { 
@@ -234,7 +234,7 @@ app.post('/delete/station', getSesh, function (req,res){
 			res.redirect('/index');
 			res.end();
 		})
-	})}
+	}})
 });
 /*
 app.get('/ajax', function (req, res){
