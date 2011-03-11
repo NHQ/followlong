@@ -25,8 +25,8 @@
     	 { 
     	   y = 1;
     	   z = x;
-    	   append += '<ul>';
-    	   for (ect in obj)
+    	   append += '<li data-station="'+x+'"><ul><h2>'+obj+'</h2><form method="post", action="/new/subChannel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>';
+    	   for (ect = 1; ext < obj; ++ect)
     	  {
     	     neon(obj[ect], z)
     	     z = x+'.'+y;
