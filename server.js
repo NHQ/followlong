@@ -224,9 +224,11 @@ app.post('/delete/station', getSesh, function (req,res){
 				}	
 		channels = JSON.parse(json);
 		index = req.body.station.match(/\d/g);
+		console.log(index);
 		for (i in index){ index.splice(i,1,parseInt(index[i])) }
 		dulute(index,channels);
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
+			if(err){console.log(err)};
 			res.redirect('/index');
 			res.end();
 		})
