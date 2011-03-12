@@ -161,7 +161,7 @@ app.get('/info', getSesh, function (req, res){
 	})
 });
 
-app.get("/index", getSesh, function(req, res){
+app.get("/index", function(req, res){
 var path = url.parse(req.url).pathname;
       fs.readFile(__dirname + '/public/HTMLS/index.html', function(err, data){
         if (err) return send404(res);
