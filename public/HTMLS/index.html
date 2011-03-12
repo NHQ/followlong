@@ -60,6 +60,7 @@
        var $appending = $(append);
         $('ul.container').append($appending);
         $('ul.container').find('a.newSubTitle').bind('click', function(event){
+          event.preventDefault();
           noder = $(this).parent();
           noder.children('input.hidden').width(200)
         })
@@ -74,7 +75,7 @@
     	 }
   	   else 
   	   {
-  	     return '<li data-station="'+x+'"><input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="create this subChannel"><a href="#" class="newSubTitle">+ subChannel</a></form></li>'
+  	     return '<li data-station="'+x+'"><input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden"><input type="hidden" name="station", value="'+x+'"><input type="submit" class="hidden" value="create this subChannel"><a href="#" class="newSubTitle">+ subChannel</a></form></li>'
   	  }
   	 }
   	 
