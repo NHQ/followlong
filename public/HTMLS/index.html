@@ -6,7 +6,6 @@
   <body>
   
   <h1>Your channels, Sir</h1>
-  <form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="0"><input type="submit" value="New subChannel"></form>
   <ul class="container"></ul>
   
   
@@ -37,6 +36,8 @@
   	   }
      };
   	var hermes = $.getJSON('/info', function(data){
+  	  y = data.length;
+  	  append +=   '<form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+y+'"><input type="submit" value="New subChannel"></form>'
   		for (x in data)
       {
         neon(data[x], x)
