@@ -59,9 +59,6 @@
       }
        var $appending = $(append);
         $('ul.container').append($appending);
-        $('body').click(function(event){
-          alert($(event.target.nodeName).attr('data-station'));
-        });
         $('a .subTitle').bind('click', function(event){
           node = event.target.nodeName;
           alert(this+'\n'+node)
