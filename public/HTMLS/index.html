@@ -19,7 +19,7 @@
      	 function neon (obj, x){
     	   if (typeof obj === 'string')
     	 {
-    	   append += '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>';
+    	   append += appendix(obj,x);
     	 } 
     	 else
     	 { 
@@ -37,7 +37,7 @@
      };
   	var hermes = $.getJSON('/info', function(data){
   	  y = data.length;
-  	  append +=   '<form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+y+'"><input type="submit" value="New subChannel"></form>'
+  	  append += '<form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+y+'"><input type="submit" value="New subChannel"></form>'
   		for (x in data)
       {
         neon(data[x], x)
@@ -45,6 +45,18 @@
        var $appending = $(append);
         $('ul.container').append($appending);
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
+  	 
+	 
+  	 function appendix(obj, x){
+       if (window.location.hash)
+    	 {
+    	   fURL = window.location.hash.slice(1);
+    	  append += '<h1>Your Hash is: '+furl+'</h1>';
+    	   return '<li data-station="'+x+'"><form method="post", action="/follow/?furl="'+fURL+'><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="'+obj+'"></form><form method="post", action="/new/channel?furl="'+fURL+'><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="+subChannel"></form></li>'
+    	 }
+  	   return '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>'
+  	 }
+  	 
   	 });
   </script>
 

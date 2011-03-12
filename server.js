@@ -184,6 +184,11 @@ app.post('/new/channel', getSesh, function (req, res){
 });
 */
 app.post('/new/channel', getSesh, function (req, res){
+	furl = '';
+	if (req.query.furl)
+	{
+		furl = '#'+req.query.furl
+	}
 	if (req.body.channel === "")
 	{
 		res.redirect('/index');
@@ -209,7 +214,7 @@ app.post('/new/channel', getSesh, function (req, res){
 		for (i in index){ index.splice(i,1,parseInt(index[i])) }
 		find(index,channels)
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
-			res.redirect('/index');
+			res.redirect('/index'+furl);
 			res.end();
 		})
 	})}
@@ -585,7 +590,7 @@ function retrieve (channel, feed){
 	});
 };
 */
-app.get('/new/sub/', function(req, res){
+app.get('/follow/', function(req, res){
 	path = url.parse(req.url).query;
 	queriesPls = querystring.parse(path, sep='&', eq='=');
 	unfurl = queriesPls.furl;
