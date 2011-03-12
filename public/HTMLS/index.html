@@ -61,11 +61,11 @@
         $('ul.container').append($appending);
         $('body').click(function(event){
           alert($(event.target.nodeName).attr('data-station'));
-        })
+        });
         $('a .subTitle').bind('click', function(event){
-          node = event.target;
+          node = event.target.nodeName;
           alert(this+'\n'+node)
-        })
+        });
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 
   	 function appendix(obj, x){
