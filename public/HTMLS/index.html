@@ -60,6 +60,7 @@
        var $appending = $(append);
         $('ul.container').append($appending);
         $('a .subTitle').bind('click', function(event){
+          event.preventDefault();
           node = event.target.nodeName;
           alert(this+'\n'+node)
         });
