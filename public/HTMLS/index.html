@@ -56,7 +56,7 @@
        var $appending = $(append);
         $('ul.container').append($appending);
         $('body').click(function(event){
-          alert($(event.target.nodeName).attr('id'));
+          alert($(event.target.nodeName).attr('data-station'));
         })
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 
