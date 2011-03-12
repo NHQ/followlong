@@ -61,7 +61,7 @@
         $('ul.container').append($appending);
         $('ul.container').find('a.newSubTitle').bind('click', function(event){
           noder = event.target;
-          alert( this.nodeName )
+          alert( $(this).parent() )
         })
 
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
