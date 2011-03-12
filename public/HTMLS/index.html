@@ -2,6 +2,10 @@
 <html>
   <head>
     <title></title>
+    <style>
+    .hidden{width:0};
+    
+    </style>
   </head>
   <body>
   
@@ -58,6 +62,9 @@
         $('body').click(function(event){
           alert($(event.target.nodeName).attr('data-station'));
         })
+        $('a .subTitle').bind('click', function(event){
+          alert($(event.target.nodeName).parent())
+        })
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 
   	 function appendix(obj, x){
@@ -68,7 +75,7 @@
     	 }
   	   else 
   	   {
-  	     return '<li data-station="'+x+'"><input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="New subChannel"></form></li>'
+  	     return '<li data-station="'+x+'"><input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="create this subChannel"><a href="#" class="subTitle">+ subChannel</a></form></li>'
   	  }
   	 }
   	 
