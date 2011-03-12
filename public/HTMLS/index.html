@@ -16,6 +16,16 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
    $(document).ready(function(){
+      if (window.location.hash)
+	    {
+	      $('h1#title').append('Choose Channel');
+       $('h2#subTitle').append('or create a new subChannel');
+	    }
+	    else 
+	    {
+	      $('h1#title').append('Your Channels, Sir or Miss');
+       $('h2#subTitle').append('You can create and delete channels and subChannels and sub sub channels');
+	    }};
      var append = '';
      	 function neon (obj, x){
     	   if (typeof obj === 'string')
@@ -39,17 +49,6 @@
   	var hermes = $.getJSON('/info', function(data){
   	  y = data.length;
   	  append += '<form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+y+'"><input type="submit" value="New subChannel"></form>'
-  		isHash = function(){
-  	    if (window.location.hash)
-  	    {
-  	      $('h1#title').append('Choose Channel');
-          $('h2#subTitle').append('or create a new subChannel');
-  	    }
-  	    else 
-  	    {
-  	      $('h1#title').append('Your Channels, Sir or Miss');
-          $('h2#subTitle').append('You can create and delete channels and subChannels and sub sub channels');
-  	    }};
   		for (x in data)
       {
         neon(data[x], x)
