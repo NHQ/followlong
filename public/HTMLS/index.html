@@ -60,8 +60,8 @@
        var $appending = $(append);
         $('ul.container').append($appending);
         $('ul.container').find('a.newSubTitle').bind('click', function(event){
-          noder = $(event.target).parent();
-          alert(noder)
+          noder = $(event.target.nodeName).parent();
+          alert(this+'\n'+noder)
         })
 
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
