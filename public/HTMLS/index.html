@@ -3,8 +3,8 @@
   <head>
     <title></title>
     <style>
-    .hidden{width:0};
-    .subTitle{};
+    .hidden{display:none};
+    .showin{display:inline-block};
     </style>
   </head>
   <body>
@@ -75,7 +75,7 @@
     	 }
   	   else 
   	   {
-  	     return '<li data-station="'+x+'"><input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden"><input type="hidden" name="station", value="'+x+'"><input type="submit" class="hidden" value="create this subChannel"><a href="#" class="newSubTitle">+ subChannel</a></form></li>'
+  	     return '<li data-station="'+x+'"><input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden" width="200"><input type="hidden" name="station", value="'+x+'"><input type="submit" class="hidden" value="create this subChannel"><a href="#" class="newSubTitle">+ subChannel</a></form></li>'
   	  }
   	 }
   	 
