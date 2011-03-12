@@ -50,8 +50,8 @@
   	 function appendix(obj, x){
        if (window.location.hash)
     	 {
-    	   alert(window.location.hash);
     	   fURL = window.location.hash.slice(1);
+    	  alert(window.location.hash.slice(1));
     	  append += '<h1>Your Hash is: '+furl+'</h1>';
     	   return '<li data-station="'+x+'"><form method="post", action="/follow/?furl="'+fURL+'><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="'+obj+'"></form><form method="post", action="/new/channel?furl="'+fURL+'><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="+subChannel"></form></li>'
     	 }
