@@ -62,7 +62,7 @@
         $('ul.container').find('a.newSubTitle').bind('click', function(event){
           event.preventDefault();
           noder = $(this).parent();
-          noder.children('input.hidden').width(200)
+          noder.children('input.hidden').attr({'class':'showin'})
         })
 
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
