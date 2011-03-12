@@ -63,8 +63,8 @@
           alert($(event.target.nodeName).attr('data-station'));
         })
         $('a .subTitle').bind('click', function(event){
-          $(node) = $(event.target);
-          alert(this+'\n'+$(node))
+          node = event.target;
+          alert(this+'\n'+node)
         })
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 
