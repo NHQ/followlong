@@ -26,7 +26,11 @@
     	 { 
     	   append += '<ul>';
     	   for (ect in obj)
-    	  {   z = x+'.'+ect;
+    	  {   
+    	    if (ect != 0)
+    	    {z = x+'.'+ect;}
+    	    else
+    	    {z = x}
     	     neon(obj[ect], z)
     	   }
          append += '</ul>'
