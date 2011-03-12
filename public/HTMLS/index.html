@@ -15,18 +15,18 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
-   isHash = function (){
-   if (window.location.hash)
-   {
-     $('h1#title').append('Choose Channel');
-    $('h2#subTitle').append('or create a new subChannel');
-   }
-   else 
-   {
-     $('h1#title').append('Your Channels, Sir or Miss');
-    $('h2#subTitle').append('You can create and delete channels and subChannels and sub sub channels');
-   }};
    $(document).ready(function(){
+     isHash = function (){
+     if (window.location.hash)
+     {
+       $('h1#title').append('Choose Channel');
+      $('h2#subTitle').append('or create a new subChannel');
+     }
+     else 
+     {
+       $('h1#title').append('Your Channels, Sir or Miss');
+      $('h2#subTitle').append('You can create and delete channels and subChannels and sub sub channels');
+     }};
      var append = '';
      	 function neon (obj, x){
     	   if (typeof obj === 'string')
