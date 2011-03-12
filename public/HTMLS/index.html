@@ -18,13 +18,12 @@
    $(document).ready(function(){
      if (window.location.hash)
      {
-       alert(window.location.hash)
        $('h1 #title').html('Choose Channel');
       $('h2 #subTitle').html('or create a new subChannel');
      }
      else 
      {
-       $('h1 title').html('Your Channels, Sir or Miss');
+       $('h1 #title').html('Your Channels, Sir or Miss');
       $('h2 #subTitle').html('You can create and delete channels and subChannels and sub sub channels');
      };
      var append = '';
