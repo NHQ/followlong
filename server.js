@@ -198,7 +198,7 @@ app.post('/new/channel', getSesh, function (req, res){
 	      } else { 
 	        if (typeof arr[i] === 'string')
 				{arr[i] = [arr[i], req.body.channel]}
-			if else (arr[i] === undefined)
+			else if (arr[i] === undefined)
 				{arr.push(req.body.channel)}
 			else 
 				{arr[i].push(req.body.channel)}
