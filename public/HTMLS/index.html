@@ -15,7 +15,7 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
-   (function inShash(){
+   isHash = function (){
    if (window.location.hash)
    {
      $('h1#title').append('Choose Channel');
@@ -25,7 +25,7 @@
    {
      $('h1#title').append('Your Channels, Sir or Miss');
     $('h2#subTitle').append('You can create and delete channels and subChannels and sub sub channels');
-   }});inShash();
+   }});
    $(document).ready(function(){
      var append = '';
      	 function neon (obj, x){
