@@ -55,6 +55,9 @@
       }
        var $appending = $(append);
         $('ul.container').append($appending);
+        $('body').click(function(event){
+          alert($(event.target.nodeName).attr('id'));
+        })
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 
   	 function appendix(obj, x){
