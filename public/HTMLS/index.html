@@ -32,9 +32,9 @@
      };
      var append = '';
      	 function neon (obj, x){
-     	   append += '<li data-station="'+x+'">';
     	   if (typeof obj === 'string')
     	 {
+    	   append += '<li data-station="'+x+'">';
     	   append += appendix(obj,x);
     	 } 
     	 else
@@ -42,7 +42,7 @@
     	   for (ect in obj)
     	  {   
     	    if (ect != 0)
-    	    {z = x+'.'+ect; append += appendix(obj,z); append+='<ul>'}
+    	    {z = x+'.'+ect;  append += '<li data-station="'+x+'">';append += appendix(obj,z); append+='<ul>'}
     	    else
     	    {z = x;neon(obj[ect], z)}
     	   }
