@@ -32,6 +32,7 @@
      };
      var append = '';
      	 function neon (obj, x){
+     	  append += '<li data-station="'+x+'">';
     	   if (typeof obj === 'string')
     	 {
     	   append += '<li data-station="'+x+'">';
@@ -42,14 +43,14 @@
     	   for (ect in obj)
     	  {   
     	    if (ect != 0)
-    	    {z = x+'.'+ect}
+    	    {z = x+'.'+ect; neon(obj[ect],z)}
     	    else
-    	    {z = x; neon(obj[ect], z); append+='<ul>'}
+    	    {z = x; append+='<ul>'; neon(obj[ect],z)}
 
     	   }
          append += '</ul>'
   	   }
-  	   append+='</li>'
+  	    append += '</li>'
      };
   	var hermes = $.getJSON('/info', function(data){
   	  y = data.length;
