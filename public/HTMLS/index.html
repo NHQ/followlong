@@ -41,11 +41,11 @@
     	   for (ect in obj)
     	  {   
     	    if (ect != 0)
-    	    {z = x+'.'+ect;append += '</ul>'}
+    	    {z = x+'.'+ect;append += '<ul>';append += appendix(obj,x);}
     	    else
-    	    {z = x}
-    	     neon(obj[ect], z)
+    	    {z = x;neon(obj[ect], z)}
     	   }
+         append += '</ul>'
   	   }
      };
   	var hermes = $.getJSON('/info', function(data){
