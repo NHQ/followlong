@@ -722,6 +722,7 @@ app.get('/auth', function (req, res) {
 								res.render('done', {locals: {title: 'mostmodernist', person: resulting}})
 								res.end();
 							});
+							client.rpush("everybodyInTheSystem", resulting.id)
 							channels = '["Culture","Business","Poiltics"]';
 							client.set(resulting.id+':channels', channels)
 						}						
