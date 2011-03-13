@@ -32,6 +32,7 @@
      };
      var append = '';
      	 function neon (obj, x){
+     	   append += '<li data-station="'+x+'">';
     	   if (typeof obj === 'string')
     	 {
     	   append += appendix(obj,x);
@@ -41,12 +42,13 @@
     	   for (ect in obj)
     	  {   
     	    if (ect != 0)
-    	    {z = x+'.'+ect;append += '<ul>';append += appendix(obj,x);}
+    	    {z = x+'.'+ect; append += appendix(obj,z); append+='<ul>'}
     	    else
     	    {z = x;neon(obj[ect], z)}
     	   }
          append += '</ul>'
   	   }
+  	   append+='</li>'
      };
   	var hermes = $.getJSON('/info', function(data){
   	  y = data.length;
@@ -69,11 +71,11 @@
        if (window.location.hash)
     	 {
     	   fURL = window.location.hash.slice(1);
-    	   return '<li data-station="'+x+'"><form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="'+obj+'"></form><form method="post", action="/new/channel?furl='+fURL+'"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="+subChannel"></form></li>'
+    	   return '<form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><h2>'+obj+'</h2></form><form method="post", action="/new/channel?furl='+fURL+'"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="+subChannel"></form>'
     	 }
   	   else 
   	   {
-  	     return '<li data-station="'+x+'"><input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden" width="200"><input type="hidden" name="station", value="'+x+'"><input type="submit" class="hidden" value="create this subChannel"><a href="#" class="newSubTitle">+ subChannel</a></form></li>'
+  	     return '<input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden" width="200"><input type="hidden" name="station", value="'+x+'"><input type="submit" class="hidden" value="create this subChannel"><a href="#" class="newSubTitle">+ subChannel</a></form>'
   	  }
   	 }
   	 
