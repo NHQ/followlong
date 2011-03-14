@@ -12,6 +12,9 @@
   <h1 id="title"></h1>
   <h2 id="subTitle"></h2>
   <ul class="container"></ul>
+  <a href="navigator.registerContentHandler("application/vnd.mozilla.maybe.feed",
+                                    "http://mostmodernist.no.de/feed/?feed=%s",
+                                    "Mmmm");">click</a>
   
   
   </body>
@@ -19,11 +22,7 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
-   $(document).ready(function(){
-     navigator.registerContentHandler("application/vnd.mozilla.maybe.feed",
-                                      "http://mostmodernist.no.de/feed/?feed=%s",
-                                      "Mmmm");
-     
+   $(document).ready(function(){     
      if (window.location.hash)
      {
        $('#title').html('Choose Channel');
