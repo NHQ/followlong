@@ -42,7 +42,7 @@
     	   for (ect in obj)
     	  {   
     	    if (ect != 0)
-    	    {z = x+'.'+ect; append += '</ul>'; neon(obj[ect],z)}
+    	    {z = x+'.'+ect; neon(obj[ect],z)}
     	    else
     	    {z = x; neon(obj[ect],z);}
     	   }
@@ -54,7 +54,7 @@
   	  append += '<form method="post", action="/new/channel"><input type="text" name="channel"><input type="hidden" name="station", value="'+y+'"><input type="submit" value="New subChannel"></form>'
   		for (x in data)
       {
-        neon(data[x], x)
+        append += appendix(data[x],x)
       }
        var $appending = $(append);
         $('ul.container').append($appending);
@@ -66,17 +66,17 @@
 
   	}).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
   	 
-  	 function appendix(obj, x){
-       if (window.location.hash)
-    	 {
-    	   fURL = window.location.hash.slice(1);
-    	   return '<form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><h2>'+obj+'</h2></form><form method="post", action="/new/channel?furl='+fURL+'"><input type="text" name="channel"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="+subChannel"></form></li>'
-    	 }
-  	   else 
-  	   {
-  	     return '<input type="button" value="'+obj+'"></input><form method="post", action="/delete/station"><input type="hidden" name="station", value="'+x+'"><input type="submit" value="delete"></form><form method="post", action="/new/channel"><input type="text" name="channel" class="hidden" width="200"><input type="hidden" name="station", value="'+x+'"><input type="submit" class="hidden" value="create this subChannel"><a href="#" class="newSubTitle">+ subChannel</a></form>'
-  	  }
-  	 }
+ 	 function appendix(obj, x){
+      if (window.location.hash)
+   	 {
+   	   fURL = window.location.hash.slice(1);
+   	   return '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/new/channel?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="this channel"></form></li>'
+   	 }
+ 	   else 
+ 	   {
+ 	     return '<li data-station="'+x+'"><h2>'+obj+'</h2></li>'
+ 	  }
+ 	 }
   	 
   	 });
   </script>
