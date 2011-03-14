@@ -522,17 +522,7 @@ function unsubscribe (channel, feed){
 			})
 		})
 		request.end();
-		client.exists(unfurl, function(err,answer){
-			if (answer === 0 
-				{
-					return false
-				}
-			else
-			{
-				client.incr('subs@'+unfurl, -1, 'subs');
-			}
-
-		});
+		client.incr('subs@'+unfurl, -1, 'subs');
 };
 
 function subscribe (channel, feed){
