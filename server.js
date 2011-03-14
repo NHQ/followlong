@@ -70,11 +70,10 @@ function isAdmin(req, res, next) {
 function getSesh (req, res, next){
 	console.log(req.session.uid)
 	if(!req.session.uid)
-		res.rediect('/fb');
+		res.redirect('/fb');
 	if(req.session.uid)
 	{
 		req.facts = req.session.uid;
-		next();
 	}
 };
 
@@ -161,7 +160,7 @@ app.get('/info', getSesh, function (req, res){
 	})
 });
 
-app.get("/index", function(req, res){
+app.get("/index", getSesh, function(req, res){
 var path = url.parse(req.url).pathname;
       fs.readFile(__dirname + '/public/HTMLS/index.html', function(err, data){
         if (err) return send404(res);
@@ -707,7 +706,7 @@ app.get('/auth', function (req, res) {
 					if (answer === 1)
 					{
 						req.session.uid = resulting.id;
-						res.redirect('./user');
+						res.redirect('./index');
 						res.end();
 					}
 					else
