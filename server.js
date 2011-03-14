@@ -508,7 +508,7 @@ app.get('/test', function(req, res){
 */
 function unsubscribe (channel, feed){
 		spfdr = http.createClient(80, 'superfeedr.com');
-		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
+		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
 		request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -522,11 +522,22 @@ function unsubscribe (channel, feed){
 			})
 		})
 		request.end();
+		client.exists(unfurl, function(err,answer){
+			if (answer === 0 
+				{
+					return false
+				}
+			else
+			{
+				client.incr('subs@'+unfurl, -1, 'subs');
+			}
+
+		});
 };
 
 function subscribe (channel, feed){
 		spfdr = http.createClient(80, 'superfeedr.com');
-		dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed?channel="+channel;
+		dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
 		request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -589,15 +600,28 @@ function retrieve (channel, feed){
 	});
 };
 */
-app.get('/follow/', function(req, res){
+app.post('/follow/', getSesh, function(req, res){
 	path = url.parse(req.url).query;
 	queriesPls = querystring.parse(path, sep='&', eq='=');
-	unfurl = queriesPls.furl;
+	unfurl = decodeURIComponent(queriesPls.furl);
 	channel = req.params.channel;
-	client.zadd(unfurl, -1, unfurl);	
-	client.sadd(channel, unfurl);
-	client.sadd('allFeeds', unfurl, function(e,r){
-	});
+	client.exists(unfurl, function(err,answer){
+		if (answer === 0 
+			{
+				client.zadd(unfurl, -1, unfurl);
+				client.incr('subs@'+unfurl, 1, 'subs');
+			}
+		else
+		{
+			client.incr('subs@'+unfurl, 1, 'subs');
+		}
+			
+	});	
+	client.sadd(req.facts+':'+channel, unfurl);
+	client.ismember('allfeeds1123848451', unfurl, function(err, answer){
+		if (answer === 0)
+		client.sadd('allFeeds', unfurl);
+	})
 	subscribe(channel, unfurl);
 	res.redirect('/');
 	res.end();	
@@ -618,10 +642,6 @@ app.get('/feed', function(req, res){
 app.post('/feed', function(req, res){
 	res.writeHead('200');
 	res.end();
-	path = url.parse(req.url).query;
-	query = new querystring.parse(path, sep='&', eq='=');
-	channel = query.channel;
-	
 	d = req.body;
 	var dl = d.items.length;
 	unfurl = d.status.feed
@@ -641,6 +661,7 @@ app.post('/feed', function(req, res){
 		console.log(d.items.title);
 		title = d.items[x].title.replace(/&nbsp;/g, " ");
 		client.zadd(unfurl, d.items[x].postedTime, title.replace(/\s/g, "_"), function(err, reply){if (err){sys.puts(err)}});
+		client.zadd(unfurl,-2, d.status.title, function(err, reply){if (err){sys.puts(err)}});
 		client.hmset(title.replace(/\s/g, "_"), 
 			{
 				"content": content,
@@ -648,10 +669,10 @@ app.post('/feed', function(req, res){
 				"link": d.items[x].permalinkUrl,
 				"title":title,
 				"pic": picture,
-				"channel": channel,
 				"furl": unfurl,
 				"score": d.items[x].postedTime,
-				"created": d.items[x].postedTime
+				"created": d.items[x].postedTime,
+				'feed': d.status.title
 			}, function(err, reply){
 				if (err)
 					{
@@ -659,7 +680,7 @@ app.post('/feed', function(req, res){
 					}
 			});	
 	};
-	console.log(req.headers);
+	console.log(req.headers+'\n'+d);
 });
 // Only listen on $ node app.js
 

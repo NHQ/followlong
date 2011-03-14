@@ -20,6 +20,10 @@
   <script type='text/javascript', src='/javascripts/path.min.js'></script>
    <script type='text/javascript'>
    $(document).ready(function(){
+     navigator.registerContentHandler("application/vnd.mozilla.maybe.feed",
+                                      "http://www.theeasyreaderurl.com?feed=%s",
+                                      "Easy Reader");
+     
      if (window.location.hash)
      {
        $('#title').html('Choose Channel');
@@ -70,7 +74,7 @@
       if (window.location.hash)
    	 {
    	   fURL = window.location.hash.slice(1);
-   	   return '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/new/channel?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="this channel"></form></li>'
+   	   return '<li data-station="'+x+'"><h2>'+obj+'</h2><form method="post", action="/follow/?furl='+fURL+'"><input type="hidden" name="channel", value="'+obj+'"><input type="submit" value="this channel"></form></li>'
    	 }
  	   else 
  	   {
