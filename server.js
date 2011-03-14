@@ -74,6 +74,7 @@ function getSesh (req, res, next){
 	if(req.session.uid)
 	{
 		req.facts = req.session.uid;
+		next();
 	}
 };
 
