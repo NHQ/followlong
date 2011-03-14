@@ -596,7 +596,7 @@ app.post('/follow/', getSesh, function(req, res){
 	unfurl = decodeURIComponent(queriesPls.furl);
 	channel = req.params.channel;
 	client.exists(unfurl, function(err,answer){
-		if (answer === 0 
+		if (answer === 0)
 			{
 				client.zadd(unfurl, -1, unfurl);
 				client.incr('subs@'+unfurl, 1, 'subs');
