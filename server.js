@@ -608,8 +608,9 @@ app.post('/follow/', getSesh, function(req, res){
 	path = url.parse(req.url).query;
 	queriesPls = querystring.parse(path, sep='&', eq='=');
 	unfurl = decodeURIComponent(queriesPls.furl);
-	channel = req.params.channel;
+	channelName = req.body.channel;
 	client.exists(unfurl, function(err,answer){
+		if (err){sys.puts(err)}
 		if (answer === 0)
 			{
 				client.zadd(unfurl, -1, unfurl);
@@ -621,8 +622,9 @@ app.post('/follow/', getSesh, function(req, res){
 		}
 			
 	});	
-	client.sadd(req.facts+':'+channel, unfurl);
+	client.sadd(req.facts+':'+channelName, unfurl);
 	client.ismember('allfeeds1123848451', unfurl, function(err, answer){
+		if (err){sys.puts(err)}
 		if (answer === 0)
 		client.sadd('allFeeds', unfurl);
 	})
@@ -644,6 +646,9 @@ app.get('/feed', function(req, res){
 });
 
 app.post('/feed', function(req, res){
+	path = url.parse(req.url).query;
+	queriness = querystring.parse(path, sep='&', eq='=');
+	channel = queriness.channel;
 	res.writeHead('200');
 	res.end();
 	d = req.body;
@@ -676,6 +681,7 @@ app.post('/feed', function(req, res){
 				"furl": unfurl,
 				"score": d.items[x].postedTime,
 				"created": d.items[x].postedTime,
+				"channel": channel
 				'feed': d.status.title
 			}, function(err, reply){
 				if (err)
