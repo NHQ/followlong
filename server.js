@@ -226,7 +226,8 @@ app.post('/delete/station', getSesh, function (req,res){
 	        return dulute(pos, arr[i]); 
 	      } 
 			else { 
-				arr.splice(pos[0],1)
+				station = arr.splice(pos[0],1);
+				return station;
 				}
 			}
 		channels = JSON.parse(json);
@@ -236,6 +237,14 @@ app.post('/delete/station', getSesh, function (req,res){
 		dulute(index,channels);
 		client.set(req.facts+':channels', JSON.stringify(channels), function(){
 			if(err){console.log(err)};
+			client.smembers(req.facts+':'+station, function(err, each){
+				for (every in each)
+				{
+					unfollow(each[every])
+				}
+				client.del(req.facts+':'+station, function(err, done){})					
+				});
+			})
 			res.redirect('/index');
 			res.end();
 		})
@@ -506,7 +515,13 @@ app.get('/test', function(req, res){
 	res.redirect('/');
 });
 */
-function unsubscribe (channel, feed){
+
+function unfollow (unfurl){
+	client.incr('subs@'+unfurl, -1, 'subs', function(err, score){if (score === 0){
+		unsubscribe(unfurl)
+	}});
+}
+function unsubscribe (feed){
 		spfdr = http.createClient(80, 'superfeedr.com');
 		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
 		request = spfdr.request('POST', '/hubbub', {
@@ -522,7 +537,6 @@ function unsubscribe (channel, feed){
 			})
 		})
 		request.end();
-		client.incr('subs@'+unfurl, -1, 'subs');
 };
 
 function subscribe (channel, feed){
@@ -590,6 +604,7 @@ function retrieve (channel, feed){
 	});
 };
 */
+
 app.post('/follow/', getSesh, function(req, res){
 	path = url.parse(req.url).query;
 	queriesPls = querystring.parse(path, sep='&', eq='=');
@@ -669,8 +684,8 @@ app.post('/feed', function(req, res){
 						console.log("error: " + err)
 					}
 			});	
+		console.log(d.items[x])
 	};
-	console.log(req.headers+'\n'+d);
 });
 // Only listen on $ node app.js
 
