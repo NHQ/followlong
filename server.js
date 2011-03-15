@@ -249,7 +249,6 @@ app.post('/delete/station', getSesh, function (req,res){
 			res.end();
 		})
 	});
-	});
 
 /*
 app.get('/ajax', function (req, res){
