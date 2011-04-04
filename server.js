@@ -68,11 +68,11 @@ function isAdmin(req, res, next) {
 */
 
 function getSesh (req, res, next){
-	console.log(req.session.uid)
 	if(!req.session.uid)
 		res.redirect('/fb');
 	if(req.session.uid)
 	{
+		console.log(req.session.uid);
 		req.facts = req.session.uid;
 		next();
 	}
@@ -786,7 +786,6 @@ app.get('/fb', function (req, res) {
 
 app.get('/auth', function (req, res) {
 	code = req.query.code;
-	console.log(code);
 	url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
 	var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
 	request = fbGetAccessToken.request('POST', url, {
@@ -798,7 +797,6 @@ app.get('/auth', function (req, res) {
 		var result = "";
 		response.on('data', function(chunk){
 			result+= chunk
-			console.log(chunk+ '\n and \n' +result)
 		});
 		response.on('end', function(){
 			 results= new querystring.parse( result );
