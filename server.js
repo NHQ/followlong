@@ -79,7 +79,7 @@ function getSesh (req, res, next){
 };
 
 function userInterface (id){
-	var allem = new Array();
+	var allem = new Array(),
 	multi = client.multi();
 	client.get(id+':'+channels, function(err, repo){
 		if (err) {console.log(err)}
@@ -813,6 +813,7 @@ app.get('/auth', function (req, res) {
 			});
 			response2.on('end', function(){
 				var resulting = JSON.parse(result2);
+				console.log(resulting.id);
 				client.exists(resulting.id, function (err, answer){
 					if (answer === 1)
 					{
