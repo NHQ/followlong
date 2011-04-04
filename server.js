@@ -820,7 +820,7 @@ app.get('/auth', function (req, res) {
 						console.log(resulting.id);
 						req.session.uid = resulting.id;
 						res.redirect('./2');
-						res.end();
+						//res.end();
 					}
 					else
 					{
