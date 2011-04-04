@@ -68,6 +68,7 @@ function isAdmin(req, res, next) {
 */
 
 function getSesh (req, res, next){
+	console.log(req.session.uid);
 	if(!req.session.uid)
 		res.redirect('/fb');
 	if(req.session.uid)
@@ -813,12 +814,12 @@ app.get('/auth', function (req, res) {
 			});
 			response2.on('end', function(){
 				var resulting = JSON.parse(result2);
-				console.log(resulting.id);
 				client.exists(resulting.id, function (err, answer){
 					if (answer === 1)
 					{
+						console.log(resulting.id);
 						req.session.uid = resulting.id;
-						res.redirect('./index');
+						res.redirect('./2');
 						res.end();
 					}
 					else
