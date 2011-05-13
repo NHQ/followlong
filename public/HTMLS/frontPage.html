@@ -44,7 +44,7 @@
       winy = document.body.clientHeight;
     };
     function rmChan (event){
-      console.log($(this).html());
+      console.log(event.target).html());
       newFeedChannels = _.without(newFeedChannels, $(this).html());
       console.log(newFeedChannels);
       $(this).empty();
