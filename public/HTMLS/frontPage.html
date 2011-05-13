@@ -15,6 +15,7 @@
   </head>
   
   <body>    
+    <div id="title"></div>
     <div id="admin"></div>
     <div id="console"></div>
     <div id="remote">
@@ -44,11 +45,9 @@
       winy = document.body.clientHeight;
     };
     function rmChan (event){
-      console.log(event.target).html();
-      newFeedChannels = _.without(newFeedChannels, $(event.target).html());
-      console.log(newFeedChannels);
-      $(this).empty();
-    };
+          newFeedChannels = _.without(newFeedChannels, $(event.target).html());
+          $(event.target).empty();
+        };
   $('body').css({'width':winy,'height':winx});
   if (window.location.pathname === '/newFeed/')
     newFeedChannels = [];
