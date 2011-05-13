@@ -43,6 +43,12 @@
       winx = document.body.clientWidth;
       winy = document.body.clientHeight;
     };
+    function rmChan (event){
+      console.log($(this).html());
+      newFeedChannels = _.without(newFeedChannels, $(this).html());
+      console.log(newFeedChannels);
+      $(this).empty();
+    };
   $('body').css({'width':winy,'height':winx});
   if (window.location.pathname === '/newFeed/')
     newFeedChannels = [];
@@ -53,15 +59,9 @@
       var check = _.detect(newFeedChannels, function (i){return i == targ});
       if (check != targ)
         {
-          $('#console ul#newFeedChannels').append('<h2>'+targ+' </h2>');
+          $('#console ul#newFeedChannels').append('<h2>'+targ+' </h2>').bind('click', rmChan(event));
           newFeedChannels.push($(this).html())
         }
-    });
-    $('#console ul#newFeedChannels h2').live('click', function (event){
-      console.log($(this).html());
-      newFeedChannels = _.without(newFeedChannels, $(this).html());
-      console.log(newFeedChannels);
-      $(this).empty();
     });
     
     /*{
