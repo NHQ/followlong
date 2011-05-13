@@ -59,7 +59,7 @@
       var check = _.detect(newFeedChannels, function (i){return i == targ});
       if (check != targ)
         {
-          $('#console ul#newFeedChannels').append('<h2 onclick="javascript:rmCHan(event)">'+targ+'</h2>');
+          $('#console ul#newFeedChannels').append('<h2 onclick="javascript:rmChan(event)">'+targ+'</h2>');
           newFeedChannels.push($(this).html())
         }
     });
