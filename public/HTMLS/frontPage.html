@@ -54,7 +54,7 @@
       if (window.location.pathname === '/newFeed/')
         {
           newFeedChannels = [];
-          $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><input type="text" name="channel" value="add new channel" onfocus="javascript:$(event.target).val("")" onblur="javascript:newChan(event)"></input><ul id="newFeedChannels">Channels (Click to remove):</ul><h1 onclick="javascript:newFeed(newFeedChannels)">');
+          $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><input type="text" name="channel" value="add new channel" onfocus="javascript:function(event){$(event.target).val("")}" onblur="javascript:newChan(event)"></input><ul id="newFeedChannels">Channels (Click to remove):</ul><h1 onclick="javascript:newFeed(newFeedChannels)">');
           $('#remote ul#channels li.channel h1').live('click', function(event){
             event.preventDefault();
             var targ = $(this).html();
