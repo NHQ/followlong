@@ -58,8 +58,7 @@
         }
     });
     $('#console ul#newFeedChannels h2').live('click', function (event){
-      $(this).html()
-      console.log(newFeedChannels);
+      console.log($(this).html());
       newFeedChannels = _.without(newFeedChannels, $(this).html());
       console.log(newFeedChannels);
       $(this).empty();
