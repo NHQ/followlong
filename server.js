@@ -146,7 +146,7 @@ app.post('/newChannel', getSesh, function (req, res) {
 	res.writeHead('200');
 	client.sadd(req.facts+'@channels', req.query.channel, function(err, result){
 		if (err){res.write('error');res.end()}
-		res.write(JONS.stingify(result))
+		res.write(result)
 		res.end()
 	})
 });
@@ -160,8 +160,8 @@ app.post('/deleteChannel', getSesh, function (req, res){
 
 app.post('/followFeed', getSesh, function (req, res){
 	res.writeHead('200');
-	console.log(req.query.feed);
-	client.hset(req.facts+'@feeds', decodeURIComponent(req.query.feed), "[]", function (err, result){
+	console.log(req.query.feed+'\n'+req.body.channels);
+	client.hset(req.facts+'@feeds', decodeURIComponent(req.query.feed), req.body.channels, function (err, result){
 		if (err){res.write('error');res.end()}
 		res.write('result');
 		res.end();
@@ -212,39 +212,8 @@ app.get('/getFeed', getSesh, function (req, res){
 });
 
 app.get('/', getSesh, function(req, res){
-
 });
 
-app.get("/index", getSesh, function(req, res){
-      fs.readFile(__dirname + '/public/HTMLS/index.html', function(err, data){
-        if (err) return send404(res);
-        res.writeHead(200, {'Content-Type': 'text/html'})
-        res.write(data, 'utf8');
-		res.end();
-      });
-});
-
-/*
-app.get("/chat.html", function(req, res){
-var path = url.parse(req.url).pathname;
-      fs.readFile(__dirname + path, function(err, data){
-        if (err) return send404(res);
-        res.writeHead(200, {'Content-Type': path == 'json.js' ? 'text/javascript' : 'text/html'})
-        res.write(data, 'utf8');
-        res.end();
-      });
-}),
-
-app.get("/schema.json", function(req, res){
-var path = url.parse(req.url).pathname;
-      fs.readFile(__dirname + path, function(err, data){
-        if (err) return send404(res);
-        res.writeHead(200, {'Content-Type': 'application/json'})
-        res.write(data, 'utf8');
-        res.end();
-      });
-}),
-*/
 app.error(function(err, req, res, next) {
   if (err instanceof NotFound) {
     res.redirect('/');
