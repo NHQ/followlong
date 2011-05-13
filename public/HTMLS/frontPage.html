@@ -59,7 +59,12 @@
       var check = _.detect(newFeedChannels, function (i){return i == targ});
       if (check != targ)
         {
-          $('#console ul#newFeedChannels').append('<h2>'+targ+' </h2>').bind('click', rmChan(event));
+          $('#console ul#newFeedChannels').append('<h2>'+targ+' </h2>').bind('click', function (event){
+            console.log($(this).html());
+            newFeedChannels = _.without(newFeedChannels, $(this).html());
+            console.log(newFeedChannels);
+            $(this).empty();
+          });
           newFeedChannels.push($(this).html())
         }
     });
