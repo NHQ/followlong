@@ -39,8 +39,8 @@
       }
       function newChan(event){
         newFeedChannels.push($(event.target).val());
-        $(event.target).val('add another?');
         $('#console ul#newFeedChannels').append('<h2 onclick="javascript:rmChan(event)">'+$(event.target).val()+'</h2>');
+        $(event.target).val('add another?');
       }
       function rmChan (event){
           newFeedChannels = _.without(newFeedChannels, $(event.target).html());
