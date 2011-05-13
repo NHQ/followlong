@@ -45,7 +45,7 @@
     };
     function rmChan (event){
       console.log(event.target).html();
-      newFeedChannels = _.without(newFeedChannels, $(this).html());
+      newFeedChannels = _.without(newFeedChannels, $(event.target).html());
       console.log(newFeedChannels);
       $(this).empty();
     };
