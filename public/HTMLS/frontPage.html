@@ -39,7 +39,7 @@
       }
       function newChan(event){
         var check = _.detect(newFeedChannels, function (i){return i == $(event.target).val()});
-        if (check != targ)
+        if (check != $(event.target).val())
           {
         newFeedChannels.push($(event.target).val());
         $('#console ul#newFeedChannels').append('<h2 onclick="javascript:rmChan(event)">'+$(event.target).val()+'</h2>');
