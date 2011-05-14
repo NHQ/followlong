@@ -232,7 +232,7 @@ function follow(feed){
 	console.log(unfurl);  
 	client.exists(unfurl, function(err,answer){
 		if (err){console.log(err)}
-		if (answer == 0)
+		if (answer = 0)
 			{
 				console.log('subscringing to: '+unfurl)
 				client.zadd(unfurl, -1, unfurl);
