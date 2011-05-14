@@ -133,7 +133,7 @@ app.get('/init', getSesh, function (req, res){
 	});
 	client.hgetall(req.facts+'@feeds', function (err, obj){
 		data[1] = obj;
-		res.write(data);
+		res.write(JSON.stringify(data));
 		console.log(data);
 		res.end();
 	})
