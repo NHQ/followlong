@@ -167,7 +167,7 @@ app.post('/deleteChannel', getSesh, function (req, res){
 app.post('/followFeed', getSesh, function (req, res){
 	res.writeHead('200');
 	console.log(req.query.feed+'\n'+req.body.channels);
-	client.hset(req.facts+'@feeds', decodeURIComponent(req.query.feed), JSON.parse(req.body.channels), function (err, result){
+	client.hset(req.facts+'@feeds', decodeURIComponent(req.query.feed), req.body.channels, function (err, result){
 		if (err){res.write('error');res.end()}
 		res.write('result');
 		res.end();
