@@ -235,7 +235,7 @@ function follow(feed){
 		console.log(answer);
 		if (answer == 0)
 			{
-				console.log('subscringing to: '+unfurl)
+				console.log('subscringing to: '+unfurl);
 				client.zadd(unfurl, -1, unfurl);
 				client.incr('subs@'+unfurl);
 				subscribe(unfurl);
@@ -360,14 +360,20 @@ app.post('/follow/', getSesh, function(req, res){
 */
 
 app.get('/feed', function(req, res){
-	res.writeHead('200');
+	if (req.query.hub.challenge)
+	{	res.writeHead('200');
 	//path = url.parse(req.url).query;
 	//queriness = querystring.parse(path, sep='&', eq='=');
 	var challenge = req.query.hub.challenge;
 	res.write(challenge);
 	res.end();
 	console.log(req.headers);
-	console.log(challenge);
+	console.log(challenge);}
+	else
+	{
+		res.writeHead('200');
+		res.end();
+	}
 });
 
 app.post('/feed', function(req, res){
