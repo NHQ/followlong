@@ -34,6 +34,16 @@
       var winx = window.innerWidth;
       var winy = window.innerHeight;
       var remoteButtons = $('#remote ul#channels li.channel h1');
+      function init (){
+        $.getJSON('/init', function (data){
+          console.log(data);
+          person = data[0];
+          feeds = data[1];
+          channels = _.flatten(_.map(feeds, function (val){
+            return val
+          }))
+        })
+      }init()
       function newFeed (chanList){
         var channels = JSON.stringify(chanList);
         console.log(channels);
@@ -43,7 +53,7 @@
           $('#console').empty();
           remoteButtons.unbind('click');
           delete window.newFeedChannels;
-          window.location.pathname === '/'
+          onConsole();
         });
       }
       function newChan(event){
@@ -78,28 +88,8 @@
       }
     if (window.location.pathname === '/newFeed/'){adminFeed()}
     else if(window.location.pathname === '/'){alert('index!')}
-    /*{
-      $.post('../followFeed?feed='+window.location.search.furl.slice(5), function(answer){
-        if (answer === "1")
-        {
-          followFeed(window.location.hash.slice(1))
-        }
-      })
-    }
-    */
-    function followfeed(feed){
-       $('#container').empty();
-        $('#container').load('/HTMLS/form.html');
-    }
-   var channy = $.getJSON('/userChannels', function(channels){
-     console.log(channels);
-       for (c in channels)
-     	    {
-     	      var channel = '<li class="channel data-filter="'+channels[c]+'"><h1>'+channels[c]+'</h1></a></li>';$channeling = $(channel);$('ul#channels').append($channeling);
-     	    }
-    }).error(function(jqXHR, textStatus, errorThrown) { alert("error: "+errorThrown); });
-
-/*  var feedMe = $.getJSON('/init', function (feeds){
+    /*      
+    var feedMe = $.getJSON('/init', function (feeds){
     console.log(feeds);
     $.each(feeds, function (k, v){
       var obj = new Object();
