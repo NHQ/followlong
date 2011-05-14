@@ -31,8 +31,9 @@
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/underscore.min.js'></script>
   <script type='text/javascript'>  
-      winx = window.innerWidth;
-      winy = window.innerHeight;
+      var winx = window.innerWidth;
+      var winy = window.innerHeight;
+      var remoteButtons = $('#remote ul#channels li.channel h1')}
       function newFeed (chanList){
         var channels = JSON.stringify(chanList);
         console.log(channels);
@@ -40,6 +41,8 @@
           if (reply = 1)
           console.log('1');
           $('#console').empty();
+          remoteButtons.unbind('click');
+          delete window.newFeedChannels;
         });
       }
       function newChan(event){
@@ -58,11 +61,10 @@
       function clearForm(event){
         $(event.target).val("");
       }
-      if (window.location.pathname === '/newFeed/')
-        {
+      function adminFeed(){
           newFeedChannels = [];
-          $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><input type="text" name="channel" value="add new channel" onfocus="javascript:clearForm(event)" onblur="javascript:newChan(event)"></input><ul id="newFeedChannels">Channels (Click to remove):</ul><h1 onclick="javascript:newFeed(newFeedChannels)">SAVE</h1>');
-          $('#remote ul#channels li.channel h1').live('click', function(event){
+          $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel,               and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><input type="text" name="channel" value="add new channel" onfocus="javascript:clearForm(event)" onblur="javascript:newChan(event)"></input><ul id="newFeedChannels">Channels (Click to remove):</ul><h1 onclick="javascript:newFeed(newFeedChannels)">SAVE</h1>');
+          remoteButtons.live('click', function(event){
             event.preventDefault();
             var targ = $(this).html();
             var check = _.detect(newFeedChannels, function (i){return i == targ});
@@ -71,12 +73,9 @@
                 $('#console ul#newFeedChannels').append('<h2 onclick="javascript:rmChan(event)">'+targ+'</h2>');
                 newFeedChannels.push($(this).html())
               }
-            });
-          //need save button
-          //need to post data
-          //what else?        
-        };
-    
+            });    
+      }
+    if (window.location.pathname === '/newFeed/'){adminFeed()}
     /*{
       $.post('../followFeed?feed='+window.location.search.furl.slice(5), function(answer){
         if (answer === "1")
