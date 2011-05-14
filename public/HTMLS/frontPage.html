@@ -43,6 +43,7 @@
           $('#console').empty();
           remoteButtons.unbind('click');
           delete window.newFeedChannels;
+          window.location.pathname === '/'
         });
       }
       function newChan(event){
@@ -76,6 +77,7 @@
             });    
       }
     if (window.location.pathname === '/newFeed/'){adminFeed()}
+    else if(window.location.pathname === '/'){alert('index!')}
     /*{
       $.post('../followFeed?feed='+window.location.search.furl.slice(5), function(answer){
         if (answer === "1")
