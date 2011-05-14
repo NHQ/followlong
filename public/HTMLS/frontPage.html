@@ -34,7 +34,9 @@
       winx = window.innerWidth;
       winy = window.innerHeight;
       function newFeed (chanList){
-        $.post('/followFeed?feed='+window.location.search.slice(6), {'channels':chanList}, function(reply){
+        var channels = JSON.stringify(chanList);
+        console.log(channels);
+        $.post('/followFeed?feed='+window.location.search.slice(6), {'channels':channels}, function(reply){
           if (reply = 1)
           console.log('1');
           $('#console').empty();
