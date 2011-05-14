@@ -279,7 +279,7 @@ function unsubscribe (feed){
 
 function subscribe (feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		var dataw = "hub.mode=subscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
+		var dataw = "hub.mode=subscribe&hub.verify=async&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
