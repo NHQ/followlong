@@ -39,6 +39,7 @@
           console.log(data);
           person = data[0];
           feeds = data[1];
+          _.each(feeds, function (val, key){feeds[key] = JSON.parse(val)});
           channels = _.flatten(_.map(feeds, function (val){
             return val
           }))
