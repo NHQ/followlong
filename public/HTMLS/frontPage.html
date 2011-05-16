@@ -33,6 +33,7 @@
   <script type='text/javascript'>  
       var winx = window.innerWidth;
       var winy = window.innerHeight;
+      var remote = $('#remote ul#channels li.channel');
       var remoteButtons = $('#remote ul#channels li.channel h1');
       function init (){
         $.getJSON('/init', function (data){
@@ -42,7 +43,10 @@
           _.each(feeds, function (val, key){feeds[key] = JSON.parse(val)});
           channels = _.uniq(_.flatten(_.map(feeds, function (val){
             return val
-          })))
+          })));
+          _.each(channels, function (chan) {
+            remote.append('<h1>'+chan+'</h1>');
+          }
         })
       }init()
       function newFeed (chanList){
