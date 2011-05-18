@@ -424,7 +424,7 @@ app.post('/feed', function(req, res){
 						console.log("error: " + err)
 					}
 			});	
-		console.log(d.items[x])
+		console.log(d)
 	};
 });
 // Only listen on $ node app.js
