@@ -1,8 +1,14 @@
 $(function(){
 
-  var $container = $('#container');
+  var $container = $('#console');
 
   $container.isotope({
+    getSortData:{
+      number : function ( $elem ) {
+    return parseInt( $elem.attr('data-score'));
+  },
+    
+    },
     itemSelector : '.articles',
 	layoutMode: 'fitRows',
 	cellsByRow : {
@@ -10,26 +16,20 @@ $(function(){
 		rowHeight: 100
 	  },
   animationOptions: {
-     duration: 0,
-     easing: 'none',
-     queue: true
+     duration: 333,
+     easing: 'linear',
+     queue: false
    }
   });
-
-  // filter
-$('#filter a').click(function(){
-  var selector = $(this).attr('data-filter');
-  $('#container').isotope({ filter: selector });
-	var dingo = [];
-	$(selector, '#container').each(function(){
-		dingo.push(parseInt($(this).attr('data-score')))
-	});
-	var score = Math.min.apply(null,dingo);
-	window.location.hash = selector.slice(1);
-	//loaded(score, selector);
-  return false;    
-});
-
+  $('#console').isotope({ sortBy : 'number', sortAscending : false });
+                     $('.channel a').live('click', function(e){
+                        e.preventDefault();
+                        var selector = $(this).attr('data-filter');
+                        console.log($(this).attr('data-filter'));
+                        $('#console').isotope({ filter: selector });   
+                      });
+})
+/*
 function loaded(score, selector){
 	datum = {'score':score,'channel': selector.slice(1)};
 	var jqxhr = $.getJSON('./load', datum, function(){})

@@ -1,104 +1,50 @@
 body {
+    width:1111px;
 background:#3c3c3c;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 color:#c9c9c9;
 font-size:18px;
+  margin:0 auto; 
+
 }
 h1 {font-size:190%;}
-h2 {font-size:100%;font-weight:300;}
+h2 {font-size:26px;font-weight:300;}
 .main{
 	width:970px;
 }
-#mostmodernist{font-size:10px;}
+#tv {
+  margin:0 auto;    
+}
 .pigment{color:#cc1100;}
 a, a:visited {color:#d9d9d9;text-decoration:none;}
 .title{text-decoration:none;}
 .articles{
 	background:#111;
 	margin-bottom:5px;
-	margin-left:21px;
 	display:block;
-	float:left;
-	width:925px;
-	overflow:hidden;
 }
-#container{
-	padding:13px;
-		width:970px;
+#console{
+  float:left;
+  clear:none;
+	padding:3px;
+	width:720px;
+
 }
 .fit {	padding:3px;}
-#content{font-size:22px}
-#content img {max-width:280px;max-height:310px;overflow:hidden;}
-#content p{font-size:18px;}
-.all{
-	border:1px solid #fff;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	webkit-box-shadow: -21px 0 0 #fff;-moz-box-shadow: -21px 0 0 #fff;
-}
-.video{
-	border:1px solid #0099ff;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #0099ff;-moz-box-shadow: -21px 0 0 #0099ff;
-}
-.POLITICS{
-	border:1px solid #880077;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #880077;-moz-box-shadow: -21px 0 0 #880077
-}
-.comics{
-	border:1px solid #ffff33;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #ffff33;-moz-box-shadow: -21px 0 0 #ffff33
-}
-.relevision{
-	border:1px solid #cc0011;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #cc0011;-moz-box-shadow: -21px 0 0 #cc0011
-}
-.music{
-	border:1px solid #ee00cc;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #ee00cc;-moz-box-shadow: -21px 0 0 #ee00cc
-}
-.science{
-	border:1px solid #00cc55;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #00cc55;-moz-box-shadow: -21px 0 0 #00cc55
-}
-.culture{
-	border:1px solid #ff4400;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #ff4400;-moz-box-shadow: -21px 0 0 #ff4400
-}
-.reading{
-	border:1px solid #fff;
-	-webkit-border-radius: 9px;-moz-border-radius: 9px;
-	-webkit-box-shadow: -21px 0 0 #fff;-moz-box-shadow: -21px 0 0 #fff
-}
-.channel {color:#fff;}
+
+
 /* Menus Nav */
 
-ul#filter{
-	width:600px;
-	display:inline-block;
-	margin-bottom: 10px;
+#remote{
+	width:325px;
+  float:right;
 }
-ul#filter li{
-	background:#111;
-	display:inline-block;
-	width:113px;
-	margin-right:3px;
-	margin-bottom:3px;
+li.channel{
+	display:block;
+  margin-left: 21px;
 }
-ul#filter li.relevision {width:139px;}
-ul#filter li.video{width:99px;}
-ul#filter li.music{width:99px;}
-ul#filter li h2 {
-	text-align:center;
-	color:#f9f9f9;
-}
-ul#filter li a{
+ul#channels li.channel a{
 	color:#e6e6e6;
 }
 a.admin {color: green; margin-right: 2ex}

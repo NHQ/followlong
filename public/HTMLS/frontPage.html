@@ -3,52 +3,37 @@
   <head>
     <title></title>
     <style>
-    #channels{float:right;width:250px;};
-    #channels li{};
-    #console{width:1200px;float:left;};
-    #container{width:900px;background:green;}
     #admin{};
     .hidden{display:none};
     .showin{display:inline-block};
     </style>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" type="text/css" />
   </head>
   
   <body>    
-    <div id="title"></div>
-    <div id="admin"></div>
+  <div id="tv">
     <div id="console"></div>
     <div id="remote">
       <ul id="channels">
       </ul>
     </div>
     <a href="javascript:window.navigator.registerContentHandler('application/vnd.mozilla.maybe.feed',
-                                      'http://mostmodernist.no.de/newFeed/?furl=%s',
+                                      'http://74.207.246.247:3001/newFeed/?furl=%s',
                                       'Mmmm');">click</a>  
+  </div>
   </body>
   
   <script type='text/javascript', src='/javascripts/jquery-1.5.1.min.js'></script>
   <script type='text/javascript', src='/javascripts/jquery.isotope.min.js'></script>
   <script type='text/javascript', src='/javascripts/underscore.min.js'></script>
+  <script type='text/javascript', src='/javascripts/front.js'></script>
   <script type='text/javascript'>  
       var winx = window.innerWidth;
       var winy = window.innerHeight;
+      var screen = $('.articles');
       var remote = $('#remote ul#channels');
       var remoteButtons = $('#remote ul#channels li.channel h1');
-      function init (){
-        $.getJSON('/init', function (data){
-          console.log(data);
-          person = data[0];
-          feeds = data[1];
-          _.each(feeds, function (val, key){feeds[key] = JSON.parse(val)});
-          channels = _.uniq(_.flatten(_.map(feeds, function (val){
-            return val
-          })));
-          _.each(channels, function (chan) {
-            remote.append('<li class="channel"><h1>'+chan+'</h1></li>');
-          })
-        })
-      }init()
+      
       function newFeed (chanList){
         var channels = JSON.stringify(chanList);
         console.log(channels);
@@ -78,7 +63,7 @@
       }
       function adminFeed(){
           newFeedChannels = [];
-          $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel,               and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><input type="text" name="channel" value="add new channel" onfocus="javascript:clearForm(event)" onblur="javascript:newChan(event)"></input><ul id="newFeedChannels">Channels (Click to remove):</ul><h1 onclick="javascript:newFeed(newFeedChannels)">SAVE</h1>');
+          $('#console').append('<h2>'+decodeURIComponent(window.location.search.slice(6))+'</h2><p>Click on a channel or multiple channels to add this feed to that channel, and/or create one or multiple channels by entering them into the field below and clicking "add". Click save when done.<p><input type="text" name="channel" value="add new channel" onfocus="javascript:clearForm(event)" onblur="javascript:newChan(event)"></input><ul id="newFeedChannels">Channels (Click to remove):</ul><h1 onclick="javascript:newFeed(newFeedChannels)">SAVE</h1>');
           remoteButtons.live('click', function(event){
             event.preventDefault();
             var targ = $(this).html();
@@ -143,4 +128,5 @@
     })
   };
   </script>
+  
 </html>

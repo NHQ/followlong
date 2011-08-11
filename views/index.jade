@@ -1,46 +1,26 @@
-h1= title
-ul#filter
-  li.all
-    h2
+
+ul#remote
+  li.channel
+    h1
       a(href="#", data-filter="*") All
-  li.video 
-    h2 
-      a(href="#/video", data-filter=".video") Video
-  li.comics
-    h2
-      a(href="#", data-filter=".comics") Comics
-  li.culture 
-    h2
-      a(href="#culture", data-filter=".culture") Culture
-  li.music 
-    h2
-      a(href="#", data-filter=".music") Music
-  li.relevision 
-    h2
-      a(href="#", data-filter=".relevision") Relevison
-  li.POLITICS 
-    h2
-      a(href="#", data-filter=".POLITICS") Politics
-  li.science
-    h2
-      a(href="#", data-filter=".science") Science
-  li.reading
-    h2
-      a(href="#", data-filter=".reading") Reading
-- if (admin == 1)
-  #container
-    - each article in articles
-      div(class="articles "+article.channel, data-category: article.channel, data-score: article.score, id: article.furl)
-        .fit
-          h2
-            a(href="/delete/item/"+encodeURIComponent(article.furl)+"/"+encodeURIComponent(article.title), class="admin") delete
-            a(href=article.link, class="title") #{article.title}
-- else
-  #container
-    - each a in articles
-      div(class="articles "+article[a].channel, data-category: article[a].channel, data-score: article[a].content[1], id: article[a].content[2])
-        .fit
-          h2
-            a(href=article[a].content[3], class="title") #{article[a].content[0]}
-          h4
-            a(href=articles[a].feed class="source") #{article[a].content[2]}
+  - each chan in channels
+    li.channel
+      h1
+        a(href='#', data-filter="."+chan) #{chan}
+
+#console
+  - each feed in feeds
+    - each title in feed.titles
+      div(class="articles "+feed.chans.toString().replace(/,/g,' '), data-score=title[2])
+        h2
+          a(href=title[3], class="title")
+            =title[0]
+
+script(type='text/javascript', src='/javascripts/front.js')
+
+//    div(class="articles "+article[a].channel.toString().replace(/,/g,' '), data-category: article[a].channel, data-score: article[a].content[1], id: article[a].content[2])
+//      .fit
+//        h2
+//          a(href=article[a].content[3], class="title") #{article[a].content[0]}
+//        h4
+//          a(href=articles[a].feed class="source") #{article[a].content[2]}

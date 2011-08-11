@@ -2,31 +2,32 @@
  * Module dependencies.
  */
 
-var express = require('express');
-
+var express = require('express'),
+mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
 var app = module.exports = express.createServer(),
     redis = require("./redis"),
 	connect = require('connect'),
-    client = redis.createClient(),
+  _ = require('underscore')
+    ,client = redis.createClient(),
     sub = redis.createClient(),
     pub = redis.createClient(),
     crypto = require('crypto')
     , http = require('http')
     , url = require('url')
+    , user = require('./user-model')
 	, querystring = require('querystring')
     , fs = require('fs')
     , sys = require(process.binding('natives').util ? 'util' : 'sys')
     , server
 	, newfeed = require('./models/newfeed')
 	, newuser = require('./models/user')
-	, RedisStore = require('connect-redis'), multi
+	, RedisStore = require('connect-redis')(express), multi
 	, local = http.createClient(80, 'mostmodernist.no.de')
-	, facebookClient = require('facebook-js')(
-      '190292354344532',
-      '6a8433e613782515148f6b2ee038cb1a'
-    )
-	, EE = require('events').EventEmitter
-	, ee = new EE();
+	, fb = require('facebook-js'),
+  mongoose = require('mongoose'),
+  async = require('async'),
+  request = require('request');
 
 function epoch(){return Math.round(new Date().getTime()/1000.0)};
 
@@ -37,15 +38,15 @@ client.on("error", function (err) {
 // Configuration
 
 app.configure(function(){
+  app.use(express.logger({ format: '\x1b[1m:method\x1b[0m \x1b[33m:url\x1b[0m :response-time ms' }));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
-  app.use(express.bodyDecoder());
-  app.use(express.cookieDecoder());
-  app.use(express.session({key: 'k33k33', secret: 'superSecret!', cookie: {maxAge: 84400000}, store: new RedisStore}));
+  app.use(express.bodyParser());
+  app.use(express.cookieParser());
+  app.use(express.session({secret: 'superSecret!', cookie: {maxAge: 60000 * 2000}, store: new RedisStore()}));
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.staticProvider(__dirname + '/public'));
-
+  app.use(express.static(__dirname + '/public'));
 });
 
 app.configure('development', function(){
@@ -56,6 +57,27 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+// Mongo Sesh
+function getSesh (req, res, next){
+  if(!req.session._id)
+		res.redirect('/fb');
+	if(req.session._id)
+	{
+		req.perp = mongoose.model('Person');
+		req.perp.findById(req.session._id, function (err, individual){
+			if (err){console.log(err);}
+			req.session.regenerate(function(err){
+				//console.log(individual);
+				req.session._id = individual._id;
+				req.facts = individual.doc.facts;
+				req.person = individual;
+				next();
+			});
+		});}
+}
+
+//Redis Sesh
+/*
 function getSesh (req, res, next){
 	console.log(req.session.uid);
 	if(!req.session.uid)
@@ -67,7 +89,7 @@ function getSesh (req, res, next){
 		next();
 	}
 };
-
+*/
 function frontis(facts){
 	var facts = facts;
 	var channel = new Array();
@@ -108,12 +130,14 @@ app.get('/2', getSesh, function (req, res){
 });
 
 app.get('/newFeed/', getSesh, function (req, res){
-	fs.readFile(__dirname + '/public/HTMLS/frontPage.html', function(err, data){
-      if (err) return send404(res);
-      res.writeHead(200, {'Content-Type': 'text/html'})
-      res.write(data, 'utf8');
-		res.end();
-    });
+  var feeds = req.person.wire.feeds;
+  var newFeed = req.query.furl, channels = [];
+  async.map(feeds, function(each,callback){
+    _.each(each.chans, function(e){channels.push(e)})
+    callback(null,null);
+    }, function(err){
+      res.render('newFeed',{locals:{newFeed:newFeed, channels:_.uniq(_.flatten(channels))}});
+    })
 });
 
 app.get('/link', function (req, res ){
@@ -124,28 +148,40 @@ app.get('/link', function (req, res ){
 		res.end()
 	})
 });
-
+app.get('/try', function(req,res){
+    req.session._id = '4e41cffe650aefed11000001'
+    res.redirect('/init')
+});
 app.get('/init', getSesh, function (req, res){
-	res.writeHead('200');
-	var data = new Array();
-	client.hgetall(req.facts, function (err, obj){
-		data[0] = obj;
-	});
-	client.hgetall(req.facts+'@feeds', function (err, obj){
-		data[1] = obj;
-		res.write(JSON.stringify(data));
-		console.log(data);
-		res.end();
-	})
+  var feeds = req.person.wire.feeds,
+  channels = [];
+  async.map(feeds, function(each, callback){
+    _.each(each.chans, function(e){channels.push(e)});
+    client.zrevrangebyscore(each.feed, epoch(), epoch()-900061, "limit", "0", "25", function(err, titles){
+    if(err){res.write('error')}
+		else
+		{
+			var multi = client.multi();
+			for (t in titles)
+			{
+				multi.hmget(titles[t], 'title', 'feed', 'score', 'link')
+			}
+			multi.exec(function (err, arrayRay){
+        each.titles = arrayRay;
+        callback(null, each)
+			})
+		}
+	})}, function(err, content){
+    console.log(channels);
+      req.person.wire.feeds = content;
+      res.render('index', {locals: {feeds: req.person.wire.feeds, channels:_.uniq(_.flatten(channels))}});
+  })
 });
 
 app.get('/userChannels', getSesh, function (req, res){
 		res.writeHead('200');
-		client.smembers(req.facts+'@channels', function (err, channels){
-			if(err){console.log(err)}
-			res.write(JSON.stringify(channels))
-			res.end();
-		})
+    res.write(JSON.stringify(req.person.doc.wire.feeds))
+    res.end();
 });
 
 app.post('/newChannel', getSesh, function (req, res) {
@@ -164,15 +200,23 @@ app.post('/deleteChannel', getSesh, function (req, res){
 	})
 });
 
+app.get('/sesh-test', getSesh, function(req,res){
+    req.person.facts.mname = "octavio";
+    req.person.save(function(e,r){
+      res.writeHead('200')
+      res.write(e+'\n'+r.facts.mname);
+      res.end()
+    })
+})
+
 app.post('/followFeed', getSesh, function (req, res){
-	res.writeHead('200');
-	console.log(req.query.feed+'\n'+req.body.channels);
-	client.hset(req.facts+'@feeds', decodeURIComponent(req.query.feed), req.body.channels, function (err, result){
-		if (err){res.write('error');res.end()}
-		res.write('result');
-		res.end();
-		follow(req.query.feed);
-	})
+  req.person.wire.feeds.push({feed:decodeURIComponent(req.body.feed), chans:JSON.parse(req.body.channels)});
+  req.person.save(function(e,r){
+    console.log(e+'\n'+JSON.stringify(r.wire.feeds));
+    follow(req.body.feed);
+    res.writeHead('200');
+    res.end()
+  })
 });
 
 app.post('/followNot', getSesh, function (req, res){
@@ -198,8 +242,8 @@ app.post('/addChannel', getSesh, function (req, res){
 	})
 });
 
-app.get('/getFeed', getSesh, function (req, res){
-	res.writeHead('200');
+app.get('/getFeed', function (req, res){
+  console.log(req.query);
 	client.zrevrangebyscore(decodeURIComponent(req.query.feed), epoch(), epoch()-450061, "limit", "0", "75", function(err, titles){
 		if(err){res.write('error')}
 		else
@@ -207,9 +251,11 @@ app.get('/getFeed', getSesh, function (req, res){
 			var multi = client.multi();
 			for (t in titles)
 			{
-				multi.hmget(title[t], 'title', 'feed', 'score')
+				multi.hmget(titles[t], 'title', 'feed', 'score', 'link')
 			}
-			mulit.exec(function (err, arrayRay){
+			multi.exec(function (err, arrayRay){
+        console.log(arrayRay);
+          res.writeHead('200');
 				res.write(JSON.stringify(arrayRay));
 				res.end();
 			})
@@ -267,8 +313,8 @@ function followNot (furl){
 };
 function unsubscribe (feed){
 		spfdr = http.createClient(80, 'superfeedr.com');
-		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
-		request = spfdr.request('POST', '/hubbub', {
+		datat = "hub.mode=unsubscribe&hub.verify=sync&hub.topic="+feed+"&hub.callback=http://74.207.246.247:3001/feed";
+		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
 			'Accept':'application/json',
@@ -285,7 +331,7 @@ function unsubscribe (feed){
 
 function subscribe (feed){
 		var spfdr = http.createClient(80, 'superfeedr.com');
-		var dataw = "hub.mode=subscribe&hub.verify=async&hub.topic="+feed+"&hub.callback=http://mostmodernist.no.de/feed";
+		var dataw = "hub.mode=subscribe&hub.verify=async&hub.topic="+feed+"&hub.callback=http://74.207.246.247:3001/feed";
 		var request = spfdr.request('POST', '/hubbub', {
 			'Host':'superfeedr.com',
 			"Authorization":"basic TkhROmxvb3Bob2xl",
@@ -366,11 +412,11 @@ app.post('/follow/', getSesh, function(req, res){
 */
 
 app.get('/feed', function(req, res){
-	if (req.query.hub.challenge)
+	if (req.query['hub.challenge'])
 	{	res.writeHead('200');
 	//path = url.parse(req.url).query;
 	//queriness = querystring.parse(path, sep='&', eq='=');
-	var challenge = req.query.hub.challenge;
+	var challenge = req.query['hub.challenge'];
 	res.write(challenge);
 	res.end();
 	console.log(req.headers);
@@ -406,7 +452,7 @@ app.post('/feed', function(req, res){
 		};
 		var title = d.items[x].title.replace(/&nbsp;/g, " ");
 		client.zadd(unfurl, d.items[x].postedTime, title.replace(/\s/g, "_"), function(err, reply){if (err){sys.puts(err)}});
-		client.zadd(unfurl,-2, d.status.title, function(err, reply){if (err){sys.puts(err)}});
+		client.zadd(unfurl,-2, d.status.feed, function(err, reply){if (err){sys.puts(err)}});
 		client.hmset(title.replace(/\s/g, "_"), 
 			{
 				"content": content,
@@ -417,7 +463,7 @@ app.post('/feed', function(req, res){
 				"furl": unfurl,
 				"score": d.items[x].postedTime,
 				"created": d.items[x].postedTime,
-				"feed": d.status.title
+				"feed": d.status.feed
 			}, function(err, reply){
 				if (err)
 					{
@@ -428,18 +474,107 @@ app.post('/feed', function(req, res){
 	};
 });
 // Only listen on $ node app.js
-
+/*
 app.get('/fb', function (req, res) {
-  res.redirect(facebookClient.getAuthorizeUrl({
+  res.redirect(fb.getAuthorizeUrl({
     client_id: '190292354344532',
-    redirect_uri: 'http://mostmodernist.no.de:80/auth',
+    redirect_uri: 'http://74.207.246.247:3001/auth',
     scope: 'offline_access,user_location,friends_likes,friends_events'
   }));
+});
+*/
+app.get('/fb', function (req, res) {
+  res.redirect(fb.getAuthorizeUrl({
+    client_id: '190292354344532',
+    redirect_uri: 'http://74.207.246.247:3001/fb/auth',
+    scope: 'user_location,user_photos'
+  }));
+});
+
+// mongo auth
+
+app.get('/fb/auth', function (req, res) {
+  fb.getAccessToken('190292354344532', 'ac9d7f273a15e91ac035871d04ef1915', req.param('code'), 'http://74.207.246.247:3001/fb/auth', function (error, access_token, refresh_token) {
+  fb.apiCall('GET', '/me', {access_token: access_token, fields:'id,gender,first_name, middle_name,last_name,location,locale,friends,website'}, function (err, response, body){
+		console.log(body);
+    client.exists(body.id, function(err,que){
+      console.log(que);
+      if (que == 0){
+        console.log('mak new');
+        var individual = mongoose.model('Person');
+        var person = new individual;
+        req.session._id = person._id;
+        fs.mkdirSync('public/person/'+person._id, 644, function(err){console.log(err);}); //the user's image directory
+        request.get('https://graph.facebook.com/'+body.id+'/picture?type=large&access_token='+access_token).pipe(fs.createWriteStream('public/person/'+person._id+'/profile.jpg'));
+        person.facts.portrait='person/'+person._id+'/profile.jpg', 
+        person.facts.fname = body.first_name,
+        person.facts.mname = body.middle_name,
+        person.facts.lname = body.last_name,
+        person.facts.gender=body.gender, 
+        person.facts.website=body.website, 
+        person.secrets.fb_access_token= access_token,
+        person.secrets.fbx=body.friends.data,
+        person.secrets.fb_id=  body.id;
+        person.wire.feeds= [{feed:'http://www.memeorandum.com/feed.xml', chans:['news']},{feed:'http://www.techmeme.com/feed.xml', chans:['tech']},{feed:'http://news.ycombinator.com/rss', chans:['YcombOverator']}]
+        person.save(function (err, doc){
+          console.log(err+'\n'+doc);
+          res.redirect('/init');
+          })
+        client.append(body.id, person._id, function(err){})
+        };
+      if (que == 1){
+          console.log('mack old');
+          client.get(body.id, function(e,r){
+            var individual = mongoose.model('Person');
+            req.session._id = r ;
+            individual.update({'secrets.fb_id':  body.id}, {'secrets.fb_access_token': access_token,'secrets.fbx':body.friends.data}, {upsert:false, safe:true}, function (err, doc){
+            res.redirect('/init');
+            })
+          })            
+        }
+    })	
+	});
+  });
+});
+
+// redis auth
+/*
+app.get('/fb/auth', function (req, res) {
+  fb.getAccessToken('190292354344532', 'ac9d7f273a15e91ac035871d04ef1915', req.param('code'), 'http://74.207.246.247:3001/fb/auth', function (error, access_token, refresh_token) {
+    console.log(error || access_token);
+  fb.apiCall('GET', '/me', {access_token: access_token, fields:'id,gender,first_name, middle_name,last_name,location,locale,friends,website'}, function (err, response, body){
+		console.log(body);
+  			client.exists(body.id, function (err, answer){
+					if (answer === 1)
+					{
+						console.log(body.id);
+						req.session.uid = body.id;
+						res.redirect('./2');
+						res.end();
+					}
+					else
+					{
+							// To Do: check if user already has account, get new token, but don't overwrite anything else
+							req.session.uid = body.id;
+							//getLoco(resulting.id, access_token)
+							var user_location = body.locale;
+							if (body.location){user_location = body.user_location}
+							client.hmset(body.id, 'fname', body.first_name, 'lname', body.last_name, 'gender', body.gender, "location", user_location, 'link', body.link, "access_token", access_token, function (err, rerun){
+								res.render('done', {locals: {title: 'mostmodernist', person: body}})
+							});
+							client.rpush("everybodyInTheSystem", body.id)
+							var channels = ["Culture","Business","Politics","Work","Local"];
+							for (c = 0;c < 3;++c) {client.sadd(body.id+'@channels', channels[c])};
+							// client.hmset(resulting.id+'@feeds', channels[0],placeHolder,channels[1],placeHolder,channels[2],placeHolder)
+						}
+  			});
+	});
+  });
 });
 
 app.get('/auth', function (req, res) {
 	var code = req.query.code;
-	var url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2Fmostmodernist.no.de%3A80%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
+	var url = '/oauth/access_token?client_id=190292354344532&redirect_uri=http%3A%2F%2F74.207.246.247%3A3001%2Fauth&client_secret=6a8433e613782515148f6b2ee038cb1a&code='+code;
 	var fbGetAccessToken = http.createClient(443, 'graph.facebook.com', secure=true);
 	var request = fbGetAccessToken.request('POST', url, {
 		'Host':'graph.facebook.com',
@@ -498,6 +633,7 @@ app.get('/auth', function (req, res) {
 })
 });
 
+
 app.post('/message', function (req, res) {
   facebookClient.apiCall(
     'POST',
@@ -515,7 +651,7 @@ app.post('/message', function (req, res) {
   );
 });
 
-/*
+
 getLoco = (function (id, token) {
 	console.log(id + '\n' + token)
 	var loco = http.createClient(443, 'graph.facebook.com', secure=true);
@@ -538,6 +674,6 @@ getLoco = (function (id, token) {
 
 
 if (!module.parent) {
-  app.listen(80);
+  app.listen(3001);
   sys.puts("Express server listening on port %d", app.address().port);
 }
