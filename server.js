@@ -25,7 +25,6 @@ var app = module.exports = express.createServer(),
 	, RedisStore = require('connect-redis')(express), multi
 	, local = http.createClient(80, 'mostmodernist.no.de')
 	, fb = require('facebook-js'),
-  mongoose = require('mongoose'),
   async = require('async'),
   request = require('request');
 
@@ -172,7 +171,7 @@ app.get('/init', getSesh, function (req, res){
 			})
 		}
 	})}, function(err, content){
-    console.log(channels);
+			console.log(content);
       req.person.wire.feeds = content;
       res.render('index', {locals: {feeds: req.person.wire.feeds, channels:_.uniq(_.flatten(channels))}});
   })
